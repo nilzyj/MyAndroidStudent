@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="考试方式"/>
+
+        <EditText
+            android:id="@+id/et_38"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="专项计划"/>
+
+        <EditText
+            android:id="@+id/et_39"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报考类别"/>
+
+        <EditText
+            android:id="@+id/et_40"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="定向就业单位所在地"/>
+
+        <EditText
+            android:id="@+id/et_41"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="定向就业单位"/>
+
+        <EditText
+            android:id="@+id/et_42"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报考院系"/>
+
+        <EditText
+            android:id="@+id/et_43"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="研究方向"/>
+
+        <EditText
+            android:id="@+id/et_44"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="政治理论"/>
+
+        <EditText
+            android:id="@+id/et_45"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="外国语"/>
+
+        <EditText
+            android:id="@+id/et_46"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="业务课一"/>
+
+        <EditText
+            android:id="@+id/et_47"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="业务课二"/>
+
+        <EditText
+            android:id="@+id/et_48"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+</LinearLayout>
