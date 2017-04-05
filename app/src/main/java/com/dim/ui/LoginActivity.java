@@ -10,11 +10,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dim.ui.Http.HttpUtils;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 //登录界面
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,14 +58,15 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     String state = "";
-                    try {
+//                    try {
                         //登录请求，获得服务器返回状态码
-                        state = HttpUtils.httpPost(URL,
-                                "username=" + URLEncoder.encode("zyj", "UTF-8") +
-                                        "&pwd=" + URLEncoder.encode("1", "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+//                        state = HttpUtils.httpPost(URL,
+//                                "username=" + URLEncoder.encode("zyj", "UTF-8") +
+//                                        "&pwd=" + URLEncoder.encode("1", "UTF-8"));
+                        state = "1";
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
 
                     //记住帐号密码
                     rememberPwd();

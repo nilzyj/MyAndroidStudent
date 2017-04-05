@@ -14,6 +14,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://github.com/MarsVard/IonIconView/raw/master/maven' }
         jcenter()
     }
 }
