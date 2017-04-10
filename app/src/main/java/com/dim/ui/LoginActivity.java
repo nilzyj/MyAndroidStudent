@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     //    private final String DB_NAME = "zyjdata.db";//数据库名称
 //    private final int VERSION = 1;//数据库版本
 //    private final String URL = "http://10.0.2.2:8080/Manage/test/LoginServlet";
-    private final String URL = "http://192.168.191.1:8080/Manage/test/LoginServlet";
+    private final String URL = "http://192.168.191.1:8080/Manage/LoginServlet";
     private final String TAG = "LoginActivity";
     private EditText et_name;//用户名输入
     private EditText et_password;//密码输入
