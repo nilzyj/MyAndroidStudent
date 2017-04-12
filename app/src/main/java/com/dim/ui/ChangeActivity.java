@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChangeActivity extends AppCompatActivity {
+    private final String URL = "http://192.168.0.1:8080/Manage/GetInformationServlet";
     private LinearLayout ll_change;
     private List<Info> infoList = new ArrayList<Info>();
     ListView listView;
@@ -53,6 +54,13 @@ public class ChangeActivity extends AppCompatActivity {
     }
 
     private void initInfo() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String state = "";
+//                state = HttpUtils.httpPost(URL, "name=" + URLEncoder.encode(,"UTF-8"));
+            }
+        }).start();
         Info info1 = new Info("a", "a");
         infoList.add(info1);
         Info info2 = new Info("b", "b");

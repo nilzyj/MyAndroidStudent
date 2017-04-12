@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox checkBox;//记住用户名和密码
     private String name, password;
     SharedPreferences sp = null;
+    SharedPreferences spLoginData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         sp = this.getSharedPreferences("useInfo", MODE_PRIVATE);
+        spLoginData = this.getSharedPreferences("loginData", MODE_PRIVATE);
         initView();
 
     }
@@ -73,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     if ("1".equals(state)) {
                         Log.d("服务器返回状态码1，帐号密码正确", state);
+                        SharedPreferences.Editor editor = spLoginData.edit();
+                        editor.putString("name", name);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else if (state == null) {
