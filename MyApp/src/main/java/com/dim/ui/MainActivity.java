@@ -41,33 +41,6 @@ public class MainActivity extends AppCompatActivity {
         mRadioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 
         mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
-
-
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.fl_content, new ManagementFragment());
-//        transaction.commit();
-
-//        ll_management.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.fl_content, new ManagementFragment());
-//                transaction.commit();
-//            }
-//        });
-//
-//        ll_confirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.fl_content, new ConfirmFragment());
-//                transaction.commit();
-//            }
-//        });
-
     }
 
     private void initView() {
