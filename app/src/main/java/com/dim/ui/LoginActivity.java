@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dim.ui.Model.Account;
+
 //登录界面
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_password;//密码输入
     private CheckBox checkBox;//记住用户名和密码
     private String name, password;
+    private Account mAccount;
     SharedPreferences sp = null;
     SharedPreferences spLoginData = null;
 
@@ -75,8 +78,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     if ("1".equals(state)) {
                         Log.d("服务器返回状态码1，帐号密码正确", state);
-                        SharedPreferences.Editor editor = spLoginData.edit();
-                        editor.putString("name", name);
+                        //用户名存入
+//                        SharedPreferences.Editor editor = spLoginData.edit();
+//                        editor.putString("name", name);
+//                        editor.apply();
+                        mAccount = new Account(name);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else if (state == null) {

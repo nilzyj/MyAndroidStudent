@@ -9,8 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dim.ui.Adapter.InfoAdapter;
+import com.dim.ui.Http.HttpUtils;
+import com.dim.ui.Model.Account;
 import com.dim.ui.Model.Info;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +25,9 @@ public class ChangeActivity extends AppCompatActivity {
     private final String URL = "http://192.168.0.1:8080/Manage/GetInformationServlet";
     private LinearLayout ll_change;
     private List<Info> infoList = new ArrayList<Info>();
+    private Account mAccount;
+    private String name;
+    private JSONObject jsonObject;
     ListView listView;
 
     @Override
@@ -34,7 +44,11 @@ public class ChangeActivity extends AppCompatActivity {
             }
         });
 
-        initInfo();
+        try {
+            initInfo();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         final InfoAdapter infoAdapter = new InfoAdapter(ChangeActivity.this, R.layout.info_item,
                 infoList);
         listView = (ListView) findViewById(R.id.list_view);
@@ -53,15 +67,26 @@ public class ChangeActivity extends AppCompatActivity {
         });
     }
 
-    private void initInfo() {
+    private void initInfo() throws JSONException {
+//        SharedPreferences spLoginData = this.getSharedPreferences("", MODE_PRIVATE);
+//        String name = spLoginData.getString("name", "");
+        name = mAccount.getName();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String state = "";
-//                state = HttpUtils.httpPost(URL, "name=" + URLEncoder.encode(,"UTF-8"));
+                String json = "";
+                try {
+                    json = HttpUtils.httpPost(URL, "name=" + URLEncoder.encode(name,"UTF-8"));
+                    jsonObject = new JSONObject(json);
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
-        Info info1 = new Info("a", "a");
+        Info info1 = new Info("考生姓名", jsonObject.getString("name"));
         infoList.add(info1);
         Info info2 = new Info("b", "b");
         infoList.add(info2);

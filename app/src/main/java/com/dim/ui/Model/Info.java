@@ -15,10 +15,6 @@ public class Info {
         return info;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public String getContent() {
         return content;
     }
