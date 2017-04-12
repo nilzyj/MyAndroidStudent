@@ -79,10 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                     if ("1".equals(state)) {
                         Log.d("服务器返回状态码1，帐号密码正确", state);
                         //用户名存入
-//                        SharedPreferences.Editor editor = spLoginData.edit();
-//                        editor.putString("name", name);
-//                        editor.apply();
-                        mAccount = new Account(name);
+                        SharedPreferences.Editor editor = spLoginData.edit();
+                        editor.putString("name", "zyj");
+                        editor.apply();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else if (state == null) {
