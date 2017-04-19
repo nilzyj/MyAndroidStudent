@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="考生通讯地址"/>
+
+        <EditText
+            android:id="@+id/et_21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fill_edit"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d1ce"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="考生通讯地址邮政编码"/>
+
+        <EditText
+            android:id="@+id/et_22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fill_edit"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d1ce"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="固定电话"/>
+
+        <EditText
+            android:id="@+id/et_23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fill_edit"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d1ce"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="移动电话"/>
+
+        <EditText
+            android:id="@+id/et_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fill_edit"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d1ce"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电子邮箱"/>
+
+        <EditText
+            android:id="@+id/et_25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/fill_edit"/>
+    </LinearLayout>
+
+</LinearLayout>
