@@ -38,6 +38,8 @@
             android:id="@+id/et_22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="6"
+            android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View
@@ -78,6 +80,7 @@
             android:id="@+id/et_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View
@@ -98,6 +101,7 @@
             android:id="@+id/et_25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             style="@style/fill_edit"/>
     </LinearLayout>
 
