@@ -44,7 +44,7 @@ public class FillActivity extends AppCompatActivity {
     @BindView(R.id.et_7)
     RadioGroup mEt7;
     @BindView(R.id.et_8)
-    EditText mEt8;
+    Spinner mEt8;
     @BindView(R.id.et_9)
     EditText mEt9;
     @BindView(R.id.et_10)
@@ -232,7 +232,7 @@ public class FillActivity extends AppCompatActivity {
         } else {
             jsonObject.put("hun_fou", "否");
         }
-        jsonObject.put("zhengzhi_mianmao", mEt8.getText().toString());//政治面貌
+        jsonObject.put("zhengzhi_mianmao", mEt8.getSelectedItem().toString());//政治面貌
         jsonObject.put("jiguan_suozaidi", mEt9.getText().toString());//籍贯所在地
         jsonObject.put("chushendi", mEt10.getText().toString());//出生地
         jsonObject.put("hukou_suozaidi", mEt11.getText().toString());//户口所在地

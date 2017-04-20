@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_2"
-            android:entries="@array/spinner"
+            android:entries="@array/spinner_zhengjian_leixin"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             />
@@ -71,7 +71,8 @@
             android:id="@+id/et_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="1234567890"
+            android:digits="1234567890xyzXYZ"
+            android:maxLength="18"
             android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
@@ -220,11 +221,15 @@
             android:layout_height="wrap_content"
             android:text="政治面貌"/>
 
-        <EditText
-            android:id="@+id/et_8"
-            android:layout_width="match_parent"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:id="@+id/et_8"
+            android:entries="@array/spinner_zhengzhi_mianmao"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -364,6 +369,8 @@
             android:id="@+id/et_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="6"
+            android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View

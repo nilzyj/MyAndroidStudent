@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="spinner">
+    <string-array name="spinner_zhengjian_leixin">
         <item>身份证</item>
         <item>证</item>
         <item>证</item>
         <item>证</item>
+    </string-array>
+    <string-array name="spinner_zhengzhi_mianmao">
+        <item>群众</item>
+        <item>团员</item>
+        <item>党员</item>
     </string-array>
 </resources>
