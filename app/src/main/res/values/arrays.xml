@@ -11,4 +11,40 @@
         <item>团员</item>
         <item>党员</item>
     </string-array>
+    <string-array name="spinner_xianyi_junren">
+        <item>军队在职干部</item>
+        <item>军校应届本科毕业生</item>
+        <item>国防生</item>
+        <item>非军人</item>
+    </string-array>
+    <string-array name="spinner_kaoshen_laiyuan">
+        <item>普通全日制应届本科毕业生</item>
+        <item>成人应届本科毕业生</item>
+        <item>科学研究人员</item>
+        <item>高等教育教师</item>
+        <item>中等教育教师</item>
+        <item>其他人员</item>
+    </string-array>
+    <string-array name="spinner_xuexi_xinshi">
+        <item>普通全日制</item>
+        <item>成人教育</item>
+        <item>自学考试</item>
+        <item>网络教育</item>
+        <item>获境外学历或学位证书</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="spinner_zuihou_xueli">
+        <item>本科毕业</item>
+        <item>本科结业</item>
+        <item>研究生</item>
+        <item>高职高专</item>
+        <item>获境外学历或学位证书</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="spinner_zuihou_xuewei">
+        <item>博士学位</item>
+        <item>硕士学位</item>
+        <item>学士学位</item>
+        <item>无</item>
+    </string-array>
 </resources>

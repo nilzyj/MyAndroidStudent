@@ -185,27 +185,14 @@
             android:layout_gravity="center"
             android:text="现役军人"/>
 
-        <RadioGroup
-            android:id="@+id/et_7"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/xianyi_junren_true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="是"
-                style="@style/fill_edit"/>
-
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="否"
-                style="@style/fill_edit"/>
-        </RadioGroup>
+            android:id="@+id/et_7"
+            android:entries="@array/spinner_xianyi_junren"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

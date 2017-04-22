@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:onClick="fillBackToFunction">
+            android:onClick="confirmBackToFunction">
 
             <ImageView
                 android:layout_width="30dp"

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,6 +24,7 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
 
     private final String URL = "http://10.0.2.2:8080/Manage/GetInformationServlet";
 //    private final String URL = "http://192.168.191.1:8080/Manage/GetInformationServlet";
+    private String TAG = "function";
     private JSONObject jsonObject;
     private String name;
 
@@ -56,9 +58,18 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_fill:
+                Log.d(TAG, "onClick: fill");
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
                 toOtherActivity(FillActivity.class);
                 break;
             case R.id.btn_modify:
+                Log.d(TAG, "onClick: modify");
                 SharedPreferences spLoginData = this.getSharedPreferences("loginData", MODE_PRIVATE);
                 name = spLoginData.getString("name", null);
                 String[] strings_modify = {URL, name};
@@ -66,15 +77,19 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
                 showTask.execute(strings_modify);
                 break;
             case R.id.btn_confirm:
+                Log.d(TAG, "onClick: confirm");
                 toOtherActivity(ConfirmActivity.class);
                 break;
             case R.id.btn_exam:
+                Log.d(TAG, "onClick: exam");
                 toOtherActivity(ExamActivity.class);
                 break;
             case R.id.btn_grade:
+                Log.d(TAG, "onClick: grade");
                 toOtherActivity(GradeActivity.class);
                 break;
             case R.id.btn_fushi:
+                Log.d(TAG, "onClick: fushi");
                 toOtherActivity(FushiActivity.class);
                 break;
         }
@@ -88,6 +103,7 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
     //修改密码按钮响应
     @OnClick(R.id.btn_modify_password)
     public void modifyPassword() {
+        Log.d(TAG, "modifyPassword: 修改密码");
         Intent intent = new Intent(FunctionActivity.this, ModifyPasswordActivity.class);
         startActivity(intent);
     }

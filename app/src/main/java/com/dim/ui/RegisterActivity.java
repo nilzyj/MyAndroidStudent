@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 public class RegisterActivity extends AppCompatActivity {
 
     private final String URL = "http://10.0.2.2:8080/Manage/RegisterServlet";
-//    private final String URL = "http://10.0.2.2:8080/Manage/RegisterServlet";
+//    private final String URL = "http://192.168.191.1:8080/Manage/RegisterServlet";
     private EditText editText3;
     private EditText editText4;
     private Button button;
@@ -29,8 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        editText3 = (EditText) findViewById(R.id.editText3);
-        editText4 = (EditText) findViewById(R.id.editText4);
+        editText3 = (EditText) findViewById(R.id.et_register_name);
+        editText4 = (EditText) findViewById(R.id.et_register_password);
         button = (Button) findViewById(R.id.button);
     }
 
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String str = null;
                 try {
                     str = HttpUtils.httpPost(URL,
-                        "username=" + URLEncoder.encode(editText3.getText().toString(), "UTF-8") +
+                        "username=" + URLEncoder.encode("张殷杰", "UTF-8") +
                         "&pwd=" + URLEncoder.encode(editText4.getText().toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

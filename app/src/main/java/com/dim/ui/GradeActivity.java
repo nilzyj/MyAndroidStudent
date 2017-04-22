@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class GradeActivity extends AppCompatActivity {
 
     private final String URL = "http://10.0.2.2:8080/Manage/GradeInfoServlet";
+//    private final String URL = "http://192.168.191.1:8080/Manage/GradeInfoServlet";
     @BindView(R.id.tv_grade_shuxue)
     TextView mTvGradeShuxue;
     @BindView(R.id.tv_grade_yinyu)
@@ -43,6 +45,10 @@ public class GradeActivity extends AppCompatActivity {
         String[] strings = {URL, name};
         GradeInfoTask gradeInfoTask = new GradeInfoTask();
         gradeInfoTask.execute(strings);
+    }
+
+    public void gradeBackToFunction(View view) {
+        finish();
     }
 
     class GradeInfoTask extends AsyncTask<String, Void, String> {

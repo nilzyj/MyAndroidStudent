@@ -85,7 +85,10 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 state = HttpUtils.httpPost(strings[0], "loginData=" +
                         URLEncoder.encode(strings[1], "UTF-8"));
-//                state = "1";
+//                state = HttpUtils.httpPost(strings[0], "loginData=" +
+//                URLEncoder.encode("中文", "UTF-8"));
+                Log.d(TAG, "doInBackground: " + state);
+//                state = "2";
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -107,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putBoolean("isFill", false);
                     editor.apply();
                 }
+                Log.d(TAG, "onPostExecute: " + "跳转到FunctionActivity");
                 Intent intent = new Intent(LoginActivity.this, FunctionActivity.class);
                 startActivity(intent);
             } else if ("2".equals(s)) {
@@ -118,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putBoolean("ifFill", true);
                     editor.apply();
                 }
+                Log.d(TAG, "onPostExecute: " + "跳转到FunctionActivity");
                 Intent intent = new Intent(LoginActivity.this, FunctionActivity.class);
                 startActivity(intent);
             }

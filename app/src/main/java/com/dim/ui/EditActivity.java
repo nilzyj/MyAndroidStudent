@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dim.ui.PinYinUtil.PinYinUtil;
 import com.dim.ui.http.HttpUtils;
 
 import org.json.JSONException;
@@ -20,6 +22,7 @@ import java.net.URLEncoder;
 
 public class EditActivity extends AppCompatActivity {
     private String URL = "http://10.0.0.2:8080/Manage/UpdateJsonDataServlet";
+//    private String URL = "http://192.168.191.1:8080/Manage/UpdateJsonDataServlet";
     private EditText mEtInfo;//信息内容
     private TextView mTvInfoName;//标题即信息名称
     private Intent dataIntent;//传递数据的intent
@@ -52,10 +55,14 @@ public class EditActivity extends AppCompatActivity {
     //保存更改按钮点击
     public void saveEdit(View view) throws JSONException {
         //修改后的信息
-        String data = mEtInfo.getText().toString();
+        String info = mEtInfo.getText().toString();
         SharedPreferences sharedPreferences = getSharedPreferences("loginData", MODE_PRIVATE);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("content", data);
+        PinYinUtil pinyin = new PinYinUtil();
+
+        infoName = pinyin.getStringPinYin(infoName);
+        Log.d("pinyin", "saveEdit: " + infoName);
+        jsonObject.put("infoName", infoName);
         jsonObject.put("info", info);
         jsonObject.put("name", sharedPreferences.getString("name", null));
         String[] strings = {URL, jsonObject.toString()};

@@ -14,11 +14,14 @@
             android:layout_height="wrap_content"
             android:text="考生来源"/>
 
-        <EditText
-            android:id="@+id/et_26"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:id="@+id/et_26"
+            android:entries="@array/spinner_kaoshen_laiyuan"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -64,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#d0d1ce"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,12 +78,16 @@
             android:layout_height="wrap_content"
             android:text="取得最后学历的学习形式"/>
 
-        <EditText
-            android:id="@+id/et_29"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:id="@+id/et_29"
+            android:entries="@array/spinner_xuexi_xinshi"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -94,11 +102,14 @@
             android:layout_height="wrap_content"
             android:text="最后学历"/>
 
-        <EditText
-            android:id="@+id/et_30"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:id="@+id/et_30"
+            android:entries="@array/spinner_zuihou_xueli"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -118,6 +129,7 @@
             android:id="@+id/et_31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View
@@ -158,6 +170,7 @@
             android:id="@+id/et_33"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View
@@ -174,11 +187,14 @@
             android:layout_height="wrap_content"
             android:text="最后学位"/>
 
-        <EditText
-            android:id="@+id/et_34"
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:id="@+id/et_34"
+            android:entries="@array/spinner_zuihou_xuewei"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -198,6 +214,7 @@
             android:id="@+id/et_35"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             style="@style/fill_edit"/>
     </LinearLayout>
     <View

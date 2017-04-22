@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 //考试信息界面
 public class ExamActivity extends AppCompatActivity {
     private final String URL = "http://10.0.2.2:8080/Manage/ExamInfoServlet";
+//    private final String URL = "http://192.168.191.1:8080/Manage/ExamInfoServlet";
     @BindView(R.id.tv_exam_shuxue)
     TextView mTvExamShuxue;
     @BindView(R.id.tv_exam_yinyu)
@@ -42,6 +44,10 @@ public class ExamActivity extends AppCompatActivity {
         String[] strings = {URL, name};
         ExamInfoTask examInfoTask = new ExamInfoTask();
         examInfoTask.execute(strings);
+    }
+
+    public void examBackToFunction(View view) {
+        finish();
     }
 
     class ExamInfoTask extends AsyncTask<String, Void, String> {
