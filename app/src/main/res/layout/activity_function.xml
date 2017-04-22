@@ -92,6 +92,7 @@
         android:background="@drawable/btn_color_selector"/>
 
     <Button
+        android:id="@+id/btn_log_off"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="退出登录"

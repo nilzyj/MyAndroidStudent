@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String str = null;
                 try {
                     str = HttpUtils.httpPost(URL,
-                        "username=" + URLEncoder.encode("张殷杰", "UTF-8") +
+                        "username=" + URLEncoder.encode(editText3.getText().toString(), "UTF-8") +
                         "&pwd=" + URLEncoder.encode(editText4.getText().toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

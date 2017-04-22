@@ -108,6 +108,11 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         startActivity(intent);
     }
 
+    @OnClick(R.id.btn_log_off)
+    public void onClickLogOff() {
+        finish();
+    }
+
     //请求报考信息，并传给ModifyActivity
     class ShowTask extends AsyncTask<String, Void, String> {
 
