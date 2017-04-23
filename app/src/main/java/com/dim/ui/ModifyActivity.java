@@ -21,33 +21,45 @@ import java.util.List;
 //信息修改界面
 public class ModifyActivity extends AppCompatActivity {
     private final String URL = "http://10.0.2.2:8080/Manage/GetInformationServlet";
-//    private final String URL = "http://192.168.191.1:8080/Manage/GetInformationServlet";
+    //    private final String URL = "http://192.168.191.1:8080/Manage/GetInformationServlet";
     private List<Info> infoList = new ArrayList<Info>();
     private String str = "";
-    ListView listView;
+    private int position;
+    private String strInfoName, strInfo;
+    private ListView listView;
+    InfoAdapter infoAdapter;
+    private final String TAG = "ModifyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
 
+        //获取在FunctionActivity请求的数据
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
         try {
-            getDataFromOtherActivity(json);
+            //将获得的数据放入list
+            getDataToList(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        InfoAdapter infoAdapter = new InfoAdapter(ModifyActivity.this, R.layout.info_item,
+        //绑定数据源
+        infoAdapter = new InfoAdapter(ModifyActivity.this, R.layout.info_item,
                 infoList);
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(infoAdapter);
 
+        //设置ListView响应
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String strInfoName = infoList.get(i).getInfo();
-                String strInfo = infoList.get(i).getContent();
+                //根据点击参数获取对应list中的数据
+                strInfoName = infoList.get(i).getInfo();
+                strInfo = infoList.get(i).getContent();
+                //记录更改数据
+                position = i;
+                //将InfoName，Info传递到EditActivity
                 Intent intent = new Intent(ModifyActivity.this, EditActivity.class);
                 intent.putExtra("infoName", strInfoName);
                 intent.putExtra("info", strInfo);
@@ -57,28 +69,17 @@ public class ModifyActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        try {
-            getDataFromOtherActivity(str);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        InfoAdapter infoAdapter = new InfoAdapter(ModifyActivity.this, R.layout.info_item,
-                infoList);
-        listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(infoAdapter);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
-            str = data.getStringExtra("update");
+            String udpateData = data.getStringExtra("info");
+            infoList.set(position, new Info(strInfoName, udpateData));
+            infoAdapter.notifyDataSetChanged();
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void getDataFromOtherActivity(String json) throws JSONException {
+    private void getDataToList(String json) throws JSONException {
         Log.d("json", "getDataFromOtherActivity: " + json);
         PinYinUtil pyu = new PinYinUtil();
         JSONObject jsonObject = new JSONObject(json);
@@ -93,7 +94,9 @@ public class ModifyActivity extends AppCompatActivity {
                 "业务课一", "业务课二", "备用信息一", "备用信息二"};
         Info info_name = new Info("考生姓名", jsonObject.getString("name"));
         infoList.add(info_name);
+        Log.d(TAG, "getDataToList: " + jsonObject.getString("name"));
         for (String key : infos) {
+            Log.d(TAG, "getDataToList: " + key);
             Info info = new Info(key, jsonObject.getString(pyu.getStringPinYin(key)));
             infoList.add(info);
         }

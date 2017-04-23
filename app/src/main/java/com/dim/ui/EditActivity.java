@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,13 +20,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class EditActivity extends AppCompatActivity {
-    private String URL = "http://10.0.0.2:8080/Manage/UpdateJsonDataServlet";
+    private String URL = "http://10.0.2.2:8080/Manage/UpdateJsonDataServlet";
 //    private String URL = "http://192.168.191.1:8080/Manage/UpdateJsonDataServlet";
     private EditText mEtInfo;//信息内容
     private TextView mTvInfoName;//标题即信息名称
     private Intent dataIntent;//传递数据的intent
-    private String infoName;//将修改的数据内容
-    private String info;//将修改的数据名称
+    private String infoName;//将修改的数据名称
+    private String info;//将修改的数据内容
+    private String infoUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +54,17 @@ public class EditActivity extends AppCompatActivity {
 
     //保存更改按钮点击
     public void saveEdit(View view) throws JSONException {
-        //修改后的信息
-        String info = mEtInfo.getText().toString();
+        //获取修改后的信息
+        infoUpdate = mEtInfo.getText().toString();
+        //获取sharedPreferences中的name，便于更新数据库
         SharedPreferences sharedPreferences = getSharedPreferences("loginData", MODE_PRIVATE);
+        //将要更新的数据转为json
         JSONObject jsonObject = new JSONObject();
         PinYinUtil pinyin = new PinYinUtil();
-
-        infoName = pinyin.getStringPinYin(infoName);
-        Log.d("pinyin", "saveEdit: " + infoName);
-        jsonObject.put("infoName", infoName);
-        jsonObject.put("info", info);
+        jsonObject.put("infoName", pinyin.getStringPinYin(infoName));
+        jsonObject.put("info", infoUpdate);
         jsonObject.put("name", sharedPreferences.getString("name", null));
+
         String[] strings = {URL, jsonObject.toString()};
         //更新数据库
         EditTask editTask = new EditTask();
@@ -88,9 +88,9 @@ public class EditActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent intent = new Intent();
-            intent.putExtra("updateData", s);
-            setResult(2, intent);
+            Intent updateIntent = new Intent();
+            updateIntent.putExtra("info", infoUpdate);
+            setResult(2, updateIntent);
             finish();
         }
     }
