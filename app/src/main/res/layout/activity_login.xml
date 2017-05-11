@@ -10,6 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/title_padding_top_bottom"
+        android:paddingBottom="@dimen/title_padding_top_bottom"
         android:background="@color/black_title">
 
         <TextView
@@ -18,11 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="研究生考试认证系统"
+            android:text="@string/exam_system"
             android:textSize="24sp"
-            android:textColor="#ffffff"/>
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 
@@ -45,7 +45,7 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="姓名"
+            android:hint="@string/name"
             android:inputType="textEmailAddress"
             android:textCursorDrawable="@null"/>
 
@@ -53,7 +53,7 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textCursorDrawable="@null"/>
 
@@ -61,7 +61,7 @@
             android:id="@+id/checkBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="记住密码"
+            android:text="@string/remember_password"
             android:button="@drawable/check_style"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -72,7 +72,7 @@
             android:background="@drawable/btn_color_selector"
             android:maxHeight="58dp"
             android:minHeight="58dp"
-            android:text="登录"
+            android:text="@string/sign_in"
             android:textColor="@android:color/black"
             android:textSize="23sp"
             android:textStyle="bold"/>
@@ -85,7 +85,7 @@
             android:background="@drawable/btn_color_selector"
             android:maxHeight="58dp"
             android:minHeight="58dp"
-            android:text="注册"
+            android:text="@string/sign_up"
             android:textColor="@android:color/black"
             android:textSize="23sp"
             android:textStyle="bold"/>

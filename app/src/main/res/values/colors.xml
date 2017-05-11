@@ -11,4 +11,5 @@
     <color name="view_color">#eeeeee</color>
     <color name="text_color">#424242</color>
     <color name="black_title">#424242</color>
+    <color name="modify_info_name_color">#757575</color>
 </resources>

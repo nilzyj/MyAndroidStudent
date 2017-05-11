@@ -7,6 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/title_padding_top_bottom"
+        android:paddingTop="@dimen/title_padding_top_bottom"
         android:background="@color/black_title">
 
         <TextView
@@ -15,10 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="研究生考试认证系统"
-            android:textSize="24sp"
+            android:text="@string/exam_system"
+            android:textSize="@dimen/function_text_size"
             android:textColor="@color/white"/>
 
     </RelativeLayout>
@@ -36,13 +36,13 @@
         <LinearLayout
             android:id="@+id/btn_fill"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/function_height"
             android:orientation="vertical"
             android:background="@drawable/btn_color_selector">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/fill_info"/>
 
@@ -50,22 +50,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="填写信息"
-                android:textSize="24sp"
-                android:textColor="#000000"/>
+                android:text="@string/fill_info"
+                android:textSize="@dimen/function_text_size"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btn_modify"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/function_height"
             android:orientation="vertical"
             android:background="@drawable/btn_color_selector">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/modify_info"/>
 
@@ -73,22 +73,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="修改信息"
-                android:textSize="24sp"
-                android:textColor="#000000"/>
+                android:text="@string/modify_info"
+                android:textSize="@dimen/function_text_size"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/function_height"
             android:orientation="vertical"
             android:background="@drawable/btn_color_selector">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/confirm"/>
 
@@ -96,9 +96,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="信息核对"
-                android:textSize="24sp"
-                android:textColor="#000000"/>
+                android:text="@string/confirm_info"
+                android:textSize="@dimen/function_text_size"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
@@ -110,13 +110,13 @@
         <LinearLayout
             android:id="@+id/btn_modify_password"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/function_height"
             android:orientation="vertical"
             android:background="@drawable/btn_color_selector">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/modify_password"/>
 
@@ -124,22 +124,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="修改密码"
-                android:textSize="24sp"
-                android:textColor="#000000"/>
+                android:text="@string/modify_password"
+                android:textSize="@dimen/function_text_size"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/btn_log_off"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/function_height"
             android:orientation="vertical"
             android:background="@drawable/btn_color_selector">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/modify_password"/>
 
@@ -147,9 +147,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="退出登录"
-                android:textSize="24sp"
-                android:textColor="#000000"/>
+                android:text="@string/log_off"
+                android:textSize="@dimen/function_text_size"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
     </LinearLayout>

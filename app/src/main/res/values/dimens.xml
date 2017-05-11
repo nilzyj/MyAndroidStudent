@@ -6,4 +6,8 @@
     <dimen name="line_width">0.50dp</dimen>
     <dimen name="text_size">16sp</dimen>
     <dimen name="fill_text_size">14sp</dimen>
+    <dimen name="function_height">95dp</dimen>
+    <dimen name="function_img_height">50dp</dimen>
+    <dimen name="function_text_size">24sp</dimen>
+    <dimen name="title_padding_top_bottom">10dp</dimen>
 </resources>
