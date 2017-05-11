@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * The type Edit activity.
@@ -52,6 +53,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        ButterKnife.bind(this);
 
         //获得ChangeActivity传来的数据
         dataIntent = getIntent();
