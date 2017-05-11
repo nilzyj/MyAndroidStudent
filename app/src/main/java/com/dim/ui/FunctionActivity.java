@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.dim.ui.model.HttpURL;
 import com.dim.ui.util.HttpUtil;
@@ -35,32 +35,32 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
      * The M btn fill.
      */
     @BindView(R.id.btn_fill)
-    Button mBtnFill;
+    LinearLayout mBtnFill;
     /**
      * The M btn modify.
      */
     @BindView(R.id.btn_modify)
-    Button mBtnModify;
+    LinearLayout mBtnModify;
     /**
      * The M btn confirm.
      */
     @BindView(R.id.btn_confirm)
-    Button mBtnConfirm;
+    LinearLayout mBtnConfirm;
     /**
      * The M btn exam.
      */
-    @BindView(R.id.btn_exam)
-    Button mBtnExam;
+//    @BindView(R.id.btn_exam)
+//    Button mBtnExam;
     /**
      * The M btn grade.
      */
-    @BindView(R.id.btn_grade)
-    Button mBtnGrade;
+//    @BindView(R.id.btn_grade)
+//    Button mBtnGrade;
     /**
      * The M btn fushi.
      */
-    @BindView(R.id.btn_fushi)
-    Button mBtnFushi;
+//    @BindView(R.id.btn_fushi)
+//    Button mBtnFushi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +71,9 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         mBtnFill.setOnClickListener(this);
         mBtnModify.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
-        mBtnExam.setOnClickListener(this);
-        mBtnGrade.setOnClickListener(this);
-        mBtnFushi.setOnClickListener(this);
+//        mBtnExam.setOnClickListener(this);
+//        mBtnGrade.setOnClickListener(this);
+//        mBtnFushi.setOnClickListener(this);
     }
 
     @Override
@@ -103,18 +103,18 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
                 functionToOtherActivity(FingerActivity.class);
 
                 break;
-            case R.id.btn_exam:
-                Log.d(TAG, "onClick: exam");
-                functionToOtherActivity(ExamActivity.class);
-                break;
-            case R.id.btn_grade:
-                Log.d(TAG, "onClick: grade");
-                functionToOtherActivity(GradeActivity.class);
-                break;
-            case R.id.btn_fushi:
-                Log.d(TAG, "onClick: fushi");
-                functionToOtherActivity(FushiActivity.class);
-                break;
+//            case R.id.btn_exam:
+//                Log.d(TAG, "onClick: exam");
+//                functionToOtherActivity(ExamActivity.class);
+//                break;
+//            case R.id.btn_grade:
+//                Log.d(TAG, "onClick: grade");
+//                functionToOtherActivity(GradeActivity.class);
+//                break;
+//            case R.id.btn_fushi:
+//                Log.d(TAG, "onClick: fushi");
+//                functionToOtherActivity(FushiActivity.class);
+//                break;
         }
     }
 

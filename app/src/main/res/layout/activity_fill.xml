@@ -139,7 +139,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="考生报考信息"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="20sp"/>
 
             <include layout="@layout/examinee_register_information"/>
