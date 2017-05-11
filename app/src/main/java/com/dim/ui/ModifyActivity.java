@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dim.ui.adapter.InfoAdapter;
 import com.dim.ui.model.Info;
@@ -23,15 +24,27 @@ import java.util.List;
  */
 //信息修改界面
 public class ModifyActivity extends AppCompatActivity {
+    private final String TAG = "ModifyActivity";
     private List<Info> infoList = new ArrayList<Info>();
+    /**
+     * 用于记录点击的Item，并在修改信息后对此Item进行更新
+     */
     private int position;
-    private String strInfoName, strInfo;
+    /**
+     * 信息名称
+     */
+    private String strInfoName;
+    /**
+     * 信息内容
+     */
+    private String strInfo;
+    /** 获取并保存所有信息内容，将其传到EditActivity */
     private ListView listView;
     /**
-     * The Info adapter.
+     * The Info Adapter.
+     * ListView Adapter.
      */
     InfoAdapter infoAdapter;
-    private final String TAG = "ModifyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +55,7 @@ public class ModifyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
         try {
-            //将获得的数据放入list
+            //将获得的json数据放入list
             getDataToList(json);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -60,30 +73,37 @@ public class ModifyActivity extends AppCompatActivity {
                 //根据点击参数获取对应list中的数据
                 strInfoName = infoList.get(i).getInfo();
                 strInfo = infoList.get(i).getContent();
-                Log.d(TAG, "onItemClick: " + strInfoName + ":" + strInfo);
+
                 //记录更改数据
                 position = i;
-                //将InfoName，Info传递到EditActivity
-                Intent intent = new Intent(ModifyActivity.this, EditActivity.class);
-                intent.putExtra("infoName", strInfoName);
-                intent.putExtra("info", strInfo);
-                startActivityForResult(intent, 1);
+
+                Log.d(TAG, "点击的Item信息" + strInfoName + ":" + strInfo);
+                //是否以及怎样修改
+                ifModifyOrHowModify(strInfoName);
             }
         });
     }
 
+    /**
+     * 接收EditActivity返回的修改信息，并更新数据
+     * @param requestCode 请求code
+     * @param resultCode 返回code
+     * @param data 返回数据
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == 2) {
             String udpateData = data.getStringExtra("info");
+            //对list中数据进行更新
             infoList.set(position, new Info(strInfoName, udpateData));
+            //更新Item
             infoAdapter.notifyDataSetChanged();
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
+     * 将json数据放入list中作为ListView数据源
      * @param json json
      * @throws JSONException
      */
@@ -108,6 +128,24 @@ public class ModifyActivity extends AppCompatActivity {
             Info info = new Info(key, jsonObject.getString(pyu.getStringPinYin(key)));
             infoList.add(info);
         }
+    }
+
+    /**
+     * 根据infoName判断是否能够修改以及怎样修改
+     *
+     * @param infoName 信息名称
+     */
+    private void ifModifyOrHowModify(String infoName) {
+        if ("考生姓名".equals(infoName) || "证件类型".equals(infoName)
+                || "证件号码".equals(infoName)) {
+            Toast.makeText(this, "此项不可修改", Toast.LENGTH_SHORT).show();
+        } else {
+            //将InfoName，Info传递到EditActivity，并能够获取EditActivity返回信息
+            Intent intent = new Intent(ModifyActivity.this, EditActivity.class);
+            intent.putExtra("infoName", strInfoName);
+            intent.putExtra("info", strInfo);
+            startActivityForResult(intent, 1);
+       }
     }
 
     /**

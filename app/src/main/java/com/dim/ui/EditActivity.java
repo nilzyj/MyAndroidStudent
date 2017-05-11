@@ -60,8 +60,8 @@ public class EditActivity extends AppCompatActivity {
         infoName = dataIntent.getStringExtra("infoName");
         info = dataIntent.getStringExtra("info");
         //初始化EditActivity数据
-        mEtInfo.setText(info);
         mTvInfoName.setText(infoName);
+        mEtInfo.setText(info);
         //提示信息(temp)
         Toast.makeText(EditActivity.this, info, Toast.LENGTH_SHORT).show();
     }
