@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.dim.ui.PinYinUtil.PinYinUtil;
 import com.dim.ui.adapter.InfoAdapter;
 import com.dim.ui.model.Info;
+import com.dim.ui.util.PinYinUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,15 +18,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Modify activity.
+ */
 //信息修改界面
 public class ModifyActivity extends AppCompatActivity {
-    private final String URL = "http://10.0.2.2:8080/Manage/GetInformationServlet";
-    //    private final String URL = "http://192.168.191.1:8080/Manage/GetInformationServlet";
     private List<Info> infoList = new ArrayList<Info>();
-    private String str = "";
     private int position;
     private String strInfoName, strInfo;
     private ListView listView;
+    /**
+     * The Info adapter.
+     */
     InfoAdapter infoAdapter;
     private final String TAG = "ModifyActivity";
 
@@ -79,6 +82,10 @@ public class ModifyActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * @param json json
+     * @throws JSONException
+     */
     private void getDataToList(String json) throws JSONException {
         Log.d("json", "getDataFromOtherActivity: " + json);
         PinYinUtil pyu = new PinYinUtil();
@@ -102,6 +109,10 @@ public class ModifyActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Modify back to function.
+     * @param view the view
+     */
     public void modifyBackToFunction(View view) {
         finish();
     }

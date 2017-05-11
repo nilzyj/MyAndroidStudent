@@ -14,11 +14,12 @@ import java.util.List;
 
 /**
  * Created by dim on 2017/3/31.
+ * @author dim
  */
 
 public class InfoAdapter extends ArrayAdapter {
-
-    public int resourceId;
+    /**  */
+    private int resourceId;
 
     public InfoAdapter(Context context, int resource, List<Info> objects) {
         super(context, resource, objects);
@@ -48,7 +49,10 @@ public class InfoAdapter extends ArrayAdapter {
         return super.getItem(position);
     }
 
-    class ViewHolder {
-        TextView mTvInfo, mTvContent;
+    static class ViewHolder {
+        /** 信息名称 */
+        TextView mTvInfo;
+        /** 信息内容 */
+        TextView mTvContent;
     }
 }

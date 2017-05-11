@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dim.ui.PinYinUtil.PinYinUtil;
-import com.dim.ui.http.HttpUtils;
+import com.dim.ui.model.HttpURL;
+import com.dim.ui.util.HttpUtil;
+import com.dim.ui.util.PinYinUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,22 +20,38 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class EditActivity extends AppCompatActivity {
-    private String URL = "http://10.0.2.2:8080/Manage/UpdateJsonDataServlet";
-//    private String URL = "http://192.168.191.1:8080/Manage/UpdateJsonDataServlet";
-    private EditText mEtInfo;//信息内容
-    private TextView mTvInfoName;//标题即信息名称
-    private Intent dataIntent;//传递数据的intent
-    private String infoName;//将修改的数据名称
-    private String info;//将修改的数据内容
-    private String infoUpdate;
+import butterknife.BindView;
 
+/**
+ * The type Edit activity.
+ * @author dim
+ */
+public class EditActivity extends AppCompatActivity {
+
+    /** 修改并更新报考信息URL. */
+    private String URL = HttpURL.url + "UpdateJsonDataServlet";
+    /** 传递数据的intent. */
+    private Intent dataIntent;
+    /** 将修改的数据名称. */
+    private String infoName;
+    /** 将修改的数据内容. */
+    private String info;
+    /**  */
+    private String infoUpdate;
+    /** 信息内容. */
+    @BindView(R.id.etInfo)
+    EditText mEtInfo;
+    /** 标题即信息名称. */
+    @BindView(R.id.tvInfoName)
+    TextView mTvInfoName;
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
-        initView();
 
         //获得ChangeActivity传来的数据
         dataIntent = getIntent();
@@ -47,17 +64,18 @@ public class EditActivity extends AppCompatActivity {
         Toast.makeText(EditActivity.this, info, Toast.LENGTH_SHORT).show();
     }
 
-    private void initView() {
-        mEtInfo = (EditText) findViewById(R.id.etInfo);
-        mTvInfoName = (TextView) findViewById(R.id.tvInfoName);
-    }
-
-    //保存更改按钮点击
+    /**
+     * Save edit.
+     * 保存更改按钮点击
+     * @param view the view
+     * @throws JSONException the json exception
+     */
     public void saveEdit(View view) throws JSONException {
         //获取修改后的信息
         infoUpdate = mEtInfo.getText().toString();
         //获取sharedPreferences中的name，便于更新数据库
-        SharedPreferences sharedPreferences = getSharedPreferences("loginData", MODE_PRIVATE);
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("loginData", MODE_PRIVATE);
         //将要更新的数据转为json
         JSONObject jsonObject = new JSONObject();
         PinYinUtil pinyin = new PinYinUtil();
@@ -71,14 +89,18 @@ public class EditActivity extends AppCompatActivity {
         editTask.execute(strings);
     }
 
+    /**
+     * The type Edit task.
+     * 修改后提交更新
+     */
     class EditTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String state = null;
             try {
-                state = HttpUtils.httpPost(strings[0], "updateData=" + URLEncoder.encode(strings[1],
-                        "UTF-8"));
+                state = HttpUtil.httpPost(strings[0],
+                        "updateData=" + URLEncoder.encode(strings[1], "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -88,14 +110,24 @@ public class EditActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent updateIntent = new Intent();
-            updateIntent.putExtra("info", infoUpdate);
-            setResult(2, updateIntent);
-            finish();
+            if (s == null) {
+                Toast.makeText(EditActivity.this, "未连接服务器",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Intent updateIntent = new Intent();
+                updateIntent.putExtra("info", infoUpdate);
+                setResult(2, updateIntent);
+                finish();
+            }
+
         }
     }
 
-    //返回按钮点击-LinearLayout
+    /**
+     * Back to change.
+     * 返回按钮点击-LinearLayout
+     * @param view the view
+     */
     public void backToChange(View view) {
         finish();
     }

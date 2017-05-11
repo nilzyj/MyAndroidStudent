@@ -9,7 +9,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.widget.Toast;
 
-import com.dim.ui.http.HttpUtils;
+import com.dim.ui.model.HttpURL;
+import com.dim.ui.util.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,16 +22,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The type Modify password activity.
+ */
 public class ModifyPasswordActivity extends AppCompatActivity {
 
-    private final String URL = "http://10.0.2.2:8080/Manage/ModifyPasswordServlet";
-    //    private final String URL = "http://10.0.2.2:8080/Manage/ModifyPasswordServlet";
+    private final String URL = HttpURL.url + "ModifyPasswordServlet";
+    /**
+     * The M et old password.
+     */
     @BindView(R.id.et_old_password)
     AppCompatEditText mEtOldPassword;
+    /**
+     * The M et new password.
+     */
     @BindView(R.id.et_new_password)
     AppCompatEditText mEtNewPassword;
+    /**
+     * The M et new password repeat.
+     */
     @BindView(R.id.et_new_password_repeat)
     AppCompatEditText mEtNewPasswordRepeat;
+    /**
+     * The M btn modify password commit.
+     */
     @BindView(R.id.btn_modify_password_commit)
     AppCompatButton mBtnModifyPasswordCommit;
 
@@ -43,6 +58,9 @@ public class ModifyPasswordActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * On click modify password.
+     */
     @OnClick(R.id.btn_modify_password_commit)
     public void onClickModifyPassword() {
         String oldPassword = mEtOldPassword.getText().toString();
@@ -67,13 +85,16 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The type Modify password task.
+     */
     class ModifyPasswordTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String state = "";
             try {
-                state = HttpUtils.httpPost(strings[0], "modifyData=" +
+                state = HttpUtil.httpPost(strings[0], "modifyData=" +
                         URLEncoder.encode(strings[1], "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -94,7 +115,12 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         }
     }
 
-    public void ModifyPasswordBackToFunction(View view) {
+    /**
+     * Modify password back to function.
+     *
+     * @param view the view
+     */
+    public void modifyPasswordBackToFunction(View view) {
         finish();
     }
 }

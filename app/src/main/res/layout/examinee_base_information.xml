@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:whatever="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingRight="10dp">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,46 +19,65 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考生姓名"/>
+            android:text="考生姓名"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/et_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="证件类型"/>
+            android:text="证件类型"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/et_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:entries="@array/spinner_zhengjian_leixin"
-            android:paddingTop="10dp"
+            android:gravity="right"
             android:paddingBottom="10dp"
-            />
+            android:paddingTop="10dp"
+            android:spinnerMode="dialog"/>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,21 +86,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="证件号码"/>
+            android:text="证件号码"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_3"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="1234567890xyzXYZ"
-            android:maxLength="18"
+            android:hint="限18位身份证"
             android:inputType="number"
-            style="@style/fill_edit"/>
+            android:maxLength="18"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,57 +115,83 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="民族"/>
+            android:text="民族"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
-        <EditText
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
             android:id="@+id/et_4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="性别"
-            android:layout_gravity="center"/>
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <RadioGroup
             android:id="@+id/et_5"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:orientation="horizontal">
+            android:paddingTop="10dp">
 
             <RadioButton
                 android:id="@+id/sex_man"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
                 android:text="男"
-                style="@style/fill_edit"/>
+                android:textSize="18sp"/>
 
             <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
                 android:text="女"
-                style="@style/fill_edit"/>
+                android:textSize="18sp"/>
         </RadioGroup>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -146,36 +199,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="婚否"/>
+            android:text="婚否"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <RadioGroup
             android:id="@+id/et_6"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:orientation="horizontal">
+            android:paddingTop="10dp">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="否"
+                android:textSize="18sp"/>
 
             <RadioButton
                 android:id="@+id/hunfou_true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="是"
-                style="@style/fill_edit"/>
-
-            <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="否"
-                style="@style/fill_edit"/>
+                android:paddingLeft="10dp"
+                android:text="是"
+                android:textSize="18sp"/>
         </RadioGroup>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -183,45 +249,67 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="现役军人"/>
+            android:text="现役军人"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/et_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:entries="@array/spinner_xianyi_junren"
-            android:paddingTop="10dp"
+            android:gravity="right"
             android:paddingBottom="10dp"
-            />
+            android:paddingTop="10dp"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="政治面貌"/>
+            android:text="政治面貌"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/et_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:entries="@array/spinner_zhengzhi_mianmao"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            />
+            android:paddingTop="10dp"
+            android:gravity="right"/>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -230,18 +318,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="籍贯所在地"/>
+            android:text="籍贯所在地"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
-        <EditText
+        <TextView
             android:id="@+id/et_9"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="@string/click_select_addr"
+            android:textSize="@dimen/fill_text_size"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -250,18 +345,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="出生地"/>
+            android:text="出生地"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
-        <EditText
+        <TextView
             android:id="@+id/et_10"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="@string/click_select_addr"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -270,38 +371,64 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="户口所在地"/>
+            android:text="户口所在地"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
-        <EditText
+        <TextView
             android:id="@+id/et_11"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="@string/click_select_addr"
+            android:maxLines="2"
+            android:textSize="@dimen/fill_text_size"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="户口所在地详细地址"/>
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="户口所在地详细地址"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+
+        <TextView
+            android:id="@+id/et_12"
+            style="@style/fill_edit_no_gravity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="点击选择省市区/镇"
+            android:textSize="@dimen/fill_text_size"/>
 
         <EditText
-            android:id="@+id/et_12"
-            android:layout_width="match_parent"
+            android:id="@+id/et_121"
+            style="@style/fill_edit_no_gravity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="填写详细地址"
+            android:textSize="@dimen/fill_text_size"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -310,38 +437,61 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考生档案所在地"/>
+            android:text="考生档案所在地"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_13"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="填写所在单位名称"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考生档案所在单位地址"/>
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="考生档案所在单位地址"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
+
+        <TextView
+            android:id="@+id/et_14"
+            style="@style/fill_edit_no_gravity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="点击选择省市区/镇"
+            android:textSize="@dimen/fill_text_size"/>
 
         <EditText
-            android:id="@+id/et_14"
-            android:layout_width="match_parent"
+            android:id="@+id/et_141"
+            style="@style/fill_edit_no_gravity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="填写详细地址"
+            android:textSize="@dimen/fill_text_size"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -350,20 +500,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考生档案所在单位邮政编码"/>
+            android:text="考生档案所在单位邮政编码"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_15"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="6"
+            android:hint="限6位数字"
             android:inputType="number"
-            style="@style/fill_edit"/>
+            android:maxLength="6"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -372,93 +528,135 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="现在学习或工作单位"/>
+            android:text="现在学习或工作单位"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_16"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学习与工作经历"/>
+            android:paddingTop="10dp"
+            android:text="学习与工作经历"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:background="@null"
+            android:maxLines="3"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textCursorDrawable="@null"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="何时何地何原因受过何种奖励或处分"/>
+            android:paddingTop="10dp"
+            android:text="何时何地何原因受过何种奖励或处分"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:background="@null"
+            android:maxLines="3"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textCursorDrawable="@null"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考生作弊情况"/>
+            android:paddingTop="10dp"
+            android:text="考生作弊情况"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:background="@null"
+            android:maxLines="3"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textCursorDrawable="@null"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:layout_height="@dimen/line_width"
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="家庭主要成员"/>
+            android:paddingTop="10dp"
+            android:text="家庭主要成员"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:background="@null"
+            android:maxLines="3"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textCursorDrawable="@null"/>
     </LinearLayout>
 
 </LinearLayout>

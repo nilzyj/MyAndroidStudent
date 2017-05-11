@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#d0d1ce">
+        android:background="@color/title">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -34,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="填写报考信息"
             android:textSize="24sp"/>
 
@@ -44,7 +44,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,72 +55,114 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="考生基本信息"
-                android:textSize="15sp"/>
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个人照片"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="invisible"/>
+
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/headicon"/>
+
+            </LinearLayout>
 
             <include layout="@layout/examinee_base_information"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d0d1ce"/>
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="考生联系方式"
-                android:textSize="15sp"/>
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <include layout="@layout/examinee_contact_information"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d0d1ce"/>
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="考生来源及毕业信息"
-                android:textSize="15sp"/>
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <include layout="@layout/examinee_graduation_information"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d0d1ce"/>
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="考生报考信息"
-                android:textSize="15sp"/>
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <include layout="@layout/examinee_register_information"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d0d1ce"/>
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="备用信息"
                 android:textSize="15sp"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,27 +171,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="备用信息"/>
+                    android:text="备用信息"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"/>
 
                 <EditText
                     android:id="@+id/et_49"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="备用信息1"/>
-
-                <EditText
-                    android:id="@+id/et_50"
+                    style="@style/fill_edit"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:maxLines="1"/>
@@ -156,13 +185,41 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#d0d1ce"/>
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备用信息1"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+                    android:id="@+id/et_50"
+                    style="@style/fill_edit"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <Button
                 android:id="@+id/btn_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_color_selector"
                 android:text="确定"/>
         </LinearLayout>
     </ScrollView>

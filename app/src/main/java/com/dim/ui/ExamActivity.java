@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dim.ui.http.HttpUtils;
+import com.dim.ui.model.HttpURL;
+import com.dim.ui.util.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,19 +21,35 @@ import java.net.URLEncoder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * The type Exam activity.
+ * @author dim
+ */
 //考试信息界面
 public class ExamActivity extends AppCompatActivity {
-    private final String URL = "http://10.0.2.2:8080/Manage/ExamInfoServlet";
-//    private final String URL = "http://192.168.191.1:8080/Manage/ExamInfoServlet";
+    /**  */
+    private final String URL = HttpURL.url + "ExamInfoServlet";
+    /**
+     * The M tv exam shuxue.
+     */
     @BindView(R.id.tv_exam_shuxue)
     TextView mTvExamShuxue;
+    /**
+     * The M tv exam yinyu.
+     */
     @BindView(R.id.tv_exam_yinyu)
     TextView mTvExamYinyu;
+    /**
+     * The M tv exam zhengzhi.
+     */
     @BindView(R.id.tv_exam_zhengzhi)
     TextView mTvExamZhengzhi;
+    /**
+     * The M tv exam zhuanye.
+     */
     @BindView(R.id.tv_exam_zhuanye)
     TextView mTvExamZhuanye;
-
+    // TODO delete
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +63,25 @@ public class ExamActivity extends AppCompatActivity {
         examInfoTask.execute(strings);
     }
 
+    /**
+     * Exam back to function.
+     *
+     * @param view the view
+     */
     public void examBackToFunction(View view) {
         finish();
     }
 
+    /**
+     * The type Exam info task.
+     */
     class ExamInfoTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String state = "";
             try {
-                state = HttpUtils.httpPost(strings[0], "name=" +
+                state = HttpUtil.httpPost(strings[0], "name=" +
                         URLEncoder.encode(strings[1], "UTF-8"));
                 Log.d("http", "doInBackground: " + state);
             } catch (UnsupportedEncodingException e) {

@@ -9,9 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.dim.ui.http.HttpUtils;
-
-import org.json.JSONObject;
+import com.dim.ui.model.HttpURL;
+import com.dim.ui.util.HttpUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,24 +19,46 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The type Function activity.
+ * @author dim
+ */
 public class FunctionActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private final String URL = "http://10.0.2.2:8080/Manage/GetInformationServlet";
-//    private final String URL = "http://192.168.191.1:8080/Manage/GetInformationServlet";
-    private String TAG = "function";
-    private JSONObject jsonObject;
+    /** 获取已填写信息URL */
+    private static final String URL = HttpURL.url + "GetInformationServlet";
+    /** TAG */
+    private static String TAG = "function";
+    /** 用于保存从SharedPreference中获取的name */
     private String name;
 
+    /**
+     * The M btn fill.
+     */
     @BindView(R.id.btn_fill)
     Button mBtnFill;
+    /**
+     * The M btn modify.
+     */
     @BindView(R.id.btn_modify)
     Button mBtnModify;
+    /**
+     * The M btn confirm.
+     */
     @BindView(R.id.btn_confirm)
     Button mBtnConfirm;
+    /**
+     * The M btn exam.
+     */
     @BindView(R.id.btn_exam)
     Button mBtnExam;
+    /**
+     * The M btn grade.
+     */
     @BindView(R.id.btn_grade)
     Button mBtnGrade;
+    /**
+     * The M btn fushi.
+     */
     @BindView(R.id.btn_fushi)
     Button mBtnFushi;
 
@@ -46,6 +67,7 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
         ButterKnife.bind(this);
+
         mBtnFill.setOnClickListener(this);
         mBtnModify.setOnClickListener(this);
         mBtnConfirm.setOnClickListener(this);
@@ -59,48 +81,55 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_fill:
                 Log.d(TAG, "onClick: fill");
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                toOtherActivity(FillActivity.class);
+                // TODO 若已经填写信息，则不能跳转。
+//                SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
+//                if (sp.getBoolean("isFill", false)) {
+                    functionToOtherActivity(FillActivity.class);
+//                } else {
+//                    Toast.makeText(this, "已填写报考信息", Toast.LENGTH_SHORT).show();
+//                }
                 break;
             case R.id.btn_modify:
                 Log.d(TAG, "onClick: modify");
                 SharedPreferences spLoginData = this.getSharedPreferences("loginData", MODE_PRIVATE);
                 name = spLoginData.getString("name", null);
-                String[] strings_modify = {URL, name};
+                String[] stringsModify = {URL, name};
                 ShowTask showTask = new ShowTask();
-                showTask.execute(strings_modify);
+                showTask.execute(stringsModify);
                 break;
             case R.id.btn_confirm:
                 Log.d(TAG, "onClick: confirm");
-                toOtherActivity(ConfirmActivity.class);
+//                functionToOtherActivity(ConfirmActivity.class);
+                functionToOtherActivity(FingerActivity.class);
+
                 break;
             case R.id.btn_exam:
                 Log.d(TAG, "onClick: exam");
-                toOtherActivity(ExamActivity.class);
+                functionToOtherActivity(ExamActivity.class);
                 break;
             case R.id.btn_grade:
                 Log.d(TAG, "onClick: grade");
-                toOtherActivity(GradeActivity.class);
+                functionToOtherActivity(GradeActivity.class);
                 break;
             case R.id.btn_fushi:
                 Log.d(TAG, "onClick: fushi");
-                toOtherActivity(FushiActivity.class);
+                functionToOtherActivity(FushiActivity.class);
                 break;
         }
     }
 
-    private void toOtherActivity(Class<?> otherActivity) {
+    /**
+     * @param otherActivity 跳转到其他Activity
+     */
+    private void functionToOtherActivity(Class<?> otherActivity) {
         Intent intent = new Intent(FunctionActivity.this, otherActivity);
         startActivity(intent);
     }
 
-    //修改密码按钮响应
+    /**
+     * Modify password.
+     * 修改密码按钮响应
+     */
     @OnClick(R.id.btn_modify_password)
     public void modifyPassword() {
         Log.d(TAG, "modifyPassword: 修改密码");
@@ -108,19 +137,25 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         startActivity(intent);
     }
 
+    /**
+     * On click log off.
+     */
     @OnClick(R.id.btn_log_off)
     public void onClickLogOff() {
         finish();
     }
 
-    //请求报考信息，并传给ModifyActivity
+    /**
+     * The type Show task.
+     * 请求报考信息，并传给ModifyActivity
+     */
     class ShowTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             String state = null;
             try {
-                state = HttpUtils.httpPost(strings[0], "name=" + URLEncoder.encode(strings[1],
+                state = HttpUtil.httpPost(strings[0], "name=" + URLEncoder.encode(strings[1],
                         "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

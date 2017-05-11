@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:paddingRight="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +13,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="考试方式"/>
+            android:text="考试方式"
+
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_38"
@@ -20,10 +24,12 @@
             android:layout_height="wrap_content"
             style="@style/fill_edit"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +38,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="专项计划"/>
+            android:text="专项计划"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_39"
@@ -40,10 +48,12 @@
             android:layout_height="wrap_content"
             style="@style/fill_edit"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +62,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="报考类别"/>
+            android:text="报考类别"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_40"
@@ -63,7 +75,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +84,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="定向就业单位所在地"/>
+            android:text="定向就业单位所在地"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_41"
@@ -83,7 +97,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,7 +106,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="定向就业单位"/>
+            android:text="定向就业单位"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_42"
@@ -103,7 +119,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,7 +128,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="报考院系"/>
+            android:text="报考院系"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_43"
@@ -123,7 +141,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,7 +150,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="研究方向"/>
+            android:text="研究方向"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_44"
@@ -143,7 +163,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,7 +172,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="政治理论"/>
+            android:text="政治理论"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_45"
@@ -163,7 +185,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -172,7 +194,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="外国语"/>
+            android:text="外国语"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_46"
@@ -183,7 +207,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -192,7 +216,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="业务课一"/>
+            android:text="业务课一"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_47"
@@ -203,7 +229,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#d0d1ce"/>
+        android:background="@color/view_line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -212,7 +238,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="业务课二"/>
+            android:text="业务课二"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size"/>
 
         <EditText
             android:id="@+id/et_48"
