@@ -60,6 +60,7 @@ public class ModifyActivity extends AppCompatActivity {
                 //根据点击参数获取对应list中的数据
                 strInfoName = infoList.get(i).getInfo();
                 strInfo = infoList.get(i).getContent();
+                Log.d(TAG, "onItemClick: " + strInfoName + ":" + strInfo);
                 //记录更改数据
                 position = i;
                 //将InfoName，Info传递到EditActivity
