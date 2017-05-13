@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:paddingRight="10dp">
+              android:paddingRight="@dimen/title_padding_top_bottom">
 
     <View
         android:layout_width="match_parent"
@@ -33,9 +33,9 @@
             android:id="@+id/et_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"/>
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
     </LinearLayout>
 
     <View
@@ -66,9 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/spinner_zhengjian_leixin"
-            android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:spinnerMode="dialog"/>
 
     </LinearLayout>
@@ -129,8 +128,9 @@
             android:id="@+id/et_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"/>
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
     <View
@@ -163,14 +163,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp">
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom">
 
             <RadioButton
                 android:id="@+id/sex_man"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/title_padding_top_bottom"
                 android:text="男"
                 android:textSize="18sp"/>
 
@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/title_padding_top_bottom"
                 android:text="女"
                 android:textSize="18sp"/>
         </RadioGroup>
@@ -214,13 +214,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp">
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/title_padding_top_bottom"
                 android:text="否"
                 android:textSize="18sp"/>
 
@@ -228,8 +228,8 @@
                 android:id="@+id/hunfou_true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="10dp"
+                android:layout_marginLeft="@dimen/title_padding_top_bottom"
+                android:paddingLeft="@dimen/title_padding_top_bottom"
                 android:text="是"
                 android:textSize="18sp"/>
         </RadioGroup>
@@ -265,8 +265,8 @@
             android:layout_height="wrap_content"
             android:entries="@array/spinner_xianyi_junren"
             android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:spinnerMode="dialog"/>
     </LinearLayout>
 
@@ -299,9 +299,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/spinner_zhengzhi_mianmao"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:gravity="right"/>
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:spinnerMode="dialog"/>
 
     </LinearLayout>
 
@@ -399,8 +399,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="户口所在地详细地址"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -463,8 +463,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="考生档案所在单位地址"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -552,7 +552,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="学习与工作经历"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -563,9 +563,9 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:maxLines="3"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:textCursorDrawable="@null"/>
     </LinearLayout>
 
@@ -582,7 +582,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="何时何地何原因受过何种奖励或处分"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -593,9 +593,9 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:maxLines="3"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:textCursorDrawable="@null"/>
     </LinearLayout>
 
@@ -612,7 +612,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="考生作弊情况"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -623,9 +623,9 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:maxLines="3"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:textCursorDrawable="@null"/>
     </LinearLayout>
 
@@ -642,7 +642,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:text="家庭主要成员"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
@@ -653,9 +653,9 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:maxLines="3"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:textCursorDrawable="@null"/>
     </LinearLayout>
 

@@ -112,7 +112,8 @@
             android:entries="@array/spinner_xuexi_xinshi"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
     <View
@@ -144,7 +145,8 @@
             android:entries="@array/spinner_zuihou_xueli"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -246,7 +248,8 @@
             android:entries="@array/spinner_zuihou_xuewei"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

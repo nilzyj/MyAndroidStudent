@@ -52,7 +52,7 @@
                 android:gravity="center"
                 android:text="@string/fill_info"
                 android:textSize="@dimen/function_text_size"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:gravity="center"
                 android:text="@string/modify_info"
                 android:textSize="@dimen/function_text_size"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -98,7 +98,7 @@
                 android:gravity="center"
                 android:text="@string/confirm_info"
                 android:textSize="@dimen/function_text_size"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:gravity="center"
                 android:text="@string/modify_password"
                 android:textSize="@dimen/function_text_size"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/function_img_height"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/modify_password"/>
+                android:src="@drawable/log_off"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                 android:gravity="center"
                 android:text="@string/log_off"
                 android:textSize="@dimen/function_text_size"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
     </LinearLayout>

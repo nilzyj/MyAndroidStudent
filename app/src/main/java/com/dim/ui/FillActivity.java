@@ -1,20 +1,15 @@
 package com.dim.ui;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,12 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.dim.ui.model.HttpURL;
 import com.dim.ui.util.HttpUtil;
 import com.dim.ui.util.PinYinUtil;
-import com.liji.takephoto.TakePhoto;
-import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +31,10 @@ import java.net.URLEncoder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.dim.ui.util.PickerUtil.chooseArea;
+import static com.dim.ui.util.PickerUtil.chooseDate;
+import static com.dim.ui.util.PickerUtil.takePhoto;
 
 /**
  * The type Fill activity.
@@ -338,13 +334,6 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout mLlPhoto;
     /** 提交确认对话框 */
     AlertDialog.Builder normalDialog;
-    /** 民族spinner */
-    private String[] mItems = {"汉族","阿昌族","白族","保安族","布朗族","布依族","朝鲜族","达斡尔族","傣族",
-            "德昂族","东乡族","侗族","独龙族","俄罗斯族","鄂伦春族","鄂温克族","仡佬族","哈尼族","哈萨克族",
-            "赫哲族","回族","高山族","汉族","基诺族","京族","景颇族的柯尔克孜族","拉祜族","黎族","傈僳族",
-            "珞巴族","满族","毛南族","门巴族","蒙古族","苗族","仫佬族","纳西族","怒族","普米族","羌族",
-            "撒拉族","畲族","水族","塔吉克族","塔塔尔族","土家族","土族","佤族","维吾尔族","乌兹别克族",
-            "锡伯族","瑶族","彝族","裕固族","藏族","壮族"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -356,7 +345,9 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         String name = sharedPreferences.getString("name", null);
         mEt1.setText(name);
 
-        ArrayAdapter<String> adapterMinZu = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mItems);
+        ArrayAdapter<String> adapterMinZu = new ArrayAdapter<String>(this
+                , android.R.layout.simple_spinner_item
+                , getResources().getStringArray(R.array.spinner_minzu));
         adapterMinZu.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mEt4.setAdapter(adapterMinZu);
 
@@ -397,36 +388,30 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            //true：两级联动，false：三级联动
-//            case R.id.tv_photo:
-//                takePhoto();
-//                break;
-//            case R.id.iv_photo:
-//                takePhoto();
-//                break;
             case R.id.ll_photo:
-                takePhoto();
+                takePhoto(this, mIvPhoto);
                 break;
+            //true：两级联动，false：三级联动
             case R.id.et_9:
-                chooseArea(view, mEt9, true);
+                chooseArea(this, view, mEt9, true);
                 break;
             case R.id.et_10:
-                chooseArea(view, mEt10, false);
+                chooseArea(this, view, mEt10, false);
                 break;
             case R.id.et_11:
-                chooseArea(view, mEt11, false);
+                chooseArea(this, view, mEt11, false);
                 break;
             case R.id.et_12:
-                chooseArea(view, mEt12, false);
+                chooseArea(this, view, mEt12, false);
                 break;
             case R.id.et_14:
-                chooseArea(view, mEt14, false);
+                chooseArea(this, view, mEt14, false);
                 break;
             case R.id.et_21:
-                chooseArea(view, mEt21, false);
+                chooseArea(this, view, mEt21, false);
                 break;
             case R.id.et_32:
-                chooseDate(view, mEt32);
+                chooseDate(this, view, mEt32);
                 break;
         }
     }
@@ -598,101 +583,6 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 选择地址的Texview的点击事件
-     * @param view     the view
-     * @param textView the text view
-     * @param flag     the flag
-     */
-    public void chooseArea(View view, TextView textView, boolean flag) {
-        //判断输入法的隐藏状态
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm.isActive()) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-            selectAddress(textView, flag);//调用CityPicker选取区域
-        }
-    }
-
-    /**
-     * 选择日期的TextView的点击事件
-     * @param view  view
-     * @param textView    点击的TextView
-     */
-    private void chooseDate(View view, TextView textView) {
-        //判断输入法的隐藏状态
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm.isActive()) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-            selectDate(textView);//调用CityPicker选取区域
-        }
-    }
-
-    /**
-     * 弹出地址选择器，并获取选择结果
-     * @param textViewAddress 点击的TextView
-     * @param flag 三级或二级联动标志变量
-     */
-    private void selectAddress(final TextView textViewAddress, final boolean flag) {
-        CityPicker cityPicker = new CityPicker.Builder(FillActivity.this)
-                .textSize(16)
-                .title("地址选择")
-                .titleBackgroundColor("#FFFFFF")
-//                .titleTextColor("#696969")
-                .confirTextColor("#696969")
-                .cancelTextColor("#696969")
-                .province("新疆维吾尔自治区")
-                .city("昌吉回族自治州")
-                .district("昌吉市")
-                .textColor(Color.parseColor("#000000"))
-                .provinceCyclic(true)
-                .cityCyclic(false)
-                .districtCyclic(false)
-                .visibleItemsCount(7)
-                .itemPadding(10)
-                .onlyShowProvinceAndCity(flag)
-                .build();
-        cityPicker.show();
-        //监听方法，获取选择结果
-        cityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
-            @Override
-            public void onSelected(String... citySelected) {
-                //省份
-                String province = citySelected[0];
-                //城市
-                String city = citySelected[1];
-                //区县（如果设定了两级联动，那么该项返回空）
-                String district = citySelected[2];
-                //邮编
-//                String code = citySelected[3];
-                //为TextView赋值
-                if (flag) {
-                    textViewAddress.setText(province.trim() + city.trim());
-                } else {
-                    textViewAddress.setText(province.trim() + city.trim() + district.trim());
-                }
-
-            }
-        });
-    }
-
-    /**
-     * 弹出日期选择器，并获取选择结果
-     * @param textView 点击的TextView
-     */
-    private void selectDate(final TextView textView) {
-
-        DatePickerDialog datePicker = new DatePickerDialog(FillActivity.this, new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                textView.setText(year + "." + monthOfYear + "." + dayOfMonth);
-            }
-        }, 2017, 7, 1);
-        datePicker.show();
-    }
-
-    /**
      * 返回到上一个activity
      * Fill back to function.
      *
@@ -700,20 +590,5 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void fillBackToFunction(View view) {
         finish();
-    }
-
-    /**
-     * 获取个人照片：相册或拍照
-     */
-    private void takePhoto() {
-        TakePhoto takePhoto = new TakePhoto(FillActivity.this);
-        takePhoto.setOnPictureSelected(new TakePhoto.onPictureSelected() {
-            @Override
-            public void select(String path) {
-//                mTvPhoto.setText("选择的图片地址：" + path);
-                Glide.with(FillActivity.this).load("file://" + path).into(mIvPhoto);
-            }
-        });
-        takePhoto.show();
     }
 }
