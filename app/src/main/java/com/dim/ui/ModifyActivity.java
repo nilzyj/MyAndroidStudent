@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -136,8 +137,9 @@ public class ModifyActivity extends AppCompatActivity {
      * @param infoName 信息名称
      */
     private void ifModifyOrHowModify(String infoName) {
-        if ("考生姓名".equals(infoName) || "证件类型".equals(infoName)
-                || "证件号码".equals(infoName)) {
+        String[] strings = {"考生姓名", "证件类型", "证件号码", "考试方式", "报考点", "招生单位"};
+        List listStrings = Arrays.asList(strings);
+        if (listStrings.contains(infoName)) {
             Toast.makeText(this, "此项不可修改", Toast.LENGTH_SHORT).show();
         } else {
             //将InfoName，Info传递到EditActivity，并能够获取EditActivity返回信息

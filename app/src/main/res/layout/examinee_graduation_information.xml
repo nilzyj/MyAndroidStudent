@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               android:paddingRight="10dp">
 
     <LinearLayout
@@ -24,18 +24,20 @@
             android:visibility="invisible"/>
 
         <Spinner
+            android:id="@+id/et_26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/et_26"
             android:entries="@array/spinner_kaoshen_laiyuan"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,9 +52,9 @@
 
         <EditText
             android:id="@+id/et_27"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"
             android:hint="填写全称"
             android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
@@ -76,12 +78,13 @@
 
         <EditText
             android:id="@+id/et_28"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"
             android:hint="填写全称"
             android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -106,13 +109,13 @@
             android:visibility="invisible"/>
 
         <Spinner
+            android:id="@+id/et_29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/et_29"
             android:entries="@array/spinner_xuexi_xinshi"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="right"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:spinnerMode="dialog"/>
     </LinearLayout>
 
@@ -120,6 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,19 +143,21 @@
             android:visibility="invisible"/>
 
         <Spinner
+            android:id="@+id/et_30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/et_30"
             android:entries="@array/spinner_zuihou_xueli"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="right"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:spinnerMode="dialog"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,11 +172,13 @@
 
         <EditText
             android:id="@+id/et_31"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            style="@style/fill_edit"/>
+            android:maxLength="18"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -190,9 +198,9 @@
 
         <TextView
             android:id="@+id/et_32"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"
             android:hint="点击选择日期"/>
     </LinearLayout>
 
@@ -200,6 +208,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -214,15 +223,17 @@
 
         <EditText
             android:id="@+id/et_33"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            style="@style/fill_edit"/>
+            android:inputType="number"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -242,19 +253,21 @@
             android:visibility="invisible"/>
 
         <Spinner
+            android:id="@+id/et_34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/et_34"
             android:entries="@array/spinner_zuihou_xuewei"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="right"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:spinnerMode="dialog"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -269,15 +282,18 @@
 
         <EditText
             android:id="@+id/et_35"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            style="@style/fill_edit"/>
+            android:maxLength="17"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -290,16 +306,29 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
-            android:id="@+id/et_36"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/et_36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_baokao_danwei"
+            android:gravity="right"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:spinnerMode="dialog"/>
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -312,11 +341,21 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
-            android:id="@+id/et_37"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/et_37"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:entries="@array/spinner_baokao_zhuanye"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
 </LinearLayout>

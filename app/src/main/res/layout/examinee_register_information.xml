@@ -14,15 +14,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="考试方式"
-
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
-            android:id="@+id/et_38"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/et_38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:entries="@array/spinner_kaoshi_fangshi"
+            android:gravity="right"
+            android:spinnerMode="dialog"
+            />
     </LinearLayout>
 
     <View
@@ -42,11 +52,20 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
-            android:id="@+id/et_39"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/et_39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:gravity="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
     <View
@@ -66,11 +85,21 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
-            android:id="@+id/et_40"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/et_40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:entries="@array/spinner_baokao_leixin"
+            android:gravity="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

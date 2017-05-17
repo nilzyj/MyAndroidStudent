@@ -47,6 +47,33 @@
         <item>博士学位</item>
         <item>无</item>
     </string-array>
+    <string-array name="spinner_baokao_danwei">
+        <item>哈尔滨工业大学</item>
+        <item>华中科技大学</item>
+        <item>浙江大学</item>
+        <item>清华大学</item>
+        <item>北京大学</item>
+    </string-array>
+    <string-array name="spinner_baokao_zhuanye">
+        <item>计算机科学与技术</item>
+        <item>车辆工程</item>
+        <item>金融</item>
+        <item>船舶</item>
+    </string-array>
+    <string-array name="spinner_kaoshi_fangshi">
+        <item>全国统考</item>
+        <item>单独考试</item>
+        <item>管理类联考</item>
+        <item>法硕联考</item>
+        <item>强军计划</item>
+        <item>援藏计划</item>
+    </string-array>
+    <string-array name="spinner_baokao_leixin">
+        <item>非定向</item>
+        <item>定向</item>
+        <item>委托培养</item>
+        <item>自筹经费</item>
+    </string-array>
     <string-array name="spinner_minzu">
         <item>汉族</item>
         <item>阿昌族</item>

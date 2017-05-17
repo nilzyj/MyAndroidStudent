@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dim.ui.model.HttpURL;
 import com.dim.ui.util.HttpUtil;
 import com.dim.ui.util.PinYinUtil;
 
@@ -32,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.dim.ui.model.HttpURL.url;
 import static com.dim.ui.util.PickerUtil.chooseArea;
 import static com.dim.ui.util.PickerUtil.chooseDate;
 import static com.dim.ui.util.PickerUtil.takePhoto;
@@ -44,274 +44,124 @@ import static com.dim.ui.util.PickerUtil.takePhoto;
 
 public class FillActivity extends AppCompatActivity implements View.OnClickListener {
     /** 信息填写提交URL */
-    private final String URL = HttpURL.url + "FillInInformationServlet";
+    private final String URL = url + "FillInInformationServlet";
+    /**
+     * 获得报考号URL
+     */
+    private final String URL_Baokaohao = url + "baokaohaoServlet";
     /** TAG */
     private final String TAG = "FillActivity";
-    /**
-     * The M et 1.
-     */
     @BindView(R.id.et_1)
     TextView mEt1;
-    /**
-     * The M et 2.
-     */
     @BindView(R.id.et_2)
     Spinner mEt2;
-    /**
-     * The M et 3.
-     */
     @BindView(R.id.et_3)
     EditText mEt3;
-    /**
-     * The M et 4.
-     */
     @BindView(R.id.et_4)
     Spinner mEt4;
-    /**
-     * The M et 5.
-     */
     @BindView(R.id.et_5)
     RadioGroup mEt5;
-    /**
-     * The M et 6.
-     */
     @BindView(R.id.et_6)
     RadioGroup mEt6;
-    /**
-     * The M et 7.
-     */
     @BindView(R.id.et_7)
     Spinner mEt7;
-    /**
-     * The M et 8.
-     */
     @BindView(R.id.et_8)
     Spinner mEt8;
-    /**
-     * The M et 9.
-     */
     @BindView(R.id.et_9)
     TextView mEt9;
-    /**
-     * The M et 10.
-     */
     @BindView(R.id.et_10)
     TextView mEt10;
-    /**
-     * The M et 11.
-     */
     @BindView(R.id.et_11)
     TextView mEt11;
-    /**
-     * The M et 12.
-     */
     @BindView(R.id.et_12)
     TextView mEt12;
-    /**
-     * The M et 121.
-     */
     @BindView(R.id.et_121)
     TextView mEt121;
-    /**
-     * The M et 13.
-     */
     @BindView(R.id.et_13)
     EditText mEt13;
-    /**
-     * The M et 14.
-     */
     @BindView(R.id.et_14)
     TextView mEt14;
-    /**
-     * The M et 141.
-     */
     @BindView(R.id.et_141)
     EditText mEt141;
-    /**
-     * The M et 15.
-     */
     @BindView(R.id.et_15)
     EditText mEt15;
-    /**
-     * The M et 16.
-     */
     @BindView(R.id.et_16)
     EditText mEt16;
-    /**
-     * The M et 17.
-     */
     @BindView(R.id.et_17)
     EditText mEt17;
-    /**
-     * The M et 18.
-     */
     @BindView(R.id.et_18)
     EditText mEt18;
-    /**
-     * The M et 19.
-     */
     @BindView(R.id.et_19)
     EditText mEt19;
-    /**
-     * The M et 20.
-     */
     @BindView(R.id.et_20)
     EditText mEt20;
-    /**
-     * The M et 21.
-     */
     @BindView(R.id.et_21)
     TextView mEt21;
-    /**
-     * The M et 211.
-     */
     @BindView(R.id.et_211)
     EditText mEt211;
-    /**
-     * The M et 22.
-     */
     @BindView(R.id.et_22)
     EditText mEt22;
-    /**
-     * The M et 23.
-     */
     @BindView(R.id.et_23)
     EditText mEt23;
-    /**
-     * The M et 24.
-     */
     @BindView(R.id.et_24)
     EditText mEt24;
-    /**
-     * The M et 25.
-     */
     @BindView(R.id.et_25)
     EditText mEt25;
-    /**
-     * The M et 26.
-     */
     @BindView(R.id.et_26)
     Spinner mEt26;
-    /**
-     * The M et 27.
-     */
     @BindView(R.id.et_27)
     EditText mEt27;
-    /**
-     * The M et 28.
-     */
     @BindView(R.id.et_28)
     EditText mEt28;
-    /**
-     * The M et 29.
-     */
     @BindView(R.id.et_29)
     Spinner mEt29;
-    /**
-     * The M et 30.
-     */
     @BindView(R.id.et_30)
     Spinner mEt30;
-    /**
-     * The M et 31.
-     */
     @BindView(R.id.et_31)
     EditText mEt31;
-    /**
-     * The M et 32.
-     */
     @BindView(R.id.et_32)
     TextView mEt32;
-    /**
-     * The M et 33.
-     */
     @BindView(R.id.et_33)
     EditText mEt33;
-    /**
-     * The M et 34.
-     */
     @BindView(R.id.et_34)
     Spinner mEt34;
-    /**
-     * The M et 35.
-     */
     @BindView(R.id.et_35)
     EditText mEt35;
-    /**
-     * The M et 36.
-     */
     @BindView(R.id.et_36)
-    EditText mEt36;
-    /**
-     * The M et 37.
-     */
+    Spinner mEt36;
     @BindView(R.id.et_37)
-    EditText mEt37;
-    /**
-     * The M et 38.
-     */
+    Spinner mEt37;
     @BindView(R.id.et_38)
-    EditText mEt38;
-    /**
-     * The M et 39.
-     */
+    Spinner mEt38;
     @BindView(R.id.et_39)
-    EditText mEt39;
-    /**
-     * The M et 40.
-     */
+    Spinner mEt39;
     @BindView(R.id.et_40)
-    EditText mEt40;
-    /**
-     * The M et 41.
-     */
+    Spinner mEt40;
     @BindView(R.id.et_41)
     EditText mEt41;
-    /**
-     * The M et 42.
-     */
     @BindView(R.id.et_42)
     EditText mEt42;
-    /**
-     * The M et 43.
-     */
     @BindView(R.id.et_43)
     EditText mEt43;
-    /**
-     * The M et 44.
-     */
     @BindView(R.id.et_44)
     EditText mEt44;
-    /**
-     * The M et 45.
-     */
     @BindView(R.id.et_45)
     EditText mEt45;
-    /**
-     * The M et 46.
-     */
     @BindView(R.id.et_46)
     EditText mEt46;
-    /**
-     * The M et 47.
-     */
     @BindView(R.id.et_47)
     EditText mEt47;
-    /**
-     * The M et 48.
-     */
     @BindView(R.id.et_48)
     EditText mEt48;
-    /**
-     * The M et 49.
-     */
     @BindView(R.id.et_49)
     EditText mEt49;
-    /**
-     * The M et 50.
-     */
     @BindView(R.id.et_50)
+
     EditText mEt50;
+    @BindView(R.id.et_51)
+    TextView mEt51;
+    @BindView(R.id.et_52)
+    TextView mEt52;
     /**
      * The M btn commit.
      */
@@ -335,6 +185,9 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     /** 提交确认对话框 */
     AlertDialog.Builder normalDialog;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -353,6 +206,12 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
         initSetSingLine();
         initOnClickListener();
+
+        //专项计划包括：强军计划、援藏计划、少数民族骨干计划、退役大学生士兵专项计划。强军计划、援藏计划对应考试方式中的。
+        //除了单独考试 的其他三项，可选无、少数民族骨干计划（需校验码）、退役大学生计划
+
+        /** 点击弹出dialog：民族、性别、婚否、现役军人、
+         *  点击弹出citypick：籍贯所在地、出生地、和户口所在地*/
     }
 
     /**
@@ -423,47 +282,9 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     @OnClick(R.id.btn_commit)
     public void fillCommit() {
         Log.d(TAG, "fillCommit: 点击提交按钮");
-        normalDialog = new AlertDialog.Builder(FillActivity.this);
-        normalDialog.setIcon(R.drawable.more);
-        normalDialog.setTitle("请确认信息");
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("报考号：1");
-        stringBuilder.append("\n");
-        stringBuilder.append("报考方式：");
-        stringBuilder.append("\n");
-        normalDialog.setMessage(stringBuilder);
-        Log.d(TAG, "fillCommit: 初始化AlertDialog");
-        normalDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d(TAG, "onClick: 点击对话框确定按钮");
-                        try {
-                            Log.d(TAG, "onClick: http请求前");
-                            String dataJson = getDataToJSON();
-                            if ("fail".equals(dataJson)) {
-                                Toast.makeText(FillActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
-                            } else {
-                                String[] data = {URL, dataJson};
-                                FillInfoTask fillInfoTask = new FillInfoTask();
-                                fillInfoTask.execute(data);
-                                Log.d(TAG, "onClick: http请求后");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-        normalDialog.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d(TAG, "onClick: 点击对话框取消按钮");
-//                        normalDialog.setCancelable(true);
-                    }
-                });
-        normalDialog.show();
+        BaoKaoTask baoKaoTask = new BaoKaoTask();
+        baoKaoTask.execute(URL_Baokaohao, mEt52.getText().toString());
     }
 
     /**
@@ -492,6 +313,55 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 //            startActivity(intent);
             Toast.makeText(FillActivity.this, "state" + s, Toast.LENGTH_SHORT).show();
             finish();
+        }
+    }
+
+    class BaoKaoTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return HttpUtil.httpPost(params[0], "baokaodian=" + params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            normalDialog = new AlertDialog.Builder(FillActivity.this);
+            normalDialog.setIcon(R.drawable.more);
+            normalDialog.setTitle("请确认信息");
+            normalDialog.setMessage("报考号" + s);
+            Log.d(TAG, "fillCommit: 初始化AlertDialog");
+            normalDialog.setPositiveButton("确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d(TAG, "onClick: 点击对话框确定按钮");
+                            try {
+                                Log.d(TAG, "onClick: http请求前");
+                                String dataJson = getDataToJSON();
+                                if ("fail".equals(dataJson)) {
+                                    Toast.makeText(FillActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String[] data = {URL, dataJson};
+                                    FillInfoTask fillInfoTask = new FillInfoTask();
+                                    fillInfoTask.execute(data);
+                                    Log.d(TAG, "onClick: http请求后");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            normalDialog.setNegativeButton("取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d(TAG, "onClick: 点击对话框取消按钮");
+//                        normalDialog.setCancelable(true);
+                        }
+                    });
+            normalDialog.show();
         }
     }
 
@@ -553,12 +423,12 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         jsonObject.put(pyu.getStringPinYin("注册学号"), mEt33.getText().toString());//注册学号
         jsonObject.put(pyu.getStringPinYin("最后学位"), mEt34.getSelectedItem().toString());//最后学位
         jsonObject.put(pyu.getStringPinYin("学位证书编号"), mEt35.getText().toString());//学位证书编号
-        jsonObject.put(pyu.getStringPinYin("报考单位"), mEt36.getText().toString());//报考单位
-        jsonObject.put(pyu.getStringPinYin("报考专业"), mEt37.getText().toString());//报考专业
+        jsonObject.put(pyu.getStringPinYin("报考单位"), mEt36.getSelectedItem().toString());//报考单位
+        jsonObject.put(pyu.getStringPinYin("报考专业"), mEt37.getSelectedItem().toString());//报考专业
 
-        jsonObject.put(pyu.getStringPinYin("考试方式"), mEt38.getText().toString());//考试方式
-        jsonObject.put(pyu.getStringPinYin("专项计划"), mEt39.getText().toString());//专项计划
-        jsonObject.put(pyu.getStringPinYin("报考类别"), mEt40.getText().toString());//报考类别
+        jsonObject.put(pyu.getStringPinYin("考试方式"), mEt38.getSelectedItem().toString());//考试方式
+        jsonObject.put(pyu.getStringPinYin("专项计划"), mEt39.getSelectedItem().toString());//专项计划
+        jsonObject.put(pyu.getStringPinYin("报考类别"), mEt40.getSelectedItem().toString());//报考类别
         jsonObject.put(pyu.getStringPinYin("定向就业单位所在地"), mEt41.getText().toString());//定向就业单位所在地
         jsonObject.put(pyu.getStringPinYin("定向就业单位"), mEt42.getText().toString());//定向就业单位
         jsonObject.put(pyu.getStringPinYin("报考院系"), mEt43.getText().toString());//报考院系
@@ -570,8 +440,10 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
         jsonObject.put(pyu.getStringPinYin("备用信息一"), mEt49.getText().toString());//备用信息1
         jsonObject.put(pyu.getStringPinYin("备用信息二"), mEt50.getText().toString());//备用信息2
+
+        jsonObject.put(pyu.getStringPinYin("报考点所在省市"), mEt51.getText().toString());
+        jsonObject.put(pyu.getStringPinYin("报考点"), mEt52.getText().toString());
 //        jsonObject.put("name", "zyj");
-//        json = "{'姓名':zyj, '性别':男}";
         //判断是否填写全部信息
 //        for (Iterator<String> iterator = jsonObject.keys(); iterator.hasNext(); ) {
 //            if ("".equals(jsonObject.get(iterator.next()))) {
