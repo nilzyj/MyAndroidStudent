@@ -18,6 +18,7 @@ import com.lljjcoder.citypickerview.widget.CityPicker;
  */
 
 public class PickerUtil {
+
     /**
      * 选择地址的Texview的点击事件
      *
@@ -65,9 +66,9 @@ public class PickerUtil {
 //                .titleTextColor("#696969")
                 .confirTextColor("#696969")
                 .cancelTextColor("#696969")
-                .province("新疆维吾尔自治区")
-                .city("昌吉回族自治州")
-                .district("昌吉市")
+                .province("上海市")
+                .city("上海市")
+                .district("宝山区")
                 .textColor(Color.parseColor("#000000"))
                 .provinceCyclic(true)
                 .cityCyclic(false)
@@ -95,10 +96,10 @@ public class PickerUtil {
                 } else {
                     textViewAddress.setText(province.trim() + city.trim() + district.trim());
                 }
-
             }
         });
     }
+
 
     /**
      * 弹出日期选择器，并获取选择结果

@@ -41,4 +41,6 @@
     <string name="old_password">旧密码</string>
     <string name="new_password">新密码</string>
     <string name="repeat_new_password">重复新密码</string>
+    <string name="leading_in">导入</string>
+    <string name="fill_baokao_info">填写报考信息</string>
 </resources>

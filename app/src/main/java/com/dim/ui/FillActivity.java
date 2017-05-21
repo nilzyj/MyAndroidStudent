@@ -156,7 +156,6 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.et_49)
     EditText mEt49;
     @BindView(R.id.et_50)
-
     EditText mEt50;
     @BindView(R.id.et_51)
     TextView mEt51;
@@ -207,11 +206,11 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         initSetSingLine();
         initOnClickListener();
 
-        //专项计划包括：强军计划、援藏计划、少数民族骨干计划、退役大学生士兵专项计划。强军计划、援藏计划对应考试方式中的。
-        //除了单独考试 的其他三项，可选无、少数民族骨干计划（需校验码）、退役大学生计划
+        // TODO 专项计划包括：强军计划、援藏计划、少数民族骨干计划、退役大学生士兵专项计划。强军计划、援藏计划对应考试方式中的。
+        // TODO 除了单独考试 的其他三项，可选无、少数民族骨干计划（需校验码）、退役大学生计划
 
-        /** 点击弹出dialog：民族、性别、婚否、现役军人、
-         *  点击弹出citypick：籍贯所在地、出生地、和户口所在地*/
+        /** TODO 点击弹出dialog：民族、性别、婚否、现役军人、
+         * TODO  点击弹出citypick：籍贯所在地、出生地、和户口所在地*/
     }
 
     /**
@@ -238,6 +237,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         mEt14.setOnClickListener(this);
         mEt21.setOnClickListener(this);
         mEt32.setOnClickListener(this);
+        mEt51.setOnClickListener(this);
     }
 
     /**
@@ -272,6 +272,9 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.et_32:
                 chooseDate(this, view, mEt32);
                 break;
+            case R.id.et_51:
+                chooseArea(this, view, mEt51, true);
+                break;
         }
     }
 
@@ -282,6 +285,48 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     @OnClick(R.id.btn_commit)
     public void fillCommit() {
         Log.d(TAG, "fillCommit: 点击提交按钮");
+        StringBuilder stringBuilder = new StringBuilder();
+        normalDialog = new AlertDialog.Builder(FillActivity.this);
+        normalDialog.setIcon(R.drawable.more);
+        normalDialog.setTitle("请确认信息");
+        stringBuilder.append("报考单位：" + mEt36.getSelectedItem().toString());
+        stringBuilder.append("\n");
+        stringBuilder.append("报考专业：" + mEt37.getSelectedItem().toString());
+        stringBuilder.append("\n");
+        stringBuilder.append("考试方式：" + mEt38.getSelectedItem().toString());
+        stringBuilder.append("\n");
+        stringBuilder.append("报考点：" + mEt52);
+        normalDialog.setMessage(stringBuilder);
+        Log.d(TAG, "fillCommit: 初始化AlertDialog");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d(TAG, "onClick: 点击对话框确定按钮");
+                        try {
+                            Log.d(TAG, "onClick: http请求前");
+                            String dataJson = getDataToJSON();
+                            if ("fail".equals(dataJson)) {
+                                Toast.makeText(FillActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String[] data = {URL, dataJson};
+                                FillInfoTask fillInfoTask = new FillInfoTask();
+                                fillInfoTask.execute(data);
+                                Log.d(TAG, "onClick: http请求后");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d(TAG, "onClick: 点击对话框取消按钮");
+                    }
+                });
+        normalDialog.show();
 
         BaoKaoTask baoKaoTask = new BaoKaoTask();
         baoKaoTask.execute(URL_Baokaohao, mEt52.getText().toString());
@@ -309,28 +354,13 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-//            Intent intent = new Intent(FillActivity.this, FillResulActivity.class);
-//            startActivity(intent);
-            Toast.makeText(FillActivity.this, "state" + s, Toast.LENGTH_SHORT).show();
-            finish();
-        }
-    }
-
-    class BaoKaoTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            return HttpUtil.httpPost(params[0], "baokaodian=" + params[1]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
+            // TODO 报考号生成
+            // TODO 报考系统关闭时不能报考和修改信息
+            Toast.makeText(FillActivity.this, "state：" + s, Toast.LENGTH_SHORT).show();
             normalDialog = new AlertDialog.Builder(FillActivity.this);
             normalDialog.setIcon(R.drawable.more);
             normalDialog.setTitle("请确认信息");
-            normalDialog.setMessage("报考号" + s);
+            normalDialog.setMessage("报考号:" + s);
             Log.d(TAG, "fillCommit: 初始化AlertDialog");
             normalDialog.setPositiveButton("确定",
                     new DialogInterface.OnClickListener() {
@@ -358,12 +388,32 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Log.d(TAG, "onClick: 点击对话框取消按钮");
-//                        normalDialog.setCancelable(true);
                         }
                     });
             normalDialog.show();
+
+            finish();
         }
     }
+
+    class BaoKaoTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return HttpUtil.httpPost(params[0], "baokaodian=" + params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+        }
+    }
+
+    //TODO 填写报考信息后不能填写
+    // TODO 报考信息导入，若有信息则按最新的导入，没有则提示没有可导入信息，导入的是固定信息。
+    // TODO 部分信息项设置为必填。。显示必填项的提示。。
+    // TODO 照片上传及加载。。
 
     /**
      * 获取填写的信息并转为json
@@ -443,7 +493,6 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
         jsonObject.put(pyu.getStringPinYin("报考点所在省市"), mEt51.getText().toString());
         jsonObject.put(pyu.getStringPinYin("报考点"), mEt52.getText().toString());
-//        jsonObject.put("name", "zyj");
         //判断是否填写全部信息
 //        for (Iterator<String> iterator = jsonObject.keys(); iterator.hasNext(); ) {
 //            if ("".equals(jsonObject.get(iterator.next()))) {

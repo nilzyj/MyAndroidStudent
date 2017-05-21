@@ -24,39 +24,68 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.dim.ui.util.HttpUtil.httpPost;
+
 /**
  * The type Login activity.
+ *
  * @author dim
  */
 //登录界面
 public class LoginActivity extends AppCompatActivity {
-    /** 登录URL. */
+    /**
+     * 登录URL.
+     */
     private static final String URL = HttpURL.url + "LoginServlet";
-    /** TAG. */
+    /**
+     * TAG.
+     */
     private static final String TAG = "LoginActivity";
-    /** 用户名输入. */
+    /**
+     * 用户名输入.
+     */
     @BindView(R.id.et_name)
     EditText mEtName;
-    /** 密码输入. */
+    /**
+     * 密码输入.
+     */
     @BindView(R.id.et_password)
     EditText mEtPassword;
-    /** 记住用户名和密码. */
+    /**
+     * 记住用户名和密码.
+     */
     @BindView(R.id.checkBox)
     CheckBox mCheckBox;
-    /** 登录按钮 */
+    /**
+     * 登录按钮
+     */
     @BindView(R.id.btn_login_in)
     Button mLoginIn;
-    /** 注册按钮 */
+    /**
+     * 注册按钮
+     */
     @BindView(R.id.btn_login_up)
     Button mLoginUp;
-    /** 从EditText获得的用户名. */
+    /**
+     * 从EditText获得的用户名.
+     */
     private String name;
-    /** 从EditText获得的密码. */
+    /**
+     * 从EditText获得的密码.
+     */
     private String password;
-    /** 用于保存密码. */
+    /**
+     * 用于保存密码.
+     */
     private SharedPreferences sp = null;
-    /** 登录后保存姓名. */
+    /**
+     * 登录后保存姓名.
+     */
     private SharedPreferences spLoginData = null;
+    /**
+     *
+     */
+    String invalidInfo = null;
 
     /**
      * @param savedInstanceState save
@@ -94,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         //获取输入用户名和密码
         name = mEtName.getText().toString();
         password = mEtPassword.getText().toString();
+        Log.d(TAG, "loginIn: 输入用户名和密码为：" + name + "," + password);
         //用户名密码都不为空
         if (!"".equals(name) && !"".equals(password)) {
             try {
@@ -121,8 +151,6 @@ public class LoginActivity extends AppCompatActivity {
         loginToOtherActivity(RegisterActivity.class);
     }
 
-
-
     /**
      * The type Login task.
      */
@@ -132,9 +160,9 @@ public class LoginActivity extends AppCompatActivity {
             String state = "";
             //登录请求，获得服务器返回状态码
             try {
-                state = HttpUtil.httpPost(strings[0], "loginData="
+                state = httpPost(strings[0], "loginData="
                         + URLEncoder.encode(strings[1], "UTF-8"));
-                Log.d(TAG, "doInBackground: " + state);
+                Log.d(TAG, "登录返回状态码：" + state);
 //                state = "2";
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -143,22 +171,34 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(final String s) {
             super.onPostExecute(s);
             Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
             //记住帐号密码
             rememberPwd();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        invalidInfo = HttpUtil.httpPost(HttpURL.url + "GetInvalidInfoServlet",
+                                "name=" + URLEncoder.encode(name, "UTF-8"));
+                        Log.d(TAG, "返回违规信息：" + invalidInfo);
+
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            Toast.makeText(LoginActivity.this, "invalidInfo:" + invalidInfo,
+                    Toast.LENGTH_SHORT).show();
             if ("1".equals(s)) {
                 Log.d("返回1，正确，未填写", s);
-                if (spLoginData.getString("name", "").isEmpty()) {
-                    putInfoToSP(name, false);
-                }
+                putInfoToSP(name, invalidInfo, false);
                 loginToOtherActivity(FunctionActivity.class);
             } else if ("2".equals(s)) {
                 Log.d(TAG, "返回2，正确，已填写");
-                if (spLoginData.getString("name", "").isEmpty()) {
-                    putInfoToSP(name, true);
-                }
+                putInfoToSP(name, invalidInfo, true);
                 loginToOtherActivity(FunctionActivity.class);
             } else if (s == null) {
                 Toast.makeText(LoginActivity.this, "未连接到服务器",
@@ -186,9 +226,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * 保存name和password到SharedPreference
-     * @param name 保存的name
-     * @param password 保存的password
+     * 保存name和password到SharedPreference，记住密码用
+     *
+     * @param name            保存的name
+     * @param password        保存的password
      * @param checkBoxBoolean 保存的CheckBox状态
      */
     private void saveNameAndPassword(String name, String password, boolean checkBoxBoolean) {
@@ -200,13 +241,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * 将姓名和是否填写信息存入SharedPreference
-     * @param name 用户名
+     * 将姓名和是否填写信息存入SharedPreference，保存姓名、填写信息状态、违规行为状态用
+     *
+     * @param name   用户名
      * @param isFill 是否填写信息
      */
-    private void putInfoToSP(String name, boolean isFill) {
+    private void putInfoToSP(String name, String invalid, boolean isFill) {
         SharedPreferences.Editor editor = spLoginData.edit();
         editor.putString("name", name);
+        editor.putString("invalid", invalid);
         //isFill，false未填写报考信息，true已填写
         editor.putBoolean("isFill", isFill);
         editor.apply();
@@ -214,6 +257,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * LoginActivity跳转到其他Activity
+     *
      * @param otherActivity 其他界面
      */
     private void loginToOtherActivity(Class<?> otherActivity) {

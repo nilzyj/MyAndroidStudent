@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.dim.ui.RegisterActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.dim.ui.RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/title">
+        android:background="@color/black_title"
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:gravity="center"
-            android:onClick="registerBackToFunction">
+            android:onClick="registerBackToLogin"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom">
 
             <ImageView
                 android:layout_width="30dp"
@@ -29,81 +30,82 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="返回"
+                android:textColor="@color/white"
                 android:textSize="20sp"/>
-
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="注册"
+            android:textColor="@color/white"
             android:textSize="24sp"/>
 
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/et_register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
-        android:textSize="20sp"
-        android:id="@+id/et_register_name"
-        android:hint="请输入姓名"/>
+        android:hint="请输入姓名"
+        android:inputType="textPersonName"
+        android:textSize="20sp"/>
 
     <EditText
+        android:id="@+id/et_register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
-        android:textSize="20sp"
-        android:id="@+id/et_register_password"
-        android:hint="请输入密码"/>
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textSize="20sp"/>
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="20sp"-->
-            <!--android:paddingLeft="5dp"-->
-            <!--android:text="请选择证件类型"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="20sp"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:text="请选择证件类型"/>-->
 
-        <!--<Spinner-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/et_register_zhengjian_leixin"-->
-            <!--android:entries="@array/spinner_zhengjian_leixin"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:hint="请输入密码"/>-->
+    <!--<Spinner-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/et_register_zhengjian_leixin"-->
+    <!--android:entries="@array/spinner_zhengjian_leixin"-->
+    <!--android:paddingTop="10dp"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:hint="请输入密码"/>-->
 
     <!--</LinearLayout>-->
 
     <!--<EditText-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:inputType="number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="number"-->
 
-        <!--android:ems="10"-->
-        <!--android:textSize="20sp"-->
-        <!--android:id="@+id/et_register_zhengjian_haoma"-->
-        <!--android:hint="请输入证件号码"/>-->
+    <!--android:ems="10"-->
+    <!--android:textSize="20sp"-->
+    <!--android:id="@+id/et_register_zhengjian_haoma"-->
+    <!--android:hint="请输入证件号码"/>-->
 
     <Button
-        android:text="确定"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/btn_register"
-        android:background="@drawable/btn_color_selector"/>
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_color_selector"
+        android:text="确定"/>
 </LinearLayout>

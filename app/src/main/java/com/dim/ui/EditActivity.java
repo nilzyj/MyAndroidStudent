@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.dim.ui.model.HttpURL;
 import com.dim.ui.util.HttpUtil;
+import com.dim.ui.util.PickerUtil;
 import com.dim.ui.util.PinYinUtil;
 
 import org.json.JSONException;
@@ -30,26 +31,34 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.dim.ui.util.PickerUtil.chooseArea;
-import static com.dim.ui.util.PickerUtil.chooseDate;
-
 /**
  * The type Edit activity.
+ *
  * @author dim
  */
 public class EditActivity extends AppCompatActivity {
 
-    /** 修改并更新报考信息URL. */
+    /**
+     * 修改并更新报考信息URL.
+     */
     private String URL = HttpURL.url + "UpdateJsonDataServlet";
-    /** 传递数据的intent. */
+    /**
+     * 传递数据的intent.
+     */
     private Intent dataIntent;
-    /** 将修改的数据名称. */
+    /**
+     * 将修改的数据名称.
+     */
     private String infoName;
-    /** 将修改的数据内容. */
+    /**
+     * 将修改的数据内容.
+     */
     private String info;
     /**  */
     private String infoUpdate;
-    /** 标题即信息名称. */
+    /**
+     * 标题,即信息名称.
+     */
     @BindView(R.id.tv_info_name)
     TextView mTvInfoName;
     /**
@@ -67,31 +76,22 @@ public class EditActivity extends AppCompatActivity {
      */
     @BindView(R.id.tv_info_address)
     TextView mTvInfoAddress;
-    /**
-     * 编辑日期
-     */
-    @BindView(R.id.tv_info_time)
-    TextView mTvInfoTime;
-    @BindView(R.id.tv_spinner_info)
-    TextView mTvSpinnerInfo;
+    @BindView(R.id.et_info_address)
+    EditText mEtInfoAddress;
+    @BindView(R.id.v_info_address)
+    View mVInfoAddress;
 
+    private String[] tvAndEtInfo = {"户口所在地详细地址", "考生档案所在地地址", "考生通讯地址"};
     private String[] etInfo = {"考生档案所在地", "现在学习或工作单位", "学习与工作经历"
             , "何时何地何原因受过何种奖励或处分", "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"};
     private String[] etInfoNumberAndEmail = {"考生档案所在单位邮政编码", "考生通讯地址邮政编码", "固定电话"
             , "移动电话", "电子邮箱", "毕业证书编号", "注册学号", "学位证书编号"};
-    private String[] tvInfoAddress = {"籍贯所在地", "出生地", "户口所在地"};
-    private String[] tvInfoTime = {"获得最后学历毕业年月"};
-    private String[] tvSpinnerInfo = {"性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源", "获得最后学历的学习形式"
-            , "最后学历", "最后学历"};
-    private String[] tvAndEtInfo = {"户口所在地详细地址", "考生档案所在地地址", "考生通讯地址"};//else
     //报考单位及以下未添加
+    private List<String> mListTvAndEtInfo = Arrays.asList(tvAndEtInfo);
     private List<String> mListEtInfo = Arrays.asList(etInfo);
     private List<String> mListEtInfoNumberAndEmail = Arrays.asList(etInfoNumberAndEmail);
-    private List<String> mListTvInfoAddress = Arrays.asList(tvInfoAddress);
-    private List<String> mListTvInfoTime = Arrays.asList(tvInfoTime);
-    private List<String> mListTvSpinnerInfo = Arrays.asList(tvSpinnerInfo);
 
-    private List<String> mListTvAndEtInfo;
+
     /**
      * @param savedInstanceState save
      */
@@ -100,7 +100,11 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(this);
-
+//TODO 信息名称过长导致标题显示不对、设置文本宽度，换行
+        // TODO editActivity点击保存返回modifyactivity时标题栏有问题、、、、
+        // TODO 专项计划数据源设置不对、
+        // TODO 定向就业单位填写方式还不确定、修改不确定、
+        // TODO 报考院系、研究方向、政治理论、外国语、业务课、备用信息都没弄好
         //获得ChangeActivity传来的数据
         dataIntent = getIntent();
         infoName = dataIntent.getStringExtra("infoName");
@@ -109,79 +113,30 @@ public class EditActivity extends AppCompatActivity {
         mTvInfoName.setText(infoName);
 //      "考生档案所在地", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
 //      "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"
-        if (mListEtInfo.contains(infoName)) {
-            mEtInfo.setVisibility(View.VISIBLE);
-            mEtInfo.setText(info);
+        if (mListTvAndEtInfo.contains(infoName)) {
+            mTvInfoAddress.setVisibility(View.VISIBLE);
+            mVInfoAddress.setVisibility(View.VISIBLE);
+            mEtInfoAddress.setVisibility(View.VISIBLE);
+            mTvInfoAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PickerUtil.chooseArea(EditActivity.this, v, mTvInfoAddress, false);
+                }
+            });
         } else if (mListEtInfoNumberAndEmail.contains(infoName)) {
 //            "考生档案所在单位邮政编码", "考生通讯地址邮政编码", "固定电话"
 //                    , "移动电话", "电子邮箱", "毕业证书编号", "注册学号", "学位证书编号"
             mEtNumberAndEmail.setVisibility(View.VISIBLE);
             mEtNumberAndEmail.setText(info);
             // TODO 增加数字限制
+            // TODO 考生档案所在单位邮政编码6位、考生通讯地址邮政编码6、固定电话11、毕业证书编号18、注册学号9、
+            // TODO 学位证书编号、
 //            mEtNumberAndEmail.setInputType();
 
-        } else if (mListTvInfoAddress.contains(infoName)) {
-//            "籍贯所在地", "出生地", "户口所在地"
-            mTvInfoAddress.setVisibility(View.VISIBLE);
-            mTvInfoAddress.setText(info);
-            mTvInfoAddress.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    chooseArea(EditActivity.this, v, mTvInfoAddress, true);
-                }
-            });
-        } else if (mListTvInfoTime.contains(infoName)) {
-//            "获得最后学历毕业年月"
-            mTvInfoTime.setVisibility(View.VISIBLE);
-            mTvInfoTime.setText(info);
-            mTvInfoTime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    chooseDate(EditActivity.this, v, mTvInfoTime);
-                }
-            });
-        } else if (mListTvSpinnerInfo.contains(infoName)) {
-            mTvSpinnerInfo.setVisibility(View.VISIBLE);
-//            "性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源", "获得最后学历的学习形式"
-//            , "最后学历", "最后学历"
-            mTvSpinnerInfo.setText(info);
-            mTvSpinnerInfo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (infoName) {
-                        case "性别":
-                            tvAlertDialog(new String[]{"男", "女"}, mTvSpinnerInfo);
-                            break;
-                        case "婚否":
-                            tvAlertDialog(new String[]{"否", "是"}, mTvSpinnerInfo);
-                            break;
-                        case "民族":
-                            tvAlertDialog(getResources().getStringArray(R.array.spinner_minzu)
-                                    , mTvSpinnerInfo);
-                            break;
-                        case "现役军人":
-                            tvAlertDialog(getResources().getStringArray(R.array.spinner_xianyi_junren)
-                                    , mTvSpinnerInfo);
-                            break;
-                        case "政治面貌":
-                            tvAlertDialog(getResources().getStringArray(R.array.spinner_zhengzhi_mianmao)
-                                    , mTvSpinnerInfo);
-                            break;
-                        case "考生来源":
-                            tvAlertDialog(getResources().getStringArray(R.array.spinner_kaoshen_laiyuan)
-                                    , mTvSpinnerInfo);
-                            break;
-                        case "获得最后学历的学习形式":
-                            tvAlertDialog(getResources().getStringArray(R.array.spinner_zuihou_xueli)
-                                    , mTvSpinnerInfo);
-                            break;
-                    }
-                }
-            });
         } else {
-            // TODO tv and et
+            mEtInfo.setVisibility(View.VISIBLE);
+            mEtInfo.setText(info);
         }
-
 
         //提示信息(temp)
         Toast.makeText(EditActivity.this, info, Toast.LENGTH_SHORT).show();
@@ -218,12 +173,26 @@ public class EditActivity extends AppCompatActivity {
 
     /**
      * 保存更改按钮点击
+     *
      * @param view the view
      * @throws JSONException the json exception
      */
     public void saveEdit(View view) throws JSONException {
         //获取修改后的信息
-        infoUpdate = mEtInfo.getText().toString();
+        //数字或电子邮箱
+        //TODO 为空不能提交
+        if (!"".equals(mEtNumberAndEmail.getText().toString())) {
+            infoUpdate = mEtNumberAndEmail.getText().toString();
+        }
+        //需要编辑的信息
+        if (!"".equals(mEtInfo.getText().toString())) {
+            infoUpdate = mEtInfo.getText().toString();
+        }
+        //详细地址类的信息
+        if (!"".equals(mTvInfoAddress) && !"".equals(mEtInfoAddress)) {
+            infoUpdate = mTvInfoAddress.getText().toString()
+                    + mEtInfoAddress.getText().toString();
+        }
         //获取sharedPreferences中的name，便于更新数据库
         SharedPreferences sharedPreferences =
                 getSharedPreferences("loginData", MODE_PRIVATE);
@@ -266,6 +235,7 @@ public class EditActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             } else {
                 Intent updateIntent = new Intent();
+                Toast.makeText(EditActivity.this, infoUpdate, Toast.LENGTH_SHORT).show();
                 updateIntent.putExtra("info", infoUpdate);
                 setResult(2, updateIntent);
                 finish();
@@ -277,6 +247,7 @@ public class EditActivity extends AppCompatActivity {
     /**
      * Back to change.
      * 返回按钮点击-LinearLayout
+     *
      * @param view the view
      */
     public void backToChange(View view) {

@@ -74,24 +74,36 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/tv_info_address"
+    <LinearLayout
+        android:id="@+id/ll_info_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="@dimen/text_size"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_info_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textSize="@dimen/text_size"/>
+        <TextView
+            android:id="@+id/tv_info_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:hint="点击选择省市区"
+            android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/tv_spinner_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        <View
+            android:id="@+id/v_info_address"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/view_line"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/et_info_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textCursorDrawable="@null"/>
+
+    </LinearLayout>
 
 </LinearLayout>

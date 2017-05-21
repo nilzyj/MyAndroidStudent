@@ -1,21 +1,36 @@
 package com.dim.ui;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dim.ui.adapter.InfoAdapter;
+import com.dim.ui.model.HttpURL;
 import com.dim.ui.model.Info;
+import com.dim.ui.util.HttpUtil;
 import com.dim.ui.util.PinYinUtil;
+import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +40,10 @@ import java.util.List;
  */
 //信息修改界面
 public class ModifyActivity extends AppCompatActivity {
+    /**
+     * 修改并更新报考信息URL.
+     */
+    private String URL = HttpURL.url + "UpdateJsonDataServlet";
     private final String TAG = "ModifyActivity";
     private List<Info> infoList = new ArrayList<Info>();
     /**
@@ -39,13 +58,25 @@ public class ModifyActivity extends AppCompatActivity {
      * 信息内容
      */
     private String strInfo;
-    /** 获取并保存所有信息内容，将其传到EditActivity */
+    /**
+     * 获取并保存所有信息内容，将其传到EditActivity
+     */
     private ListView listView;
     /**
      * The Info Adapter.
      * ListView Adapter.
      */
     InfoAdapter infoAdapter;
+    private String[] notModifyInfo = {"考生姓名", "证件类型", "证件号码", "考试方式", "报考点所在省市",
+            "报考点", "招生单位"};
+    private String[] tvDialogInfo = {"性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源"
+            , "获得最后学历的学习形式", "最后学历", "最后学位", "报考单位", "报考专业", "报考类别"};
+    private String[] tvInfoAddress = {"籍贯所在地", "出生地", "户口所在地"};
+    private String[] tvInfoTime = {"获得最后学历毕业年月"};
+    private List<String> tvInfoAddressList = Arrays.asList(tvInfoAddress);
+    private List<String> tvInfoTimeList = Arrays.asList(tvInfoTime);
+    private List notModifyInfoList = Arrays.asList(notModifyInfo);
+    private List tvDialogInfoList = Arrays.asList(tvDialogInfo);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +111,17 @@ public class ModifyActivity extends AppCompatActivity {
 
                 Log.d(TAG, "点击的Item信息" + strInfoName + ":" + strInfo);
                 //是否以及怎样修改
-                ifModifyOrHowModify(strInfoName);
+                ifModifyOrHowModify(strInfoName, view);
             }
         });
     }
 
     /**
      * 接收EditActivity返回的修改信息，并更新数据
+     *
      * @param requestCode 请求code
-     * @param resultCode 返回code
-     * @param data 返回数据
+     * @param resultCode  返回code
+     * @param data        返回数据
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -105,6 +137,7 @@ public class ModifyActivity extends AppCompatActivity {
 
     /**
      * 将json数据放入list中作为ListView数据源
+     *
      * @param json json
      * @throws JSONException
      */
@@ -119,8 +152,8 @@ public class ModifyActivity extends AppCompatActivity {
                 "考生作弊情况", "家庭主要成员", "考生通讯地址", "考生通讯地址邮政编码", "固定电话", "移动电话",
                 "电子邮箱", "考生来源", "毕业学校", "毕业专业", "取得最后学历的学习形式", "最后学历", "毕业证书编号",
                 "获得最后学历毕业年月", "注册学号", "最后学位", "学位证书编号", "报考单位", "报考专业", "考试方式",
-                "专项计划", "报考类别", "定向就业单位所在地", "定向就业单位", "报考院系", "研究方向", "政治理论", "外国语",
-                "业务课一", "业务课二", "备用信息一", "备用信息二"};
+                "专项计划", "报考类别", "定向就业单位所在地", "定向就业单位", "报考院系", "研究方向", "政治理论",
+                "外国语", "业务课一", "业务课二", "备用信息一", "备用信息二", "报考点所在省市", "报考点"};
         Info info_name = new Info("考生姓名", jsonObject.getString("name"));
         infoList.add(info_name);
         Log.d(TAG, "getDataToList: " + jsonObject.getString("name"));
@@ -136,22 +169,220 @@ public class ModifyActivity extends AppCompatActivity {
      *
      * @param infoName 信息名称
      */
-    private void ifModifyOrHowModify(String infoName) {
-        String[] strings = {"考生姓名", "证件类型", "证件号码", "考试方式", "报考点", "招生单位"};
-        List listStrings = Arrays.asList(strings);
-        if (listStrings.contains(infoName)) {
+    private void ifModifyOrHowModify(String infoName, View view) {
+
+        if (notModifyInfoList.contains(infoName)) {
             Toast.makeText(this, "此项不可修改", Toast.LENGTH_SHORT).show();
+        } else if (tvDialogInfoList.contains(infoName)) {
+//            "性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源"
+//                    , "获得最后学历的学习形式", "最后学历", "最后学位"
+            switch (infoName) {
+                case "性别":
+                    tvAlertDialog(new String[]{"男", "女"});
+                    break;
+                case "婚否":
+                    tvAlertDialog(new String[]{"是", "否"});
+                    break;
+                case "民族":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_minzu));
+                    break;
+                case "现役军人":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_xianyi_junren));
+                    break;
+                case "政治面貌":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_zhengzhi_mianmao));
+                    break;
+                case "考生来源":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_kaoshen_laiyuan));
+                    break;
+                case "取得最后学历的学习形式":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_xuexi_xinshi));
+                    break;
+                case "最后学历":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_zuihou_xueli));
+                    break;
+                case "最后学位":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_zuihou_xuewei));
+                    break;
+                case "报考单位":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_danwei));
+                    break;
+                case "报考专业":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_danwei));
+                    break;
+                case "报考类别":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_leibie));
+                    break;
+            }
+        } else if (tvInfoAddressList.contains(infoName)) {
+//            "籍贯所在地", "出生地", "户口所在地"
+            switch (infoName) {
+                case "籍贯所在地":
+                    chooseAreaOrDate(this, view, true, "address");
+                    break;
+                case "出生地":
+                    chooseAreaOrDate(this, view, false, "address");
+                    break;
+                case "户口所在地":
+                    chooseAreaOrDate(this, view, false, "address");
+                    break;
+            }
+        } else if (tvInfoTimeList.contains(infoName)) {
+            chooseAreaOrDate(this, view, true, "date");
         } else {
             //将InfoName，Info传递到EditActivity，并能够获取EditActivity返回信息
             Intent intent = new Intent(ModifyActivity.this, EditActivity.class);
             intent.putExtra("infoName", strInfoName);
             intent.putExtra("info", strInfo);
             startActivityForResult(intent, 1);
-       }
+        }
+    }
+
+    private void tvAlertDialog(final String[] strings) {
+        Dialog alertDialog = new AlertDialog.Builder(this)
+//                            .setTitle("你喜欢吃哪种水果？")
+//                            .setIcon(R.mipmap.ic_launcher)
+                .setItems(strings, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateListAndUploadData(strings[which]);
+                    }
+                }).create();
+        alertDialog.show();
+    }
+
+    /**
+     * The type Edit task.
+     * 修改后提交更新
+     */
+    class ModifySaveTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String state = null;
+            try {
+                state = HttpUtil.httpPost(strings[0],
+                        "updateData=" + URLEncoder.encode(strings[1], "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return state;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s == null) {
+                Toast.makeText(ModifyActivity.this, "未连接服务器",
+                        Toast.LENGTH_SHORT).show();
+            }
+//            else {
+//                Toast.makeText(ModifyActivity.this, "信息修改成功", Toast.LENGTH_SHORT).show();
+//            }
+        }
+    }
+
+    private void chooseAreaOrDate(Context context, View view, boolean flag, String str) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive()) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        if ("date".equals(str)) {
+            selectDate(context);
+        } else {
+            selectAddress(context, flag);//调用CityPicker选取区域
+        }
+
+    }
+
+    private void selectAddress(Context context, final boolean flag) {
+        CityPicker cityPicker = new CityPicker.Builder(context)
+                .textSize(16)
+                .title("地址选择")
+                .titleBackgroundColor("#FFFFFF")
+//                .titleTextColor("#696969")
+                .confirTextColor("#696969")
+                .cancelTextColor("#696969")
+                .province("上海市")
+                .city("上海市")
+                .district("宝山区")
+                .textColor(Color.parseColor("#000000"))
+                .provinceCyclic(true)
+                .cityCyclic(false)
+                .districtCyclic(false)
+                .visibleItemsCount(7)
+                .itemPadding(10)
+                .onlyShowProvinceAndCity(flag)
+                .build();
+        cityPicker.show();
+        //监听方法，获取选择结果
+        cityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
+            @Override
+            public void onSelected(String... citySelected) {
+                //省份
+                String province = citySelected[0];
+                //城市
+                String city = citySelected[1];
+                //区县（如果设定了两级联动，那么该项返回空）
+                String district = citySelected[2];
+                //邮编
+//                String code = citySelected[3];
+                String str;
+                //获得选择地址
+                if (flag) {
+                    str = province.trim() + city.trim();
+                } else {
+                    str = province.trim() + city.trim() + district.trim();
+                }
+                updateListAndUploadData(str);
+            }
+        });
+    }
+
+    private void selectDate(Context context) {
+
+        DatePickerDialog datePicker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                updateListAndUploadData(year + "." + monthOfYear + "." + dayOfMonth);
+            }
+        }, 2017, 7, 1);
+        datePicker.show();
+    }
+
+    private void updateListAndUploadData(String data) {
+        //对list中数据进行更新
+        infoList.set(position, new Info(strInfoName,
+                data));
+        //更新Item
+        infoAdapter.notifyDataSetChanged();
+        //获取sharedPreferences中的name，便于更新数据库
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("loginData", MODE_PRIVATE);
+        //将要更新的数据转为json
+        JSONObject jsonObject = new JSONObject();
+        PinYinUtil pinyin = new PinYinUtil();
+        try {
+            jsonObject.put("infoName", pinyin.getStringPinYin(strInfoName));
+            jsonObject.put("info", data);
+            jsonObject.put("name", sharedPreferences.getString("name", null));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String[] strings = {URL, jsonObject.toString()};
+        //更新数据库
+        ModifySaveTask modifySaveTask = new ModifySaveTask();
+        modifySaveTask.execute(strings);
+        Toast.makeText(ModifyActivity.this
+                , data
+                , Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Modify back to function.
+     *
      * @param view the view
      */
     public void modifyBackToFunction(View view) {

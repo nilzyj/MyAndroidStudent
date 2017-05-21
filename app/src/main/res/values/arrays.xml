@@ -68,7 +68,7 @@
         <item>强军计划</item>
         <item>援藏计划</item>
     </string-array>
-    <string-array name="spinner_baokao_leixin">
+    <string-array name="spinner_baokao_leibie">
         <item>非定向</item>
         <item>定向</item>
         <item>委托培养</item>

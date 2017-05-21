@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black_title"
-        android:fitsSystemWindows="true">
+        android:paddingBottom="@dimen/title_padding_top_bottom"
+        android:paddingTop="@dimen/title_padding_top_bottom">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             android:gravity="center"
             android:onClick="fillBackToFunction"
             android:paddingBottom="@dimen/title_padding_top_bottom"
@@ -38,12 +40,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:paddingBottom="@dimen/title_padding_top_bottom"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:text="填写报考信息"
+            android:fitsSystemWindows="true"
+            android:paddingTop="25dp"
+            android:text="@string/fill_baokao_info"
             android:textColor="@color/white"
             android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fitsSystemWindows="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:paddingTop="25dp"
+            android:text="@string/leading_in"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 

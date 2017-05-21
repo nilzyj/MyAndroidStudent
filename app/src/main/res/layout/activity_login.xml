@@ -74,7 +74,7 @@
             android:minHeight="58dp"
             android:text="@string/sign_in"
             android:textColor="@android:color/black"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -87,7 +87,7 @@
             android:minHeight="58dp"
             android:text="@string/sign_up"
             android:textColor="@android:color/black"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>

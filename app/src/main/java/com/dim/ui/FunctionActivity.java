@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dim.ui.model.HttpURL;
 import com.dim.ui.util.HttpUtil;
@@ -81,13 +82,14 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_fill:
                 Log.d(TAG, "onClick: fill");
-                // TODO 若已经填写信息，则不能跳转。
-//                SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
-//                if (sp.getBoolean("isFill", false)) {
+                SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
+                if (sp.getBoolean("isFill", false)) {
+                    Toast.makeText(this, "已填写报考信息", Toast.LENGTH_SHORT).show();
+                } else if (sp.getString("invalid", "").equals("有违规行为，无法参加考试")) {
+                    Toast.makeText(this, "因具有违规行为，无法参加报考", Toast.LENGTH_SHORT).show();
+                } else {
                     functionToOtherActivity(FillActivity.class);
-//                } else {
-//                    Toast.makeText(this, "已填写报考信息", Toast.LENGTH_SHORT).show();
-//                }
+                }
                 break;
             case R.id.btn_modify:
                 Log.d(TAG, "onClick: modify");
