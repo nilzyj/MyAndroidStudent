@@ -92,6 +92,8 @@ public class EditActivity extends AppCompatActivity {
     private List<String> mListEtInfoNumberAndEmail = Arrays.asList(etInfoNumberAndEmail);
     private List<String> mListEtInfo = Arrays.asList(etInfo);
 
+    private int flag = 0;
+
     /**
      * @param savedInstanceState save
      */
@@ -111,7 +113,20 @@ public class EditActivity extends AppCompatActivity {
         //初始化EditActivity数据
         mTvInfoName.setText(infoName);
 //      "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"
-        if (mListTvAndEtInfo.contains(infoName)) {
+        if (mListEtInfoNumberAndEmail.contains(infoName)) {
+            //            "考生档案所在单位邮政编码", "考生通讯地址邮政编码", "固定电话"
+//                    , "移动电话", "电子邮箱", "毕业证书编号", "注册学号", "学位证书编号"
+            flag = 1;
+            Log.d(TAG, "onCreate: flag1");
+            mEtNumberAndEmail.setVisibility(View.VISIBLE);
+            mEtNumberAndEmail.setText(info);
+            // TODO 增加数字限制
+            // TODO 考生档案所在单位邮政编码6位、考生通讯地址邮政编码6、固定电话11、毕业证书编号18、注册学号9、
+            // TODO 学位证书编号、
+//            mEtNumberAndEmail.setInputType();
+        } else if (mListTvAndEtInfo.contains(infoName)) {
+            flag = 2;
+            Log.d(TAG, "onCreate: flag2");
             mLlInfoAddress.setVisibility(View.VISIBLE);
             mTvInfoAddress.setVisibility(View.VISIBLE);
             mVInfoAddress.setVisibility(View.VISIBLE);
@@ -122,24 +137,16 @@ public class EditActivity extends AppCompatActivity {
                     PickerUtil.chooseArea(EditActivity.this, v, mTvInfoAddress, false);
                 }
             });
-        } else if (mListEtInfoNumberAndEmail.contains(infoName)) {
-//            "考生档案所在单位邮政编码", "考生通讯地址邮政编码", "固定电话"
-//                    , "移动电话", "电子邮箱", "毕业证书编号", "注册学号", "学位证书编号"
-            mEtNumberAndEmail.setVisibility(View.VISIBLE);
-            mEtNumberAndEmail.setText(info);
-            // TODO 增加数字限制
-            // TODO 考生档案所在单位邮政编码6位、考生通讯地址邮政编码6、固定电话11、毕业证书编号18、注册学号9、
-            // TODO 学位证书编号、
-//            mEtNumberAndEmail.setInputType();
-
         } else {
             //      "考生档案所在地", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
+            flag = 3;
+            Log.d(TAG, "onCreate: flag3");
             mEtInfo.setVisibility(View.VISIBLE);
             mEtInfo.setText(info);
             Log.d(TAG, "mEtInfo: " + info);
         }
         //提示信息(temp)
-        Toast.makeText(EditActivity.this, info, Toast.LENGTH_SHORT).show();
+        Toast.makeText(EditActivity.this, info + "flag:" + flag, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -152,20 +159,26 @@ public class EditActivity extends AppCompatActivity {
         //获取修改后的信息
         //数字或电子邮箱
         //TODO 为空不能提交
-        if (!"".equals(mEtNumberAndEmail.getText().toString())) {
+//        if (!"".equals(mEtNumberAndEmail.getText().toString())) {
+        if (flag == 1) {
             infoUpdate = mEtNumberAndEmail.getText().toString();
             Log.d(TAG, "saveEditmEtNumberAndEmail: " + infoUpdate);
+            Log.d(TAG, "saveEdit: 1");
         }
         //详细地址类的信息
-        if (!"".equals(mTvInfoAddress) && !"".equals(mEtInfoAddress)) {
+//        if (!"".equals(mTvInfoAddress) && !"".equals(mEtInfoAddress)) {
+        if (flag == 2) {
             infoUpdate = mTvInfoAddress.getText().toString()
                     + mEtInfoAddress.getText().toString();
-            Log.d(TAG, "saveEdit: TvInfoAddress" + infoUpdate);
+            Log.d(TAG, "saveEdit: TvInfoAddress:" + infoUpdate);
+            Log.d(TAG, "saveEdit: 2");
         }
         //需要编辑的信息
-        if (!"".equals(mEtInfo.getText().toString())) {
+//        if (!"".equals(mEtInfo.getText().toString())) {
+        if (flag == 3) {
             infoUpdate = mEtInfo.getText().toString();
             Log.d(TAG, "saveEdit: EtInfo" + infoUpdate);
+            Log.d(TAG, "saveEdit: 3");
         }
         //获取sharedPreferences中的name，便于更新数据库
         SharedPreferences sharedPreferences =
