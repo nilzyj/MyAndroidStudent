@@ -1,17 +1,14 @@
 package com.dim.ui;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +35,7 @@ import butterknife.ButterKnife;
  */
 public class EditActivity extends AppCompatActivity {
 
+    private final String TAG = "EditActivity";
     /**
      * 修改并更新报考信息URL.
      */
@@ -80,17 +78,19 @@ public class EditActivity extends AppCompatActivity {
     EditText mEtInfoAddress;
     @BindView(R.id.v_info_address)
     View mVInfoAddress;
+    @BindView(R.id.ll_info_address)
+    LinearLayout mLlInfoAddress;
 
-    private String[] tvAndEtInfo = {"户口所在地详细地址", "考生档案所在地地址", "考生通讯地址"};
-    private String[] etInfo = {"考生档案所在地", "现在学习或工作单位", "学习与工作经历"
-            , "何时何地何原因受过何种奖励或处分", "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"};
+    private String[] tvAndEtInfo = {"户口所在地详细地址", "考生档案所在单位地址", "考生通讯地址"};
     private String[] etInfoNumberAndEmail = {"考生档案所在单位邮政编码", "考生通讯地址邮政编码", "固定电话"
             , "移动电话", "电子邮箱", "毕业证书编号", "注册学号", "学位证书编号"};
+    private String[] etInfo = {"考生档案所在地", "现在学习或工作单位", "学习与工作经历"
+            , "何时何地何原因受过何种奖励或处分", "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"};
+
     //报考单位及以下未添加
     private List<String> mListTvAndEtInfo = Arrays.asList(tvAndEtInfo);
-    private List<String> mListEtInfo = Arrays.asList(etInfo);
     private List<String> mListEtInfoNumberAndEmail = Arrays.asList(etInfoNumberAndEmail);
-
+    private List<String> mListEtInfo = Arrays.asList(etInfo);
 
     /**
      * @param savedInstanceState save
@@ -100,7 +100,6 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(this);
-//TODO 信息名称过长导致标题显示不对、设置文本宽度，换行
         // TODO editActivity点击保存返回modifyactivity时标题栏有问题、、、、
         // TODO 专项计划数据源设置不对、
         // TODO 定向就业单位填写方式还不确定、修改不确定、
@@ -111,9 +110,9 @@ public class EditActivity extends AppCompatActivity {
         info = dataIntent.getStringExtra("info");
         //初始化EditActivity数据
         mTvInfoName.setText(infoName);
-//      "考生档案所在地", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
 //      "考生作弊情况", "家庭主要成员", "毕业学校", "毕业专业"
         if (mListTvAndEtInfo.contains(infoName)) {
+            mLlInfoAddress.setVisibility(View.VISIBLE);
             mTvInfoAddress.setVisibility(View.VISIBLE);
             mVInfoAddress.setVisibility(View.VISIBLE);
             mEtInfoAddress.setVisibility(View.VISIBLE);
@@ -134,41 +133,13 @@ public class EditActivity extends AppCompatActivity {
 //            mEtNumberAndEmail.setInputType();
 
         } else {
+            //      "考生档案所在地", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
             mEtInfo.setVisibility(View.VISIBLE);
             mEtInfo.setText(info);
+            Log.d(TAG, "mEtInfo: " + info);
         }
-
         //提示信息(temp)
         Toast.makeText(EditActivity.this, info, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 设置spinner数据
-     *
-     * @param items   数据
-     * @param spinner spinner
-     */
-    private void setSpinnerData(String[] items, Spinner spinner) {
-        ArrayAdapter<String> adapterMinZu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
-        adapterMinZu.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterMinZu);
-    }
-
-    private void tvAlertDialog(final String[] strings, final TextView textView) {
-        Dialog alertDialog = new AlertDialog.Builder(this)
-//                            .setTitle("你喜欢吃哪种水果？")
-//                            .setIcon(R.mipmap.ic_launcher)
-                .setItems(strings, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        textView.setText(strings[which]);
-                        Toast.makeText(EditActivity.this
-                                , strings[which]
-                                , Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .create();
-        alertDialog.show();
     }
 
     /**
@@ -183,15 +154,18 @@ public class EditActivity extends AppCompatActivity {
         //TODO 为空不能提交
         if (!"".equals(mEtNumberAndEmail.getText().toString())) {
             infoUpdate = mEtNumberAndEmail.getText().toString();
-        }
-        //需要编辑的信息
-        if (!"".equals(mEtInfo.getText().toString())) {
-            infoUpdate = mEtInfo.getText().toString();
+            Log.d(TAG, "saveEditmEtNumberAndEmail: " + infoUpdate);
         }
         //详细地址类的信息
         if (!"".equals(mTvInfoAddress) && !"".equals(mEtInfoAddress)) {
             infoUpdate = mTvInfoAddress.getText().toString()
                     + mEtInfoAddress.getText().toString();
+            Log.d(TAG, "saveEdit: TvInfoAddress" + infoUpdate);
+        }
+        //需要编辑的信息
+        if (!"".equals(mEtInfo.getText().toString())) {
+            infoUpdate = mEtInfo.getText().toString();
+            Log.d(TAG, "saveEdit: EtInfo" + infoUpdate);
         }
         //获取sharedPreferences中的name，便于更新数据库
         SharedPreferences sharedPreferences =

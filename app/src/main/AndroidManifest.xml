@@ -33,17 +33,9 @@
         </activity>
         <activity android:name=".ModifyActivity">
         </activity>
-        <activity android:name=".GradeActivity">
-        </activity>
-        <activity android:name=".FushiActivity">
-        </activity>
-        <activity android:name=".ExamActivity">
-        </activity>
         <activity android:name=".AccountActivity">
         </activity>
         <activity android:name=".ConfirmActivity">
-        </activity>
-        <activity android:name=".FillResultActivity">
         </activity>
         <activity android:name=".ModifyPasswordActivity">
         </activity>

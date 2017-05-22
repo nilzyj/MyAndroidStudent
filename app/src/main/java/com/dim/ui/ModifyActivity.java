@@ -109,7 +109,7 @@ public class ModifyActivity extends AppCompatActivity {
                 //记录更改数据
                 position = i;
 
-                Log.d(TAG, "点击的Item信息" + strInfoName + ":" + strInfo);
+                Log.d(TAG, "点击的Item信息：" + strInfoName + ":" + strInfo);
                 //是否以及怎样修改
                 ifModifyOrHowModify(strInfoName, view);
             }
