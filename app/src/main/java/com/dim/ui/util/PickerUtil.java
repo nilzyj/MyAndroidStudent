@@ -2,7 +2,9 @@ package com.dim.ui.util;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
@@ -127,6 +129,9 @@ public class PickerUtil {
             @Override
             public void select(String path) {
 //                mTvPhoto.setText("选择的图片地址：" + path);
+                SharedPreferences sp = context.getSharedPreferences("loginData", Context.MODE_PRIVATE);
+                sp.edit().putString("filePath", path).apply();
+                Log.d("文件地址", path);
                 Glide.with(context).load("file://" + path).into(imageView);
             }
         });

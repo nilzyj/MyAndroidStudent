@@ -1,6 +1,11 @@
 package com.dim.ui.util;
 
+import android.util.Log;
+
+import com.dim.ui.model.HttpURL;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,6 +13,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by dim on 2017/3/23.
@@ -15,6 +30,7 @@ import java.net.URLDecoder;
  */
 
 public class HttpUtil {
+    private static final String TAG = "HttpUtil";
     /**
      * 用于post方式的http请求
      * @param url_para url
@@ -122,6 +138,45 @@ public class HttpUtil {
 //        result = new String(result.getBytes("GBK"), "UTF-8");
         return result;
     }
+
+    /**
+     * 上传个人照片
+     *
+     * @param path 上传文件路径
+     */
+    public static void okHttpUploadFile(String path, String name) {
+        final String url = HttpURL.url + "PhotoServlet";
+        File file = new File(path);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("stu", name,
+                        RequestBody.create(MediaType.parse("image/jpg"), file))//添加上传文件
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        final okhttp3.OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
+        OkHttpClient okHttpClient = httpBuilder
+                //设置超时
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .build();
+
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "uploadMultiFile() e=" + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG, "uploadMultiFile() response=" + response.body().string());
+            }
+        });
+    }
+
 
     /**
      * @param str str

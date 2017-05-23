@@ -45,6 +45,7 @@ import static com.dim.ui.util.PickerUtil.takePhoto;
 public class FillActivity extends AppCompatActivity implements View.OnClickListener {
     /** 信息填写提交URL */
     private final String URL = url + "FillInInformationServlet";
+    private final String getLeandingInInfoURL = url + "GetInformationServlet";
     /**
      * 获得报考号URL
      */
@@ -166,26 +167,21 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
      */
     @BindView(R.id.btn_commit)
     Button mBtnCommit;
-    /**
-     * 个人照片text
-     */
+    /** 个人照片text */
     @BindView(R.id.tv_photo)
     TextView mTvPhoto;
-    /**
-     * 个人照片
-     */
+    /** 个人照片 */
     @BindView(R.id.iv_photo)
     ImageView mIvPhoto;
-    /**
-     * photoLinearLayout
-     */
+    /** photoLinearLayout */
     @BindView(R.id.ll_photo)
     LinearLayout mLlPhoto;
     /** 提交确认对话框 */
     AlertDialog.Builder normalDialog;
+    private String name;
 
     /**
-     * @param savedInstanceState
+     * @param savedInstanceState save
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,7 +291,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         stringBuilder.append("\n");
         stringBuilder.append("考试方式：" + mEt38.getSelectedItem().toString());
         stringBuilder.append("\n");
-        stringBuilder.append("报考点：" + mEt52);
+        stringBuilder.append("报考点：" + mEt52.getText().toString());
         normalDialog.setMessage(stringBuilder);
         Log.d(TAG, "fillCommit: 初始化AlertDialog");
         normalDialog.setPositiveButton("确定",
@@ -317,6 +313,11 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        //上传图片
+                        SharedPreferences loginData = getSharedPreferences("loginData", MODE_PRIVATE);
+
+                        HttpUtil.okHttpUploadFile(loginData.getString("filePath", "")
+                                , loginData.getString("name", ""));
                     }
                 });
         normalDialog.setNegativeButton("取消",
@@ -356,10 +357,11 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(s);
             // TODO 报考号生成
             // TODO 报考系统关闭时不能报考和修改信息
+            // 已提交报考信息，并获取了报考号
             Toast.makeText(FillActivity.this, "state：" + s, Toast.LENGTH_SHORT).show();
             normalDialog = new AlertDialog.Builder(FillActivity.this);
             normalDialog.setIcon(R.drawable.more);
-            normalDialog.setTitle("请确认信息");
+            normalDialog.setTitle("提交报考信息成功");
             normalDialog.setMessage("报考号:" + s);
             Log.d(TAG, "fillCommit: 初始化AlertDialog");
             normalDialog.setPositiveButton("确定",
@@ -367,20 +369,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Log.d(TAG, "onClick: 点击对话框确定按钮");
-                            try {
-                                Log.d(TAG, "onClick: http请求前");
-                                String dataJson = getDataToJSON();
-                                if ("fail".equals(dataJson)) {
-                                    Toast.makeText(FillActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    String[] data = {URL, dataJson};
-                                    FillInfoTask fillInfoTask = new FillInfoTask();
-                                    fillInfoTask.execute(data);
-                                    Log.d(TAG, "onClick: http请求后");
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            finish();
                         }
                     });
             normalDialog.setNegativeButton("取消",
@@ -391,8 +380,6 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     });
             normalDialog.show();
-
-            finish();
         }
     }
 
@@ -501,6 +488,39 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 //        }
         Log.d(TAG, "getDataToJSON: 返回json数据前");
         return jsonObject.toString();
+    }
+
+    //    @OnClick(R.id.leading_in)
+    public void leadingIn() {
+        SharedPreferences spLoginData = this.getSharedPreferences("loginData", MODE_PRIVATE);
+        name = spLoginData.getString("name", null);
+        String[] stringsModify = {getLeandingInInfoURL, name};
+        leadingInShowTask leadingInShowTask = new leadingInShowTask();
+        leadingInShowTask.execute(stringsModify);
+    }
+
+    class leadingInShowTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String state = null;
+            try {
+                state = HttpUtil.httpPost(strings[0], "name=" + URLEncoder.encode(strings[1],
+                        "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return state;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d(TAG, "onPostExecute: " + s);
+//            Intent intent = new Intent(FunctionActivity.this, ModifyActivity.class);
+//            intent.putExtra("json", s);
+//            startActivity(intent);
+        }
     }
 
     /**
