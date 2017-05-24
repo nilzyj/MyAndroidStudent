@@ -103,7 +103,6 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, "onClick: confirm");
 //                functionToOtherActivity(ConfirmActivity.class);
                 functionToOtherActivity(FingerActivity.class);
-
                 break;
 //            case R.id.btn_exam:
 //                Log.d(TAG, "onClick: exam");

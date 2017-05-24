@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner_zhengjian_leixin">
-        <item>身份证</item>
-        <item>证</item>
-        <item>证</item>
-        <item>证</item>
+        <item>居民身份证</item>
+        <item>港澳台身份证</item>
+        <item>华侨身份证</item>
+        <item>其他</item>
     </string-array>
     <string-array name="spinner_zhengzhi_mianmao">
         <item>群众</item>
@@ -68,11 +68,22 @@
         <item>强军计划</item>
         <item>援藏计划</item>
     </string-array>
+    <string-array name="spinner_zhuanxiang_jihua">
+        <item>强军计划</item>
+        <item>援藏计划</item>
+        <item>少数民族骨干计划</item>
+        <item>退役大学生士兵专项计划</item>
+    </string-array>
+
     <string-array name="spinner_baokao_leibie">
         <item>非定向</item>
         <item>定向</item>
         <item>委托培养</item>
         <item>自筹经费</item>
+    </string-array>
+    <string-array name="spinner_baokaodian">
+        <item>哈尔滨工业大学（威海）</item>
+        <item>山东大学（威海）</item>
     </string-array>
     <string-array name="spinner_minzu">
         <item>汉族</item>

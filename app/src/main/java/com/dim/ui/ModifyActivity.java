@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,11 +32,25 @@ import com.lljjcoder.citypickerview.widget.CityPicker;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+
 
 /**
  * The type Modify activity.
@@ -44,6 +61,10 @@ public class ModifyActivity extends AppCompatActivity {
      * 修改并更新报考信息URL.
      */
     private String URL = HttpURL.url + "UpdateJsonDataServlet";
+    private String getImgURL = HttpURL.url + "GetImageServlet";
+    //    private String urlImg = HttpURL.url + "image/052d95f5-47ed-4144-94c6-716acdc2a20b.jpg";
+    private String urlImg = HttpURL.url;
+    //        private String urlImg = "http://www.feizl.com/upload2007/2012_10/121007235981441.jpg";
     private final String TAG = "ModifyActivity";
     private List<Info> infoList = new ArrayList<Info>();
     /**
@@ -62,6 +83,8 @@ public class ModifyActivity extends AppCompatActivity {
      * 获取并保存所有信息内容，将其传到EditActivity
      */
     private ListView listView;
+
+    private ImageView mImageView;
     /**
      * The Info Adapter.
      * ListView Adapter.
@@ -70,7 +93,7 @@ public class ModifyActivity extends AppCompatActivity {
     private String[] notModifyInfo = {"考生姓名", "证件类型", "证件号码", "考试方式", "报考点所在省市",
             "报考点", "招生单位"};
     private String[] tvDialogInfo = {"性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源"
-            , "获得最后学历的学习形式", "最后学历", "最后学位", "报考单位", "报考专业", "报考类别"};
+            , "取得最后学历的学习形式", "最后学历", "最后学位", "报考单位", "报考专业", "报考类别", "专项计划"};
     private String[] tvInfoAddress = {"籍贯所在地", "出生地", "户口所在地"};
     private String[] tvInfoTime = {"获得最后学历毕业年月"};
     private List<String> tvInfoAddressList = Arrays.asList(tvInfoAddress);
@@ -83,6 +106,8 @@ public class ModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
 
+        mImageView = (ImageView) findViewById(R.id.iv_modify_photo);
+
         //获取在FunctionActivity请求的数据
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
@@ -92,6 +117,15 @@ public class ModifyActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
+        String name = sp.getString("name", "");
+
+        String[] strings = {getImgURL, name};
+
+        GetImageTask getImageTask = new GetImageTask();
+        getImageTask.execute(strings);
+
         //绑定数据源
         infoAdapter = new InfoAdapter(ModifyActivity.this, R.layout.info_item,
                 infoList);
@@ -166,7 +200,6 @@ public class ModifyActivity extends AppCompatActivity {
 
     /**
      * 根据infoName判断是否能够修改以及怎样修改
-     *
      * @param infoName 信息名称
      */
     private void ifModifyOrHowModify(String infoName, View view) {
@@ -174,8 +207,8 @@ public class ModifyActivity extends AppCompatActivity {
         if (notModifyInfoList.contains(infoName)) {
             Toast.makeText(this, "此项不可修改", Toast.LENGTH_SHORT).show();
         } else if (tvDialogInfoList.contains(infoName)) {
-//            "性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源"
-//                    , "获得最后学历的学习形式", "最后学历", "最后学位"
+//            "性别", "婚否", "民族", "现役军人", "政治面貌", "考生来源", "取得最后学历的学习形式"
+//              , "最后学历", "最后学位""报考单位", "报考专业", "报考类别", "专项计划"
             switch (infoName) {
                 case "性别":
                     tvAlertDialog(new String[]{"男", "女"});
@@ -208,10 +241,13 @@ public class ModifyActivity extends AppCompatActivity {
                     tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_danwei));
                     break;
                 case "报考专业":
-                    tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_danwei));
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_zhuanye));
                     break;
                 case "报考类别":
                     tvAlertDialog(getResources().getStringArray(R.array.spinner_baokao_leibie));
+                    break;
+                case "专项计划":
+                    tvAlertDialog(getResources().getStringArray(R.array.spinner_zhuanxiang_jihua));
                     break;
             }
         } else if (tvInfoAddressList.contains(infoName)) {
@@ -238,6 +274,11 @@ public class ModifyActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 弹出对话框选择信息项内容
+     *
+     * @param strings 对话框数据源
+     */
     private void tvAlertDialog(final String[] strings) {
         Dialog alertDialog = new AlertDialog.Builder(this)
 //                            .setTitle("你喜欢吃哪种水果？")
@@ -279,6 +320,30 @@ public class ModifyActivity extends AppCompatActivity {
 //            else {
 //                Toast.makeText(ModifyActivity.this, "信息修改成功", Toast.LENGTH_SHORT).show();
 //            }
+        }
+    }
+
+    class GetImageTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String state = null;
+            try {
+                state = HttpUtil.httpPost(strings[0],
+                        "name=" + URLEncoder.encode(strings[1], "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return state;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            urlImg = urlImg + "image/" + s + ".jpg";
+            Toast.makeText(ModifyActivity.this, urlImg, Toast.LENGTH_SHORT).show();
+            //加载图片
+            okHttpImg();
         }
     }
 
@@ -346,9 +411,9 @@ public class ModifyActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                updateListAndUploadData(year + "." + monthOfYear + "." + dayOfMonth);
+                updateListAndUploadData(year + "." + (monthOfYear + 1) + "." + dayOfMonth);
             }
-        }, 2017, 7, 1);
+        }, 2017, 6, 1);
         datePicker.show();
     }
 
@@ -381,10 +446,74 @@ public class ModifyActivity extends AppCompatActivity {
     }
 
     /**
+     * 图片加载
+     */
+    private void okHttpImg() {
+        final OkHttpClient okHttpClient = new OkHttpClient();
+        Observable.just(urlImg)
+                .map(new Function<String, Bitmap>() {
+                    @Override
+                    public Bitmap apply(@NonNull String s) throws Exception {
+                        final okhttp3.Request request = new okhttp3.Request.Builder()
+                                .url(s)
+                                .build();
+                        try {
+                            Response response = okHttpClient.newCall(request).execute();
+                            //从InputStream中得到bitmap
+                            return BitmapFactory.decodeStream(response.body().byteStream());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            throw new Error(e);
+                        }
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Bitmap>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.d(TAG, "onSubscribe: ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Bitmap bitmap) {
+                        if (bitmap != null)
+                            mImageView.setImageBitmap(bitmap);
+                        else
+                            Log.d(TAG, "onNext: bitmap is null!!!!!!!");
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.d(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
+    }
+
+    private byte[] inputStream2ByteArr(InputStream is) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while ((len = is.read(buffer)) != -1) {
+            baos.write(buffer, 0, len);
+        }
+        is.close();
+        baos.close();
+        return baos.toByteArray();
+    }
+
+
+    /**
      * Modify back to function.
      *
      * @param view the view
      */
+
     public void modifyBackToFunction(View view) {
         finish();
     }

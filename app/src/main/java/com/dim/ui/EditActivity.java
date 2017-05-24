@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -103,9 +105,9 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(this);
         // TODO editActivity点击保存返回modifyactivity时标题栏有问题、、、、
-        // TODO 专项计划数据源设置不对、
-        // TODO 定向就业单位填写方式还不确定、修改不确定、
-        // TODO 报考院系、研究方向、政治理论、外国语、业务课、备用信息都没弄好
+        // TODO 定向就业单位EditText填写
+        // TODO 报考院系、研究方向、政治理论、外国语、业务课、备用信息数据源
+        // TODO 电子邮箱格式判断
         //获得ChangeActivity传来的数据
         dataIntent = getIntent();
         infoName = dataIntent.getStringExtra("infoName");
@@ -120,9 +122,33 @@ public class EditActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: flag1");
             mEtNumberAndEmail.setVisibility(View.VISIBLE);
             mEtNumberAndEmail.setText(info);
-            // TODO 增加数字限制
-            // TODO 考生档案所在单位邮政编码6位、考生通讯地址邮政编码6、固定电话11、毕业证书编号18、注册学号9、
-            // TODO 学位证书编号、
+            switch (infoName) {
+                case "考生档案所在单位邮政编码":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+                    break;
+                case "考生通讯地址邮政编码":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+                    break;
+                case "毕业证书编号":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
+                    break;
+                case "学位证书编号":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
+                    break;
+                case "注册学号":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});
+                    break;
+                case "移动电话":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+                    break;
+                case "固定电话":
+                    mEtNumberAndEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+                    break;
+                case "电子邮箱":
+                    mEtNumberAndEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    break;
+            }
+
 //            mEtNumberAndEmail.setInputType();
         } else if (mListTvAndEtInfo.contains(infoName)) {
             flag = 2;
@@ -158,7 +184,7 @@ public class EditActivity extends AppCompatActivity {
     public void saveEdit(View view) throws JSONException {
         //获取修改后的信息
         //数字或电子邮箱
-        //TODO 为空不能提交
+        //TODO 为空不能提交？？？？
 //        if (!"".equals(mEtNumberAndEmail.getText().toString())) {
         if (flag == 1) {
             infoUpdate = mEtNumberAndEmail.getText().toString();

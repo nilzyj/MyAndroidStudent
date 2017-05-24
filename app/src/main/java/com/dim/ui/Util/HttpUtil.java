@@ -127,15 +127,8 @@ public class HttpUtil {
             baos.write(buffer, 0, len);
         }
         is.close();
-//        String result = new String(baos.toString().getBytes("ISO8859-1"), "UTF-8");
         baos.close();
-//        String str = null;
-//        while ((str = is.readLine()) != null) {
-//            str = is.readLine();
-//        }
-//        return str;
         String result = baos.toString();
-//        result = new String(result.getBytes("GBK"), "UTF-8");
         return result;
     }
 

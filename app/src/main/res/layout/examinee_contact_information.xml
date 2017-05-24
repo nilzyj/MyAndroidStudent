@@ -88,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="限11位，区号+号码"
+            android:inputType="number"
             android:maxLength="11"
             android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>

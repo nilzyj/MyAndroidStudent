@@ -183,8 +183,6 @@ public class LoginActivity extends AppCompatActivity {
                         invalidInfo = HttpUtil.httpPost(HttpURL.url + "GetInvalidInfoServlet",
                                 "name=" + URLEncoder.encode(name, "UTF-8"));
                         Log.d(TAG, "返回违规信息：" + invalidInfo);
-
-
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

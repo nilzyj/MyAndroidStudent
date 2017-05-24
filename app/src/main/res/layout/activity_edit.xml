@@ -75,6 +75,7 @@
         android:id="@+id/et_number_and_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:paddingBottom="@dimen/title_padding_top_bottom"
         android:paddingTop="@dimen/title_padding_top_bottom"
         android:visibility="gone"/>

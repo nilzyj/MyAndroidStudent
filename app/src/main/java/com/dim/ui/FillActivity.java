@@ -1,5 +1,6 @@
 package com.dim.ui;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -202,11 +203,27 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         initSetSingLine();
         initOnClickListener();
 
+        mEt52.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog alertDialog = new AlertDialog.Builder(FillActivity.this)
+//                            .setTitle("你喜欢吃哪种水果？")
+//                            .setIcon(R.mipmap.ic_launcher)
+                        .setItems(getResources().getStringArray(R.array.spinner_baokaodian),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mEt52.setText(getResources()
+                                                .getStringArray(R.array.spinner_baokaodian)[which]);
+                                    }
+                                }).create();
+                alertDialog.show();
+            }
+        });
+
         // TODO 专项计划包括：强军计划、援藏计划、少数民族骨干计划、退役大学生士兵专项计划。强军计划、援藏计划对应考试方式中的。
         // TODO 除了单独考试 的其他三项，可选无、少数民族骨干计划（需校验码）、退役大学生计划
 
-        /** TODO 点击弹出dialog：民族、性别、婚否、现役军人、
-         * TODO  点击弹出citypick：籍贯所在地、出生地、和户口所在地*/
     }
 
     /**
@@ -355,8 +372,8 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            // TODO 报考号生成
             // TODO 报考系统关闭时不能报考和修改信息
+            // 已提交报考信息，若重新报考才能再次填写；
             // 已提交报考信息，并获取了报考号
             Toast.makeText(FillActivity.this, "state：" + s, Toast.LENGTH_SHORT).show();
             normalDialog = new AlertDialog.Builder(FillActivity.this);
@@ -400,7 +417,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     //TODO 填写报考信息后不能填写
     // TODO 报考信息导入，若有信息则按最新的导入，没有则提示没有可导入信息，导入的是固定信息。
     // TODO 部分信息项设置为必填。。显示必填项的提示。。
-    // TODO 照片上传及加载。。
+    // TODO 照片加载。。
 
     /**
      * 获取填写的信息并转为json
