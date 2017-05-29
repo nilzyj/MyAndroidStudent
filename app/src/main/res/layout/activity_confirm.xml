@@ -2,22 +2,25 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_confirm"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.dim.ui.ConfirmActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#d0d1ce">
+        android:background="@color/black_title"
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:gravity="center"
-            android:onClick="confirmBackToFunction">
+            android:onClick="confirmBackToFunction"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom">
 
             <ImageView
                 android:layout_width="30dp"
@@ -29,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="返回"
+                android:textColor="@color/white"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -37,23 +41,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:gravity="center"
-            android:text="核对信息"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="信息核对"
+            android:textColor="@color/white"
             android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/btn_confirm_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:paddingRight="10dp"
+            android:text="确认提交"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="核对信息部分，（核对完成后进行指纹录入），该部分需要网页端进行开启与关闭"
-        android:textSize="30sp"/>
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
-    <Button
-        android:id="@+id/btn_confirm"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人照片"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/iv_confirm_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/ic_launcher"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view_confirm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定"/>
+        android:layout_height="match_parent">
+    </ListView>
+
+
 </LinearLayout>

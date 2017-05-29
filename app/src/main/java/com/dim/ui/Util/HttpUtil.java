@@ -75,25 +75,7 @@ public class HttpUtil {
                 String state = "";
                 InputStream is = conn.getInputStream();
                 state = getStreamFromInputstream(is);
-//                BufferedReader reader = new BufferedReader(
-//                        new InputStreamReader(conn.getInputStream()));
-
-//                while ((str = reader.readLine()) != null) {
-//                    state += str;
-//                }
-//                String state = getStreamFromInputstream(reader);
-//                reader.close();
-//                state = new String(state.getBytes("ISO8859-1"), "UTF-8");
                 state = URLDecoder.decode(state, "UTF-8");
-//                ParseEncoding parseEncoding = new ParseEncoding();
-//                state = parseEncoding.getEncoding(state);
-
-//                state = getEncodingNew(state);
-//                state = getEncoding(state);
-//                state = new String(state.getBytes("GB2312"), "UTF-8");
-//                state = new String(state.getBytes("GBK"), "UTF-8");
-//                state = new String(state.getBytes("UTF-8"), "ISO8859-1");
-//                        state = getEncoding(state);
                 return state;
             }
         } catch (MalformedURLException e) {

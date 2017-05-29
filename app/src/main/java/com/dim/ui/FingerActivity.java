@@ -17,7 +17,6 @@ package com.dim.ui;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -29,15 +28,12 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dim.ui.fingerprint.FingerprintAuthenticationDialogFragment;
-import com.dim.ui.fingerprint.SettingsActivity;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -56,8 +52,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 /**
- * Main entry point for the sample, showing a backpack and "Purchase" button.
- * @author dim
  * 使用指纹识别的对称加密功能的主要流程如下：
  * 1. 使用 KeyGenerator 创建一个对称密钥，存放在 KeyStore 里。
  * 2. 设置 KeyGenParameterSpec.Builder.setUserAuthenticationRequired() 为true，
@@ -93,16 +87,17 @@ public class FingerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger);
 
+        //获取keyStore，keyStore允许存储加密密钥
         try {
-            //获取keyStore，keyStore允许存储加密密钥
             //AndroidKeyStore类型，难以从设备中导出，并且可以指明key的使用规则
             mKeyStore = KeyStore.getInstance("AndroidKeyStore");
         } catch (KeyStoreException e) {
             throw new RuntimeException("Failed to get an instance of KeyStore", e);
         }
 
+
+        //对称加密，创建 KeyGenerator 对象,根据一些指定的参数，来生成一个新的key。
         try {
-            //对称加密，创建 KeyGenerator 对象,根据一些指定的参数，来生成一个新的key。
             mKeyGenerator = KeyGenerator
                     .getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
@@ -124,6 +119,7 @@ public class FingerActivity extends Activity {
             throw new RuntimeException("Failed to get an instance of Cipher", e);
         }
 
+        // 获取是否使用指纹识别的设置参数
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         //锁定和解锁软键盘，getSystemService():获得该类实例
@@ -141,8 +137,6 @@ public class FingerActivity extends Activity {
                     new PurchaseButtonClickListener(cipherNotInvalidated,
                             KEY_NAME_NOT_INVALIDATED));
         } else {
-            // Hide the purchase button which uses a non-invalidated key
-            // if the app doesn't work on Android N preview
             purchaseButtonNotInvalidated.setVisibility(View.GONE);
             findViewById(R.id.purchase_button_not_invalidated_description)
                     .setVisibility(View.GONE);
@@ -160,9 +154,6 @@ public class FingerActivity extends Activity {
             return;
         }
 
-        // Now the protection level of USE_FINGERPRINT permission is normal instead of dangerous.
-        // See http://developer.android.com/reference/android/Manifest.permission.html#USE_FINGERPRINT
-        // The line below prevents the false positive inspection from Android Studio
         // noinspection ResourceType
         if (!fingerprintManager.hasEnrolledFingerprints()) {
             purchaseButton.setEnabled(false);
@@ -180,18 +171,9 @@ public class FingerActivity extends Activity {
                 new PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
     }
 
-    /**
-     * Initialize the {@link Cipher} instance with the created key in the
-     * {@link #createKey(String, boolean)} method.
-     *
-     * @param keyName the key name to init the cipher
-     * @param cipher cipher对象
-     * @return {@code true} if initialization is successful, {@code false} if the lock screen has
-     * been disabled or reset after the key was generated, or if a fingerprint got enrolled after
-     * the key was generated.
-     */
+
+    //初始化Cipher对象
     private boolean initCipher(Cipher cipher, String keyName) {
-        //初始化Cipher对象
         try {
             mKeyStore.load(null);
             SecretKey key = (SecretKey) mKeyStore.getKey(keyName, null);
@@ -205,12 +187,6 @@ public class FingerActivity extends Activity {
         }
     }
 
-    /**
-     * Proceed the purchase operation
-     *
-     * @param withFingerprint {@code true} if the purchase was made by using a fingerprint
-     * @param cryptoObject    the Crypto object
-     */
     public void onPurchased(boolean withFingerprint,
                             @Nullable FingerprintManager.CryptoObject cryptoObject) {
         if (withFingerprint) {
@@ -237,11 +213,6 @@ public class FingerActivity extends Activity {
         }
     }
 
-    /**
-     * Tries to encrypt some data with the generated key in {@link #createKey} which is
-     * only works if the user has just authenticated via fingerprint.
-     * @param cipher   cipher对象
-     */
     private void tryEncrypt(Cipher cipher) {
         try {
             byte[] encrypted = cipher.doFinal(SECRET_MESSAGE.getBytes());
@@ -253,41 +224,17 @@ public class FingerActivity extends Activity {
         }
     }
 
-    /**
-     * Creates a symmetric key in the Android Key Store which can only be used after the user has
-     * authenticated with fingerprint.
-     *
-     * @param keyName                          the name of the key to be created
-     * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
-     *                                         be invalidated even if a new fingerprint is enrolled.
-     *                                         The default value is {@code true}, so passing
-     *                                         {@code true} doesn't change the behavior
-     *                                         (the key will be invalidated if a new fingerprint is
-     *                                         enrolled.). Note that this parameter is only valid if
-     *                                         the app works on Android N developer preview.
-     */
     public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
         // 指纹识别注册流程。这是整个流程中请求用户设置指纹识别的地方。
         // 如果需要知道已注册指纹是否改变，keys的使用是有必要的。
         try {
             mKeyStore.load(null);
-            // Set the alias of the entry in Android KeyStore where the key will appear
-            // and the constrains (purposes) in the constructor of the Builder
-
             KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec.Builder(keyName,
                     KeyProperties.PURPOSE_ENCRYPT |
                             KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                    // Require the user to authenticate with a fingerprint to authorize every use
-                    // of the key
                     .setUserAuthenticationRequired(true)
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
-
-            // This is a workaround to avoid crashes on devices whose API level is < 24
-            // because KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment is only
-            // visible on API level +24.
-            // Ideally there should be a compat library for KeyGenParameterSpec.Builder but
-            // which isn't available yet.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 builder.setInvalidatedByBiometricEnrollment(invalidatedByBiometricEnrollment);
             }
@@ -299,41 +246,11 @@ public class FingerActivity extends Activity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private class PurchaseButtonClickListener implements View.OnClickListener {
 
-        /**
-         * The M cipher.
-         */
         Cipher mCipher;
-        /**
-         * The M key name.
-         */
         String mKeyName;
 
-        /**
-         * Instantiates a new Purchase button click listener.
-         *
-         * @param cipher  the cipher
-         * @param keyName the key name
-         */
         PurchaseButtonClickListener(Cipher cipher, String keyName) {
             mCipher = cipher;
             mKeyName = keyName;
@@ -350,6 +267,7 @@ public class FingerActivity extends Activity {
                 FingerprintAuthenticationDialogFragment fragment
                         = new FingerprintAuthenticationDialogFragment();
                 fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
+                //获取是否使用指纹识别的参数
                 boolean useFingerprintPreference = mSharedPreferences
                         .getBoolean(getString(R.string.use_fingerprint_to_authenticate_key),
                                 true);
@@ -362,10 +280,6 @@ public class FingerActivity extends Activity {
                 }
                 fragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
             } else {
-                // This happens if the lock screen has been disabled or or a fingerprint got
-                // enrolled. Thus show the dialog to authenticate with their password first
-                // and ask the user if they want to authenticate with fingerprints in the
-                // future
                 FingerprintAuthenticationDialogFragment fragment
                         = new FingerprintAuthenticationDialogFragment();
                 fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));

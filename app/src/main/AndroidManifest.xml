@@ -33,11 +33,9 @@
         </activity>
         <activity android:name=".ModifyActivity">
         </activity>
-        <activity android:name=".AccountActivity">
+        <activity android:name=".ModifyPasswordActivity">
         </activity>
         <activity android:name=".ConfirmActivity">
-        </activity>
-        <activity android:name=".ModifyPasswordActivity">
         </activity>
     </application>
 

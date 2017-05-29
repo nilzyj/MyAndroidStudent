@@ -166,7 +166,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="毕业证书编号"
+            android:text="毕业证书编号（非必填）"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
@@ -276,7 +276,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学位证书编号"
+            android:text="学位证书编号（非必填）"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 

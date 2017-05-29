@@ -104,6 +104,9 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(this);
+
+        Log.d(TAG, "**********************************");
+
         // TODO editActivity点击保存返回modifyactivity时标题栏有问题、、、、
         // TODO 定向就业单位EditText填写
         // TODO 报考院系、研究方向、政治理论、外国语、业务课、备用信息数据源
@@ -206,7 +209,7 @@ public class EditActivity extends AppCompatActivity {
             Log.d(TAG, "saveEdit: EtInfo" + infoUpdate);
             Log.d(TAG, "saveEdit: 3");
         }
-        //获取sharedPreferences中的name，便于更新数据库
+        //获取sharedPreferences中的username，便于更新数据库
         SharedPreferences sharedPreferences =
                 getSharedPreferences("loginData", MODE_PRIVATE);
         //将要更新的数据转为json
@@ -214,7 +217,7 @@ public class EditActivity extends AppCompatActivity {
         PinYinUtil pinyin = new PinYinUtil();
         jsonObject.put("infoName", pinyin.getStringPinYin(infoName));
         jsonObject.put("info", infoUpdate);
-        jsonObject.put("name", sharedPreferences.getString("name", null));
+        jsonObject.put("username", sharedPreferences.getString("username", null));
 
         String[] strings = {URL, jsonObject.toString()};
         //更新数据库

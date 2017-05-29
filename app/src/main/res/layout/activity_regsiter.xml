@@ -48,10 +48,17 @@
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/et_register_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入用户名"
+        android:inputType="textPersonName"
+        android:textSize="20sp"/>
+
+    <EditText
         android:id="@+id/et_register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="请输入姓名"
         android:inputType="textPersonName"
         android:textSize="20sp"/>
@@ -60,7 +67,6 @@
         android:id="@+id/et_register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="请输入密码"
         android:inputType="textPassword"
         android:textSize="20sp"/>
@@ -89,7 +95,8 @@
             android:layout_height="wrap_content"
             android:entries="@array/spinner_zhengjian_leixin"
             android:paddingLeft="10dp"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:spinnerMode="dialog"/>
 
     </LinearLayout>
 

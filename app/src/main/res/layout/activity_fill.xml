@@ -168,69 +168,6 @@
                 android:layout_height="@dimen/line_width"
                 android:background="@color/view_line"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="@dimen/title_padding_top_bottom"
-                android:paddingTop="@dimen/title_padding_top_bottom"
-                android:text="备用信息"
-                android:textSize="15sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_width"
-                android:background="@color/view_line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="备用信息"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size"/>
-
-                <EditText
-                    android:id="@+id/et_49"
-                    style="@style/fill_edit"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_width"
-                android:background="@color/view_line"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="备用信息1"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size"/>
-
-                <EditText
-                    android:id="@+id/et_50"
-                    style="@style/fill_edit"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_width"
-                android:background="@color/view_line"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -251,6 +188,11 @@
                     android:hint="点击选择省市"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,12 +220,77 @@
                 android:layout_height="@dimen/line_width"
                 android:background="@color/view_line"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/title_padding_top_bottom"
+                android:paddingTop="@dimen/title_padding_top_bottom"
+                android:text="备用信息"
+                android:textSize="15sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备用信息（非必填）"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+                    android:id="@+id/et_49"
+                    style="@style/fill_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备用信息1（非必填）"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"/>
+
+                <EditText
+
+                    android:id="@+id/et_50"
+                    style="@style/fill_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="@color/view_line"/>
+
+
             <Button
                 android:id="@+id/btn_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/title_padding_top_bottom"
                 android:layout_marginTop="@dimen/title_padding_top_bottom"
+                android:layout_marginBottom="@dimen/title_padding_top_bottom"
                 android:background="@drawable/btn_color_selector"
                 android:text="确定"/>
         </LinearLayout>

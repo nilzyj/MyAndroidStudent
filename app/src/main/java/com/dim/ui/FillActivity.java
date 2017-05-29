@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,25 +43,33 @@ import static com.dim.ui.util.PickerUtil.takePhoto;
 /**
  * The type Fill activity.
  * 信息填写界面
+ *
  * @author dim
  */
 
 public class FillActivity extends AppCompatActivity implements View.OnClickListener {
-    /** 信息填写提交URL */
+    /**
+     * 信息填写提交URL
+     */
     private final String URL = url + "FillInInformationServlet";
+    /**
+     * 获取导入信息URL
+     */
     private final String getLeandingInInfoURL = url + "GetInformationServlet";
     /**
      * 获得报考号URL
      */
     private final String URL_Baokaohao = url + "baokaohaoServlet";
-    /** TAG */
-    private final String TAG = "FillActivity";
+    /**
+     * TAG
+     */
+    private final String TAG = "FillActivity：";
     @BindView(R.id.et_1)
     TextView mEt1;
     @BindView(R.id.et_2)
-    Spinner mEt2;
+    TextView mEt2;
     @BindView(R.id.et_3)
-    EditText mEt3;
+    TextView mEt3;
     @BindView(R.id.et_4)
     Spinner mEt4;
     @BindView(R.id.et_5)
@@ -164,22 +175,50 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.et_52)
     TextView mEt52;
     /**
-     * The M btn commit.
+     * 提交报考信息按钮.
      */
     @BindView(R.id.btn_commit)
     Button mBtnCommit;
-    /** 个人照片text */
+    /**
+     * 个人照片text
+     */
     @BindView(R.id.tv_photo)
     TextView mTvPhoto;
-    /** 个人照片 */
+    /**
+     * 个人照片
+     */
     @BindView(R.id.iv_photo)
     ImageView mIvPhoto;
-    /** photoLinearLayout */
+    /**
+     * 个人照片位于的LinearLayout
+     */
     @BindView(R.id.ll_photo)
     LinearLayout mLlPhoto;
-    /** 提交确认对话框 */
+    /**
+     * 提交确认对话框
+     */
     AlertDialog.Builder normalDialog;
+    /**
+     * 用户名
+     */
+    private String username;
+    /**
+     * 姓名
+     */
     private String name;
+    /**
+     * 证件号码
+     */
+    private String stu_id;
+    /**
+     * 证件类型
+     */
+    private String stu_id_type;
+    /**
+     * 转为json的数据
+     */
+    private String dataJson = "";
+    SharedPreferences sharedPreferences;
 
     /**
      * @param savedInstanceState save
@@ -190,9 +229,19 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_fill);
         ButterKnife.bind(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("loginData", MODE_PRIVATE);
-        String name = sharedPreferences.getString("name", null);
+        Log.d(TAG, "**********************************");
+
+        sharedPreferences = getSharedPreferences("loginData", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+        name = sharedPreferences.getString("name", "");
+        stu_id = sharedPreferences.getString("stu_id", "");
+        stu_id_type = sharedPreferences.getString("stu_id_type", "");
+
+        Log.d(TAG, "设置姓名、证件类型、证件号码：" + name + ", " + stu_id + ", " + stu_id_type);
         mEt1.setText(name);
+        mEt2.setText(stu_id_type);
+        mEt3.setText(stu_id);
+
 
         ArrayAdapter<String> adapterMinZu = new ArrayAdapter<String>(this
                 , android.R.layout.simple_spinner_item
@@ -223,13 +272,13 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
         // TODO 专项计划包括：强军计划、援藏计划、少数民族骨干计划、退役大学生士兵专项计划。强军计划、援藏计划对应考试方式中的。
         // TODO 除了单独考试 的其他三项，可选无、少数民族骨干计划（需校验码）、退役大学生计划
-
     }
 
     /**
-     * 设置EditText
+     * 设置EditText输入文字滑动
      */
     private void initSetSingLine() {
+        Log.d(TAG, "initSetSingLine: 初始化EditText输入文字滑动");
         mEt121.setSingleLine(true);
         mEt13.setSingleLine(true);
         mEt141.setSingleLine(true);
@@ -240,8 +289,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化TextView响应
      */
     private void initOnClickListener() {
-//        mIvPhoto.setOnClickListener(this);
-//        mTvPhoto.setOnClickListener(this);
+        Log.d(TAG, "initOnClickListener: 初始化选择器响应");
         mLlPhoto.setOnClickListener(this);
         mEt9.setOnClickListener(this);
         mEt10.setOnClickListener(this);
@@ -255,10 +303,12 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * TextView响应事件
+     *
      * @param view view
      */
     @Override
     public void onClick(View view) {
+        Log.d(TAG, "onClick: 选择器响应");
         switch (view.getId()) {
             case R.id.ll_photo:
                 takePhoto(this, mIvPhoto);
@@ -297,57 +347,55 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
      */
     @OnClick(R.id.btn_commit)
     public void fillCommit() {
-        Log.d(TAG, "fillCommit: 点击提交按钮");
-        StringBuilder stringBuilder = new StringBuilder();
-        normalDialog = new AlertDialog.Builder(FillActivity.this);
-        normalDialog.setIcon(R.drawable.more);
-        normalDialog.setTitle("请确认信息");
-        stringBuilder.append("报考单位：" + mEt36.getSelectedItem().toString());
-        stringBuilder.append("\n");
-        stringBuilder.append("报考专业：" + mEt37.getSelectedItem().toString());
-        stringBuilder.append("\n");
-        stringBuilder.append("考试方式：" + mEt38.getSelectedItem().toString());
-        stringBuilder.append("\n");
-        stringBuilder.append("报考点：" + mEt52.getText().toString());
-        normalDialog.setMessage(stringBuilder);
-        Log.d(TAG, "fillCommit: 初始化AlertDialog");
-        normalDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d(TAG, "onClick: 点击对话框确定按钮");
-                        try {
-                            Log.d(TAG, "onClick: http请求前");
-                            String dataJson = getDataToJSON();
-                            if ("fail".equals(dataJson)) {
-                                Toast.makeText(FillActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
-                            } else {
-                                String[] data = {URL, dataJson};
-                                FillInfoTask fillInfoTask = new FillInfoTask();
-                                fillInfoTask.execute(data);
-                                Log.d(TAG, "onClick: http请求后");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+        Log.d(TAG, "点击提交按钮");
+        try {
+            dataJson = getDataToJSON();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if ("fail".equals(dataJson)) {
+            Toast.makeText(FillActivity.this, "信息填写不完整，除户口所在地详细地址, " +
+                    "出生地详细地址, 电子邮箱, 学历证书编号, 学位证书编号, 备用信息一, " +
+                    "备用信息二外必填", Toast.LENGTH_SHORT).show();
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            normalDialog = new AlertDialog.Builder(FillActivity.this);
+            normalDialog.setIcon(R.drawable.more);
+            normalDialog.setTitle("请确认信息");
+            stringBuilder.append("报考单位：" + mEt36.getSelectedItem().toString());
+            stringBuilder.append("\n");
+            stringBuilder.append("报考专业：" + mEt37.getSelectedItem().toString());
+            stringBuilder.append("\n");
+            stringBuilder.append("考试方式：" + mEt38.getSelectedItem().toString());
+            stringBuilder.append("\n");
+            stringBuilder.append("报考点：" + mEt52.getText().toString());
+            normalDialog.setMessage(stringBuilder);
+            Log.d(TAG, "初始化AlertDialog");
+            normalDialog.setPositiveButton("确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d(TAG, "onClick: 点击对话框确定按钮");
+
+                            String[] data = {URL, dataJson};
+                            FillInfoTask fillInfoTask = new FillInfoTask();
+                            fillInfoTask.execute(data);
+                            Log.d(TAG, "onClick: http请求后");
+                            //上传图片
+                            SharedPreferences loginData = getSharedPreferences("loginData", MODE_PRIVATE);
+                            HttpUtil.okHttpUploadFile(loginData.getString("filePath", "")
+                                    , loginData.getString("name", ""));
                         }
-                        //上传图片
-                        SharedPreferences loginData = getSharedPreferences("loginData", MODE_PRIVATE);
-
-                        HttpUtil.okHttpUploadFile(loginData.getString("filePath", "")
-                                , loginData.getString("name", ""));
-                    }
-                });
-        normalDialog.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d(TAG, "onClick: 点击对话框取消按钮");
-                    }
-                });
-        normalDialog.show();
-
-        BaoKaoTask baoKaoTask = new BaoKaoTask();
-        baoKaoTask.execute(URL_Baokaohao, mEt52.getText().toString());
+                    });
+            normalDialog.setNegativeButton("取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d(TAG, "onClick: 点击对话框取消按钮");
+                        }
+                    });
+            normalDialog.show();
+        }
     }
 
     /**
@@ -375,6 +423,7 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
             // TODO 报考系统关闭时不能报考和修改信息
             // 已提交报考信息，若重新报考才能再次填写；
             // 已提交报考信息，并获取了报考号
+            sharedPreferences.edit().putBoolean("isFill", true).apply();
             Toast.makeText(FillActivity.this, "state：" + s, Toast.LENGTH_SHORT).show();
             normalDialog = new AlertDialog.Builder(FillActivity.this);
             normalDialog.setIcon(R.drawable.more);
@@ -400,37 +449,22 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    class BaoKaoTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            return HttpUtil.httpPost(params[0], "baokaodian=" + params[1]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-        }
-    }
-
-    //TODO 填写报考信息后不能填写
-    // TODO 报考信息导入，若有信息则按最新的导入，没有则提示没有可导入信息，导入的是固定信息。
     // TODO 部分信息项设置为必填。。显示必填项的提示。。
-    // TODO 照片加载。。
 
     /**
      * 获取填写的信息并转为json
+     *
      * @return 转换为String的json数据
      * @throws JSONException json
      */
     private String getDataToJSON() throws JSONException {
-        Log.d(TAG, "getDataToJSON: 进入getDataToJSON");
+        Log.d(TAG, "getDataToJSON: 获取输入报考信息，并转为JSON");
         PinYinUtil pyu = new PinYinUtil();
         JSONObject jsonObject = new JSONObject();
         //获取EditText数据并转换为json格式
+        jsonObject.put("username", username);
         jsonObject.put("name", mEt1.getText().toString());//考生姓名
-        jsonObject.put(pyu.getStringPinYin("证件类型"), mEt2.getSelectedItem().toString());//证件类型
+        jsonObject.put(pyu.getStringPinYin("证件类型"), mEt2.getText().toString());//证件类型
         jsonObject.put(pyu.getStringPinYin("证件号码"), mEt3.getText().toString());//证件号码
         jsonObject.put(pyu.getStringPinYin("民族"), mEt4.getSelectedItem().toString());//民族
         if (mEt5.getCheckedRadioButtonId() == R.id.sex_man) {
@@ -446,10 +480,10 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         jsonObject.put(pyu.getStringPinYin("现役军人"), mEt7.getSelectedItem().toString());//现役军人
         jsonObject.put(pyu.getStringPinYin("政治面貌"), mEt8.getSelectedItem().toString());//政治面貌
         jsonObject.put(pyu.getStringPinYin("籍贯所在地"), mEt9.getText().toString());//籍贯所在地
-        jsonObject.put(pyu.getStringPinYin("出生地"),mEt10.getText().toString());//出生地
-        jsonObject.put(pyu.getStringPinYin("户口所在地"),mEt11.getText().toString());//户口所在地
-        jsonObject.put(pyu.getStringPinYin("户口所在地详细地址"),mEt12.getText().toString() +
-                mEt121.getText().toString());//口所在地详细地址
+        jsonObject.put(pyu.getStringPinYin("出生地"), mEt10.getText().toString());//出生地
+        jsonObject.put(pyu.getStringPinYin("户口所在地"), mEt11.getText().toString());//户口所在地
+        jsonObject.put(pyu.getStringPinYin("户口所在地详细地址"), mEt12.getText().toString() +
+                mEt121.getText().toString());//户口所在地详细地址
         jsonObject.put(pyu.getStringPinYin("考生档案所在地"), mEt13.getText().toString());//考生档案所在地
         jsonObject.put(pyu.getStringPinYin("考生档案所在单位地址"), mEt14.getText().toString() +
                 mEt141.getText().toString());//考生档案所在单位地址
@@ -497,33 +531,44 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
 
         jsonObject.put(pyu.getStringPinYin("报考点所在省市"), mEt51.getText().toString());
         jsonObject.put(pyu.getStringPinYin("报考点"), mEt52.getText().toString());
+        String[] notNullInfos = {"户口所在地详细地址", "出生地详细地址", "电子邮箱", "毕业证书编号", "学位证书编号"
+                , "备用信息一", "备用信息二", "定向就业单位所在地", "定向就业单位"};
+        String[] str = {"", "", "", "", "", "", "", "", ""};
+        for (int i = 0; i < notNullInfos.length; i++) {
+            str[i] = pyu.getStringPinYin(notNullInfos[i]);
+            Log.d(TAG, str[i]);
+        }
+        List<String> infosList = Arrays.asList(str);
         //判断是否填写全部信息
-//        for (Iterator<String> iterator = jsonObject.keys(); iterator.hasNext(); ) {
-//            if ("".equals(jsonObject.get(iterator.next()))) {
-//                return "fail";
-//            }
-//        }
-        Log.d(TAG, "getDataToJSON: 返回json数据前");
+        Iterator<String> iterator;
+        for (iterator = jsonObject.keys(); iterator.hasNext(); ) {
+            String temp = iterator.next();
+            if (!infosList.contains(temp)) {
+                if ("".equals(jsonObject.get(temp))) {
+                    return "fail";
+                }
+            }
+        }
         return jsonObject.toString();
     }
 
-    //    @OnClick(R.id.leading_in)
+    @OnClick(R.id.leading_in)
     public void leadingIn() {
-        SharedPreferences spLoginData = this.getSharedPreferences("loginData", MODE_PRIVATE);
-        name = spLoginData.getString("name", null);
-        String[] stringsModify = {getLeandingInInfoURL, name};
-        leadingInShowTask leadingInShowTask = new leadingInShowTask();
+        Log.d(TAG, "leadingIn: 导入报考信息");
+        String[] stringsModify = {getLeandingInInfoURL, username};
+        LeadingInShowTask leadingInShowTask = new LeadingInShowTask();
         leadingInShowTask.execute(stringsModify);
     }
 
-    class leadingInShowTask extends AsyncTask<String, Void, String> {
+    class LeadingInShowTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
-            String state = null;
+            String state = "";
             try {
-                state = HttpUtil.httpPost(strings[0], "name=" + URLEncoder.encode(strings[1],
-                        "UTF-8"));
+                state = HttpUtil.httpPost(strings[0],
+                        "username=" + URLEncoder.encode(strings[1], "UTF-8")
+                                + "&flag=leadingin");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -533,10 +578,51 @@ public class FillActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d(TAG, "onPostExecute: " + s);
-//            Intent intent = new Intent(FunctionActivity.this, ModifyActivity.class);
-//            intent.putExtra("json", s);
-//            startActivity(intent);
+            String[] leadingInInfos = {"民族", "性别", "婚否", "现役军人", "政治面貌", "籍贯所在地", "出生地"
+                    , "户口所在地", "户口所在地详细地址", "考生档案所在地", "考生档案所在单位地址", "考生档案所在单位邮政编码"
+                    , "现在学习或工作单位", "何时何地何原因受过何种奖励或处分", "考生作弊情况", "家庭主要成员"
+                    , "考生通讯地址", "考生通讯地址邮政编码", "固定电话", "移动电话", "电子邮箱", "考生来源"
+                    , "毕业学校", "毕业专业", "取得最后学历的学习形式", "最后学历", "毕业证书编号"
+                    , "获得最后学历毕业年月", "注册学号", "最后学位", "学位证书编号", "报考单位", "报考专业"
+                    , "考试方式", "专项计划", "报考类别", "定向就业单位所在地", "定向就业单位", "报考院系"
+                    , "研究方向", "政治理论", "外国语", "业务课一", "业务课二", "备用信息一", "备用信息二"
+                    , "报考点所在省市", "报考点"};
+
+            PinYinUtil pinYinUtil = new PinYinUtil();
+            Log.d(TAG, "导入获取的信息：" + s);
+            if ("无可导入报考信息".equals(s)) {
+                Toast.makeText(FillActivity.this, s, Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    mEt9.setText(jsonObject.getString(pinYinUtil.getStringPinYin("籍贯所在地")));
+                    mEt10.setText(jsonObject.getString(pinYinUtil.getStringPinYin("出生地")));
+                    mEt11.setText(jsonObject.getString(pinYinUtil.getStringPinYin("户口所在地")));
+                    mEt13.setText(jsonObject.getString(pinYinUtil.getStringPinYin("考生档案所在地")));
+                    mEt15.setText(jsonObject.getString(pinYinUtil.getStringPinYin("考生档案所在单位邮政编码")));
+                    mEt16.setText(jsonObject.getString(pinYinUtil.getStringPinYin("学习与工作经历")));
+                    mEt17.setText(jsonObject.getString(pinYinUtil.getStringPinYin("何时何地何原因受过何种奖励或处分")));
+                    mEt18.setText(jsonObject.getString(pinYinUtil.getStringPinYin("考生作弊情况")));
+                    mEt19.setText(jsonObject.getString(pinYinUtil.getStringPinYin("家庭主要成员")));
+                    mEt20.setText(jsonObject.getString(pinYinUtil.getStringPinYin("考生通讯地址邮政编码")));
+                    mEt21.setText(jsonObject.getString(pinYinUtil.getStringPinYin("固定电话")));
+                    mEt22.setText(jsonObject.getString(pinYinUtil.getStringPinYin("移动电话")));
+                    mEt24.setText(jsonObject.getString(pinYinUtil.getStringPinYin("毕业学校")));
+                    mEt25.setText(jsonObject.getString(pinYinUtil.getStringPinYin("毕业专业")));
+                    mEt31.setText(jsonObject.getString(pinYinUtil.getStringPinYin("毕业证书编号")));
+                    mEt32.setText(jsonObject.getString(pinYinUtil.getStringPinYin("获得最后学历毕业年月")));
+                    mEt33.setText(jsonObject.getString(pinYinUtil.getStringPinYin("注册学号")));
+                    mEt35.setText(jsonObject.getString(pinYinUtil.getStringPinYin("学位证书编号")));
+                    mEt43.setText(jsonObject.getString(pinYinUtil.getStringPinYin("报考院系")));
+                    mEt44.setText(jsonObject.getString(pinYinUtil.getStringPinYin("研究方向")));
+                    mEt45.setText(jsonObject.getString(pinYinUtil.getStringPinYin("政治理论")));
+                    mEt46.setText(jsonObject.getString(pinYinUtil.getStringPinYin("外国语")));
+                    Toast.makeText(FillActivity.this, "导入成功", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "onPostExecute: 导入成功");
         }
     }
 

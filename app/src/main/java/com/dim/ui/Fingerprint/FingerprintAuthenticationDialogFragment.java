@@ -56,7 +56,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper mFingerprintUiHelper;
-    private com.dim.ui.FingerActivity mActivity;
+    private com.dim.ui.ConfirmActivity mActivity;
 
     private InputMethodManager mInputMethodManager;
     private SharedPreferences mSharedPreferences;
@@ -141,7 +141,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (com.dim.ui.FingerActivity) getActivity();
+        mActivity = (com.dim.ui.ConfirmActivity) getActivity();
         mInputMethodManager = context.getSystemService(InputMethodManager.class);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -191,7 +191,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             }
         }
         mPassword.setText("");
-        mActivity.onPurchased(false /* without Fingerprint */, null);
+//        mActivity.onPurchased(false /* without Fingerprint */, null);
         dismiss();
     }
 
@@ -248,7 +248,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public void onAuthenticated() {
         // Callback from FingerprintUiHelper. Let the activity know that authentication was
         // successful.
-        mActivity.onPurchased(true /* withFingerprint */, mCryptoObject);
+//        mActivity.onPurchased(true /* withFingerprint */, mCryptoObject);
         dismiss();
     }
 

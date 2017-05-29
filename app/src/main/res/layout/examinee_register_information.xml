@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               android:paddingRight="10dp">
 
     <LinearLayout
@@ -27,10 +27,10 @@
             android:id="@+id/et_38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:paddingBottom="@dimen/title_padding_top_bottom"
             android:entries="@array/spinner_kaoshi_fangshi"
             android:gravity="right"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:spinnerMode="dialog"
             />
     </LinearLayout>
@@ -62,10 +62,10 @@
             android:id="@+id/et_39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_kaoshi_fangshi"
+            android:entries="@array/spinner_zhuanxiang_jihua"
+            android:gravity="right"
             android:paddingBottom="@dimen/title_padding_top_bottom"
             android:paddingTop="@dimen/title_padding_top_bottom"
-            android:gravity="right"
             android:spinnerMode="dialog"/>
     </LinearLayout>
 
@@ -96,16 +96,18 @@
             android:id="@+id/et_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:paddingBottom="@dimen/title_padding_top_bottom"
             android:entries="@array/spinner_baokao_leibie"
             android:gravity="right"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
             android:spinnerMode="dialog"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,14 +122,17 @@
 
         <EditText
             android:id="@+id/et_41"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="报考类别为定向必填"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,14 +147,17 @@
 
         <EditText
             android:id="@+id/et_42"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:hint="报考类别为定向必填"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -164,14 +172,16 @@
 
         <EditText
             android:id="@+id/et_43"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -186,14 +196,16 @@
 
         <EditText
             android:id="@+id/et_44"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -208,14 +220,16 @@
 
         <EditText
             android:id="@+id/et_45"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -230,14 +244,16 @@
 
         <EditText
             android:id="@+id/et_46"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -252,14 +268,16 @@
 
         <EditText
             android:id="@+id/et_47"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/view_line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -274,9 +292,9 @@
 
         <EditText
             android:id="@+id/et_48"
+            style="@style/fill_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/fill_edit"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,11 +1,13 @@
 package com.dim.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import butterknife.OnClick;
 public class ModifyPasswordActivity extends AppCompatActivity {
 
     private final String URL = HttpURL.url + "ModifyPasswordServlet";
+    private final String TAG = "ModifyPasswordActivity:";
     /**
      * The M et old password.
      */
@@ -55,7 +58,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify_password);
         ButterKnife.bind(this);
 
-
+        Log.d(TAG, "**********************************");
     }
 
     /**
@@ -70,7 +73,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
             SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("name", sp.getString("name", null));
+                jsonObject.put("username", sp.getString("username", null));
                 jsonObject.put("oldPassword", oldPassword);
                 jsonObject.put("newPassword", newPassword);
             } catch (JSONException e) {
@@ -107,6 +110,8 @@ public class ModifyPasswordActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if ("1".equals(s)) {
                 Toast.makeText(ModifyPasswordActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                setResult(1, intent);
                 finish();
             } else {
                 Toast.makeText(ModifyPasswordActivity.this, "密码错误", Toast.LENGTH_SHORT).show();

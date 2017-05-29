@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner_zhengjian_leixin">
+        <item>请选择</item>
         <item>居民身份证</item>
         <item>港澳台身份证</item>
         <item>华侨身份证</item>
         <item>其他</item>
     </string-array>
     <string-array name="spinner_zhengzhi_mianmao">
+        <item>请选择</item>
         <item>群众</item>
         <item>团员</item>
         <item>党员</item>
     </string-array>
     <string-array name="spinner_xianyi_junren">
+        <item>请选择</item>
         <item>非军人</item>
         <item>军校应届本科毕业生</item>
         <item>军队在职干部</item>
         <item>国防生</item>
     </string-array>
     <string-array name="spinner_kaoshen_laiyuan">
+        <item>请选择</item>
         <item>普通全日制应届本科毕业生</item>
         <item>成人应届本科毕业生</item>
         <item>科学研究人员</item>
@@ -26,6 +30,7 @@
         <item>其他人员</item>
     </string-array>
     <string-array name="spinner_xuexi_xinshi">
+        <item>请选择</item>
         <item>普通全日制</item>
         <item>成人教育</item>
         <item>自学考试</item>
@@ -34,6 +39,7 @@
         <item>其他</item>
     </string-array>
     <string-array name="spinner_zuihou_xueli">
+        <item>请选择</item>
         <item>本科毕业</item>
         <item>本科结业</item>
         <item>高职高专</item>
@@ -42,12 +48,14 @@
         <item>其他</item>
     </string-array>
     <string-array name="spinner_zuihou_xuewei">
+        <item>请选择</item>
         <item>学士学位</item>
         <item>硕士学位</item>
         <item>博士学位</item>
         <item>无</item>
     </string-array>
     <string-array name="spinner_baokao_danwei">
+        <item>请选择</item>
         <item>哈尔滨工业大学</item>
         <item>华中科技大学</item>
         <item>浙江大学</item>
@@ -55,12 +63,14 @@
         <item>北京大学</item>
     </string-array>
     <string-array name="spinner_baokao_zhuanye">
+        <item>请选择</item>
         <item>计算机科学与技术</item>
         <item>车辆工程</item>
         <item>金融</item>
         <item>船舶</item>
     </string-array>
     <string-array name="spinner_kaoshi_fangshi">
+        <item>请选择</item>
         <item>全国统考</item>
         <item>单独考试</item>
         <item>管理类联考</item>
@@ -69,6 +79,7 @@
         <item>援藏计划</item>
     </string-array>
     <string-array name="spinner_zhuanxiang_jihua">
+        <item>请选择</item>
         <item>强军计划</item>
         <item>援藏计划</item>
         <item>少数民族骨干计划</item>
@@ -76,16 +87,19 @@
     </string-array>
 
     <string-array name="spinner_baokao_leibie">
+        <item>请选择</item>
         <item>非定向</item>
         <item>定向</item>
         <item>委托培养</item>
         <item>自筹经费</item>
     </string-array>
     <string-array name="spinner_baokaodian">
+        <item>请选择</item>
         <item>哈尔滨工业大学（威海）</item>
         <item>山东大学（威海）</item>
     </string-array>
     <string-array name="spinner_minzu">
+        <item>请选择</item>
         <item>汉族</item>
         <item>阿昌族</item>
         <item>白族</item>

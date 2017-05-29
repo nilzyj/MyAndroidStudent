@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Exam</string>
     <string name="action_settings">Settings</string>
-    <string name="cancel">Cancel</string>
-    <string name="use_password">Use password</string>
-    <string name="ok">OK</string>
-    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="cancel">取消</string>
+    <string name="use_password">使用密码</string>
+    <string name="ok">确认</string>
+    <string name="fingerprint_description">验证指纹</string>
     <string name="fingerprint_hint">Touch sensor</string>
     <string name="password_description">Enter your store password to continue</string>
     <string name="purchase">confirm</string>
@@ -12,18 +12,20 @@
     <string name="purchase_button_not_invalidated_description">
         You can proceed to purchase with this button \n even if a new fingerprint is enrolled
     </string>
-    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
-    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="fingerprint_not_recognized">没有注册指纹，再试一次</string>
+    <string name="fingerprint_success">指纹识别成功</string>
     <string name="item_title">报考信息核对</string>
     <string name="item_price"></string>
     <string name="item_description"></string>
-    <string name="purchase_done">Confirm successful</string>
+    <string name="purchase_done">验证成功</string>
     <string name="new_fingerprint_enrolled_description">A new fingerprint was added to this device, so your password is required.</string>
     <string name="use_fingerprint_in_future">Use fingerprint in the future</string>
     <string name="use_fingerprint_to_authenticate_title">Use fingerprint to authenticate</string>
     <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
+
+
     <string name="click_select_addr">点击选择地址</string>
     <string name="exam_system">研究生考试认证系统</string>
     <string name="fill_info">填写信息</string>
@@ -31,7 +33,7 @@
     <string name="confirm_info">信息核对</string>
     <string name="modify_password">修改密码</string>
     <string name="log_off">退出登录</string>
-    <string name="name">姓名</string>
+    <string name="username">用户名</string>
     <string name="password">密码</string>
     <string name="remember_password">记住密码</string>
     <string name="sign_in">登录</string>

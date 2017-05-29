@@ -52,6 +52,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 
+
 /**
  * The type Modify activity.
  */
@@ -106,22 +107,29 @@ public class ModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
 
+        Log.d(TAG, "**********************************");
+
         mImageView = (ImageView) findViewById(R.id.iv_modify_photo);
 
         //获取在FunctionActivity请求的数据
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
+        Log.d(TAG, "从FunctionActivity中提前获取的报考信息：" + json);
         try {
             //将获得的json数据放入list
-            getDataToList(json);
+            if (json != null) {
+                getDataToList(json);
+            } else {
+                Toast.makeText(this, "获取数据错误", Toast.LENGTH_SHORT).show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
-        String name = sp.getString("name", "");
+        String username = sp.getString("username", "");
 
-        String[] strings = {getImgURL, name};
+        String[] strings = {getImgURL, username};
 
         GetImageTask getImageTask = new GetImageTask();
         getImageTask.execute(strings);
@@ -176,10 +184,10 @@ public class ModifyActivity extends AppCompatActivity {
      * @throws JSONException
      */
     private void getDataToList(String json) throws JSONException {
-        Log.d("json", "getDataFromOtherActivity: " + json);
+        Log.d(TAG, "将获取的报考信息转成JSON：" + json);
         PinYinUtil pyu = new PinYinUtil();
+
         JSONObject jsonObject = new JSONObject(json);
-//        List<Info> infos = new ArrayList<Info>();
         String[] infos = {"证件类型", "证件号码", "民族", "性别", "婚否", "现役军人", "政治面貌",
                 "籍贯所在地", "出生地", "户口所在地", "户口所在地详细地址", "考生档案所在地", "考生档案所在单位地址",
                 "考生档案所在单位邮政编码", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
@@ -190,9 +198,8 @@ public class ModifyActivity extends AppCompatActivity {
                 "外国语", "业务课一", "业务课二", "备用信息一", "备用信息二", "报考点所在省市", "报考点"};
         Info info_name = new Info("考生姓名", jsonObject.getString("name"));
         infoList.add(info_name);
-        Log.d(TAG, "getDataToList: " + jsonObject.getString("name"));
         for (String key : infos) {
-            Log.d(TAG, "getDataToList: " + key);
+            Log.d(TAG, "JSON键值：" + key + ", " + jsonObject.getString(pyu.getStringPinYin(key)));
             Info info = new Info(key, jsonObject.getString(pyu.getStringPinYin(key)));
             infoList.add(info);
         }
@@ -203,7 +210,7 @@ public class ModifyActivity extends AppCompatActivity {
      * @param infoName 信息名称
      */
     private void ifModifyOrHowModify(String infoName, View view) {
-
+        Log.d(TAG, "点击在ModifyActivity进行修改的信息：");
         if (notModifyInfoList.contains(infoName)) {
             Toast.makeText(this, "此项不可修改", Toast.LENGTH_SHORT).show();
         } else if (tvDialogInfoList.contains(infoName)) {
@@ -275,8 +282,7 @@ public class ModifyActivity extends AppCompatActivity {
     }
 
     /**
-     * 弹出对话框选择信息项内容
-     *
+     * 弹出对话框选择信息项内容，即给对话框设置数据源
      * @param strings 对话框数据源
      */
     private void tvAlertDialog(final String[] strings) {
@@ -304,6 +310,7 @@ public class ModifyActivity extends AppCompatActivity {
             try {
                 state = HttpUtil.httpPost(strings[0],
                         "updateData=" + URLEncoder.encode(strings[1], "UTF-8"));
+                Log.d(TAG, "提交更新获取的返回数据：" + state);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -316,13 +323,15 @@ public class ModifyActivity extends AppCompatActivity {
             if (s == null) {
                 Toast.makeText(ModifyActivity.this, "未连接服务器",
                         Toast.LENGTH_SHORT).show();
+            } else if ("success".equals(s)) {
+                Toast.makeText(ModifyActivity.this, "信息修改成功", Toast.LENGTH_SHORT).show();
             }
-//            else {
-//                Toast.makeText(ModifyActivity.this, "信息修改成功", Toast.LENGTH_SHORT).show();
-//            }
         }
     }
 
+    /**
+     * 获取照片
+     */
     class GetImageTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -330,7 +339,8 @@ public class ModifyActivity extends AppCompatActivity {
             String state = null;
             try {
                 state = HttpUtil.httpPost(strings[0],
-                        "name=" + URLEncoder.encode(strings[1], "UTF-8"));
+                        "username=" + URLEncoder.encode(strings[1], "UTF-8"));
+                Log.d(TAG, "获取照片数据" + state);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -341,12 +351,13 @@ public class ModifyActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             urlImg = urlImg + "image/" + s + ".jpg";
-            Toast.makeText(ModifyActivity.this, urlImg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "获取图片的URL：" + urlImg);
             //加载图片
             okHttpImg();
         }
     }
 
+    //选择器
     private void chooseAreaOrDate(Context context, View view, boolean flag, String str) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive()) {
@@ -418,12 +429,13 @@ public class ModifyActivity extends AppCompatActivity {
     }
 
     private void updateListAndUploadData(String data) {
+        Log.d(TAG, "更新并上传的数据：" + strInfoName + ", " + data);
         //对list中数据进行更新
         infoList.set(position, new Info(strInfoName,
                 data));
         //更新Item
         infoAdapter.notifyDataSetChanged();
-        //获取sharedPreferences中的name，便于更新数据库
+        //获取sharedPreferences中的username，便于更新数据库
         SharedPreferences sharedPreferences =
                 getSharedPreferences("loginData", MODE_PRIVATE);
         //将要更新的数据转为json
@@ -432,7 +444,7 @@ public class ModifyActivity extends AppCompatActivity {
         try {
             jsonObject.put("infoName", pinyin.getStringPinYin(strInfoName));
             jsonObject.put("info", data);
-            jsonObject.put("name", sharedPreferences.getString("name", null));
+            jsonObject.put("username", sharedPreferences.getString("username", null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -477,8 +489,10 @@ public class ModifyActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(@NonNull Bitmap bitmap) {
-                        if (bitmap != null)
+                        if (bitmap != null) {
                             mImageView.setImageBitmap(bitmap);
+                            Log.d(TAG, "图片加载成功");
+                        }
                         else
                             Log.d(TAG, "onNext: bitmap is null!!!!!!!");
                     }
@@ -506,7 +520,6 @@ public class ModifyActivity extends AppCompatActivity {
         baos.close();
         return baos.toByteArray();
     }
-
 
     /**
      * Modify back to function.

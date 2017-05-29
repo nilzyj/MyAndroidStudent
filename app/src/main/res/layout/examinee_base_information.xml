@@ -23,12 +23,6 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
-
         <TextView
             android:id="@+id/et_1"
             android:layout_width="wrap_content"
@@ -55,20 +49,13 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
-
-        <Spinner
+        <TextView
             android:id="@+id/et_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_zhengjian_leixin"
             android:paddingBottom="@dimen/title_padding_top_bottom"
             android:paddingTop="@dimen/title_padding_top_bottom"
-            android:spinnerMode="dialog"/>
+            android:paddingLeft="@dimen/title_padding_top_bottom"/>
 
     </LinearLayout>
 
@@ -89,16 +76,13 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <EditText
+        <TextView
             android:id="@+id/et_3"
-            style="@style/fill_edit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:digits="1234567890xyzXYZ"
-            android:hint="限18位身份证"
-            android:inputType="number"
-            android:maxLength="18"
-            android:textSize="@dimen/fill_text_size"/>
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"/>
     </LinearLayout>
 
     <View
@@ -118,19 +102,17 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <Spinner
-            android:id="@+id/et_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/title_padding_top_bottom"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:spinnerMode="dialog"/>
+        <!--<Spinner-->
+        <!--android:id="@+id/et_4"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
+        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -401,7 +383,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/title_padding_top_bottom"
             android:paddingTop="@dimen/title_padding_top_bottom"
-            android:text="户口所在地详细地址"
+            android:text="户口所在地详细地址（非必填）"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
