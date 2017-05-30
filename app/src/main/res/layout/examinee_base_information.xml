@@ -23,6 +23,12 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
         <TextView
             android:id="@+id/et_1"
             android:layout_width="wrap_content"
@@ -48,6 +54,12 @@
             android:text="证件类型"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/et_2"
@@ -76,6 +88,12 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
         <TextView
             android:id="@+id/et_3"
             android:layout_width="wrap_content"
@@ -102,17 +120,23 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
 
-        <!--<Spinner-->
-        <!--android:id="@+id/et_4"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
-        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
-        <!--android:spinnerMode="dialog"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+        <Spinner
+            android:id="@+id/et_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
     <View

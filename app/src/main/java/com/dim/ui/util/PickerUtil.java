@@ -114,9 +114,9 @@ public class PickerUtil {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                textView.setText(year + "." + monthOfYear + "." + dayOfMonth);
+                textView.setText(year + "." + (monthOfYear + 1) + "." + dayOfMonth);
             }
-        }, 2017, 7, 1);
+        }, 2017, 6, 1);
         datePicker.show();
     }
 
