@@ -1,6 +1,7 @@
 package com.dim.ui;
 
 import android.app.KeyguardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +51,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -75,12 +77,20 @@ public class ConfirmActivity extends AppCompatActivity {
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
 
+    private TextView mTvBaokaohao;
+    private TextView mTvConfirmState;
+    AlertDialog.Builder normalDialog;
+    SharedPreferences sp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
-
+        ButterKnife.bind(this);
         mImageView = (ImageView) findViewById(R.id.iv_confirm_photo);
+        mTvBaokaohao = (TextView) findViewById(R.id.baokaohao);
+        mTvConfirmState = (TextView) findViewById(R.id.confirm_state);
 
         //获取在FunctionActivity请求的数据
         Intent intent = getIntent();
@@ -97,8 +107,18 @@ public class ConfirmActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        SharedPreferences sp = getSharedPreferences("loginData", MODE_PRIVATE);
+        sp = getSharedPreferences("loginData", MODE_PRIVATE);
         String username = sp.getString("username", "");
+        String baokaohao = sp.getString("baokaohao", "");
+        String confirm = sp.getString("confirm", "");
+        mTvBaokaohao.setText(baokaohao);
+        Log.d("ConfirmActivity", baokaohao);
+        if ("1".equals(confirm)) {
+            mTvConfirmState.setText("已确认信息");
+        }
+
+        Log.d("ConfirmActivity", confirm);
+
         String[] strings = {getImgURL, username};
 
         GetImageTask getImageTask = new GetImageTask();
@@ -211,24 +231,47 @@ public class ConfirmActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
+            if (sp.getString("confirm", "").equals("0")) {
+                normalDialog = new AlertDialog.Builder(ConfirmActivity.this);
+                normalDialog.setMessage("是否确认报考信息？确认后无法修改。");
+                Log.d(TAG, "fillCommit: 初始化AlertDialog");
+                normalDialog.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.d(TAG, "onClick: 点击对话框确定按钮");
+                                // 设置加密对象供后面使用，该对象被授权使用指纹识别
+                                if (initCipher(mCipher, mKeyName)) {
+                                    //显示指纹识别对话框。用户能够选择使用加密的指纹识别或者使用服务器端的认证密码
+                                    FingerprintAuthenticationDialogFragment fragment
+                                            = new FingerprintAuthenticationDialogFragment();
+                                    fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
+                                    fragment.setStage(
+                                            FingerprintAuthenticationDialogFragment.Stage.FINGERPRINT);
 
-            // 设置加密对象供后面使用，该对象被授权使用指纹识别
-            if (initCipher(mCipher, mKeyName)) {
-                //显示指纹识别对话框。用户能够选择使用加密的指纹识别或者使用服务器端的认证密码
-                FingerprintAuthenticationDialogFragment fragment
-                        = new FingerprintAuthenticationDialogFragment();
-                fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
-                fragment.setStage(
-                        FingerprintAuthenticationDialogFragment.Stage.FINGERPRINT);
-
-                fragment.show(getFragmentManager(), "myFragment");
+                                    fragment.show(getFragmentManager(), "myFragment");
+                                } else {
+                                    FingerprintAuthenticationDialogFragment fragment
+                                            = new FingerprintAuthenticationDialogFragment();
+                                    fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
+                                    fragment.setStage(
+                                            FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
+                                    fragment.show(getFragmentManager(), "myFragment");
+                                }
+                                mTvConfirmState.setText("已确认");
+                                sp.edit().putString("confirm", "1");
+                            }
+                        });
+                normalDialog.setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.d(TAG, "onClick: 点击对话框取消按钮");
+                            }
+                        });
+                normalDialog.show();
             } else {
-                FingerprintAuthenticationDialogFragment fragment
-                        = new FingerprintAuthenticationDialogFragment();
-                fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
-                fragment.setStage(
-                        FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
-                fragment.show(getFragmentManager(), "myFragment");
+                Toast.makeText(ConfirmActivity.this, "信息已确认", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -246,12 +289,6 @@ public class ConfirmActivity extends AppCompatActivity {
                 | NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException("Failed to init Cipher", e);
         }
-    }
-
-
-    @OnClick(R.id.btn_confirm_submit)
-    public void confirm_submit() {
-
     }
 
     private void getDataToList(String json) throws JSONException {

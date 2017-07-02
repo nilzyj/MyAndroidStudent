@@ -83,6 +83,10 @@ public class LoginActivity extends AppCompatActivity {
     String invalidInfo = null;
     /** 报考系统状态 */
     String systemState;
+    /** 是否确认报考信息 */
+    String confirm;
+    /** 报考号 */
+    String baokaohao;
 
     /**
      * @param savedInstanceState save
@@ -197,20 +201,23 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "登录服务器返回数据：" + s);
                             JSONObject jsonObject = new JSONObject(s);
                             name = jsonObject.getString("name");
+                            password = jsonObject.getString("password");
                             stu_id = jsonObject.getString("stu_id");
                             stu_id_type = jsonObject.getString("stu_id_type");
                             systemState = jsonObject.getString("systemState");
+                            confirm = jsonObject.getString("confirm");
+                            baokaohao = jsonObject.getString("baokaohao");
 
                             if ("1".equals(jsonObject.getString("state"))) {
                                 Log.d(TAG, "返回1，正确，未填写");
-                                putInfoToSP(name, username, systemState, stu_id, stu_id_type
-                                        , invalidInfo, false);
+                                putInfoToSP(name, username, systemState, confirm, stu_id, stu_id_type
+                                        , password, invalidInfo, false, baokaohao);
                                 Log.d(TAG, "登录成功，跳转到FunctionActivity");
                                 loginToOtherActivity(FunctionActivity.class);
                             } else if ("2".equals(jsonObject.getString("state"))) {
                                 Log.d(TAG, "返回2，正确，已填写");
-                                putInfoToSP(name, username, systemState, stu_id, stu_id_type
-                                        , invalidInfo, true);
+                                putInfoToSP(name, username, systemState, confirm, stu_id, stu_id_type
+                                        , password, invalidInfo, true, baokaohao);
                                 Log.d(TAG, "登录成功，跳转到FunctionActivity");
                                 loginToOtherActivity(FunctionActivity.class);
                             } else {
@@ -267,17 +274,22 @@ public class LoginActivity extends AppCompatActivity {
      * @param username   用户名
      * @param isFill 是否填写信息
      */
-    private void putInfoToSP(String name, String username, String systemState, String stu_id
-            , String stu_id_type, String invalid, boolean isFill) {
+    private void putInfoToSP(String name, String username, String systemState, String confirm
+            , String stu_id, String stu_id_type, String password, String invalid, boolean isFill
+            , String baokaohao) {
         SharedPreferences.Editor editor = spLoginData.edit();
         Log.d(TAG, "保存到sp中的信息：name=" + name + ", username=" + username
                 + ", invalid=" + invalid + ", isFill=" + isFill);
         editor.putString("name", name);
         editor.putString("username", username);
+        editor.putString("password", password);
+        editor.putString("confirm", confirm);
+        Log.d(TAG, "putInfoToSP: " + confirm);
         editor.putString("systemState", systemState);
         editor.putString("stu_id", stu_id);
         editor.putString("stu_id_type", stu_id_type);
         editor.putString("invalid", invalid);
+        editor.putString("baokaohao", baokaohao);
         //isFill，false未填写报考信息，true已填写
         editor.putBoolean("isFill", isFill);
         editor.apply();

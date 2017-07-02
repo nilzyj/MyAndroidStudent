@@ -93,13 +93,17 @@ public class FunctionActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_modify:
                 Log.d(TAG, "进入ModifyActivity");
                 if (spLoginData.getString("systemState", "").equals("1")) {
-                    if (spLoginData.getBoolean("isFill", false)) {
-                        username = spLoginData.getString("username", null);
-                        String[] stringsModify = {URL, username};
-                        ShowTask showTask = new ShowTask();
-                        showTask.execute(stringsModify);
+                    if (spLoginData.getString("confirm", "").equals("0")) {
+                        if (spLoginData.getBoolean("isFill", false)) {
+                            username = spLoginData.getString("username", null);
+                            String[] stringsModify = {URL, username};
+                            ShowTask showTask = new ShowTask();
+                            showTask.execute(stringsModify);
+                        } else {
+                            Toast.makeText(this, "未提交报考信息", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(this, "未提交报考信息", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "报考信息已确认，无法修改", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this, "报考系统关闭", Toast.LENGTH_SHORT).show();

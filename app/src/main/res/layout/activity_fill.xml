@@ -211,7 +211,7 @@
                     style="@style/fill_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="点击选择报考点"/>
+                    android:hint="请先选择报考点所在省市"/>
 
             </LinearLayout>
 

@@ -61,7 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_regsiter);
         ButterKnife.bind(this);
         Log.d(TAG, "**********************************");
-        // TODO 是否已注册
     }
 
     /**

@@ -6,13 +6,13 @@
     <string name="ok">确认</string>
     <string name="fingerprint_description">验证指纹</string>
     <string name="fingerprint_hint">Touch sensor</string>
-    <string name="password_description">Enter your store password to continue</string>
+    <string name="password_description">输入密码</string>
     <string name="purchase">confirm</string>
     <string name="purchase_not_invalidated">Purchase not invalidated</string>
     <string name="purchase_button_not_invalidated_description">
         You can proceed to purchase with this button \n even if a new fingerprint is enrolled
     </string>
-    <string name="fingerprint_not_recognized">没有注册指纹，再试一次</string>
+    <string name="fingerprint_not_recognized">指纹识别失败，再试一次</string>
     <string name="fingerprint_success">指纹识别成功</string>
     <string name="item_title">报考信息核对</string>
     <string name="item_price"></string>
@@ -45,4 +45,5 @@
     <string name="repeat_new_password">重复新密码</string>
     <string name="leading_in">导入</string>
     <string name="fill_baokao_info">填写报考信息</string>
+    <string name="click_select">点击选择</string>
 </resources>

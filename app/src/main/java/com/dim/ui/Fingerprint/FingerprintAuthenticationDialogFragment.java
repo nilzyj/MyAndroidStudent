@@ -33,6 +33,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dim.ui.R;
 
@@ -107,6 +108,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mNewFingerprintEnrolledTextView = (TextView)
                 v.findViewById(R.id.new_fingerprint_enrolled_description);
         mFingerprintUiHelper = new FingerprintUiHelper(
+                getActivity(),
                 mActivity.getSystemService(FingerprintManager.class),
                 (ImageView) v.findViewById(R.id.fingerprint_icon),
                 (TextView) v.findViewById(R.id.fingerprint_status), this);
@@ -176,7 +178,10 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
      */
     private void verifyPassword() {
         if (!checkPassword(mPassword.getText().toString())) {
+            Toast.makeText(mActivity, "密码错误", Toast.LENGTH_SHORT).show();
             return;
+        } else {
+            Toast.makeText(mActivity, "密码正确", Toast.LENGTH_SHORT).show();
         }
         if (mStage == Stage.NEW_FINGERPRINT_ENROLLED) {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
@@ -199,9 +204,13 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
      * @return true if {@code password} is correct, false otherwise
      */
     private boolean checkPassword(String password) {
-        // Assume the password is always correct.
-        // In the real world situation, the password needs to be verified in the server side.
-        return password.length() > 0;
+        boolean flag = false;
+        SharedPreferences sp = getActivity().getSharedPreferences("loginData", Context.MODE_PRIVATE);
+        String user_password = sp.getString("password", "");
+        if (password.equals(user_password)) {
+            flag = true;
+        }
+        return flag;
     }
 
     private final Runnable mShowKeyboardRunnable = new Runnable() {

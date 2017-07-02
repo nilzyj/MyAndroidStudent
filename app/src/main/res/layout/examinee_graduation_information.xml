@@ -23,14 +23,24 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_kaoshen_laiyuan"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            />
+            android:gravity="right"
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_26"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_kaoshen_laiyuan"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--/>-->
     </LinearLayout>
 
     <View
@@ -108,15 +118,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_xuexi_xinshi"
             android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:spinnerMode="dialog"/>
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_29"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_xuexi_xinshi"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -142,15 +162,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_zuihou_xueli"
             android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:spinnerMode="dialog"/>
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_30"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_zuihou_xueli"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -198,10 +228,13 @@
 
         <TextView
             android:id="@+id/et_32"
-            style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="点击选择日期"/>
+            android:gravity="right"
+            android:hint="点击选择日期"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
     </LinearLayout>
 
     <View
@@ -226,7 +259,10 @@
             style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:hint="填写学号"
+            android:inputType="number"
+            android:maxLength="9"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
 
     <View
@@ -252,15 +288,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_zuihou_xuewei"
             android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:spinnerMode="dialog"/>
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_34"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_zuihou_xuewei"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -312,15 +358,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_baokao_danwei"
             android:gravity="right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:spinnerMode="dialog"/>
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_36"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_baokao_danwei"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:spinnerMode="dialog"/>-->
 
     </LinearLayout>
 
@@ -347,15 +403,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_37"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:paddingBottom="@dimen/title_padding_top_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:entries="@array/spinner_baokao_zhuanye"
-            android:spinnerMode="dialog"/>
+            android:hint="@string/click_select"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_37"-->
+        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
+        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="right"-->
+        <!--android:entries="@array/spinner_baokao_zhuanye"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
 </LinearLayout>

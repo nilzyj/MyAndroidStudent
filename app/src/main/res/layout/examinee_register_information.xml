@@ -23,16 +23,26 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_kaoshi_fangshi"
             android:gravity="right"
+            android:hint="@string/click_select"
             android:paddingBottom="@dimen/title_padding_top_bottom"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:spinnerMode="dialog"
-            />
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_38"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_kaoshi_fangshi"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
+        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
+        <!--android:spinnerMode="dialog"-->
+        <!--/>-->
     </LinearLayout>
 
     <View
@@ -58,15 +68,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_zhuanxiang_jihua"
             android:gravity="right"
+            android:hint="@string/click_select"
             android:paddingBottom="@dimen/title_padding_top_bottom"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:spinnerMode="dialog"/>
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_39"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_zhuanxiang_jihua"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
+        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -92,15 +112,25 @@
             android:layout_weight="1"
             android:visibility="invisible"/>
 
-        <Spinner
+        <TextView
             android:id="@+id/et_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_baokao_leibie"
             android:gravity="right"
+            android:hint="@string/click_select"
             android:paddingBottom="@dimen/title_padding_top_bottom"
-            android:paddingTop="@dimen/title_padding_top_bottom"
-            android:spinnerMode="dialog"/>
+            android:paddingLeft="@dimen/title_padding_top_bottom"
+            android:paddingTop="@dimen/title_padding_top_bottom"/>
+
+        <!--<Spinner-->
+        <!--android:id="@+id/et_40"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/spinner_baokao_leibie"-->
+        <!--android:gravity="right"-->
+        <!--android:paddingBottom="@dimen/title_padding_top_bottom"-->
+        <!--android:paddingTop="@dimen/title_padding_top_bottom"-->
+        <!--android:spinnerMode="dialog"/>-->
     </LinearLayout>
 
     <View
@@ -125,7 +155,8 @@
             style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="报考类别为定向必填"/>
+            android:hint="报考类别为定向时必填"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
 
     <View
@@ -150,7 +181,8 @@
             style="@style/fill_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="报考类别为定向必填"/>
+            android:hint="报考类别为定向时必填"
+            android:textSize="@dimen/fill_text_size"/>
     </LinearLayout>
 
     <View
