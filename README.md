@@ -1,3 +1,3 @@
-# my graduation project
+# My Graduation Project
 
 MyAndroidStudent
