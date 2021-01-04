@@ -1,2 +1,3 @@
-# MyAndroidStudent
-bishe
+# my graduation project
+
+MyAndroidStudent
